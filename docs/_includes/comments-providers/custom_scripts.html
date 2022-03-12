@@ -3,26 +3,28 @@
   var PixnetComments = {
     data() {
       return {
+        article_id: '{{ page.id }}'.split('/').pop(),
         comments: []
       }
     },
     methods: {
-      get(article_id) {
+      getComments(page) {
         var vm = this;
         var xhr = new XMLHttpRequest();
-        var url = 'https://emma.pixnet.cc/blog/articles/' + article_id + '/comments?user=mickey1124';
+        var url = 'https://emma.pixnet.cc/blog/articles/' + article_id + '/comments?user=mickey1124&page=' + page;
         xhr.open('GET', url);
         xhr.onload = function () {
           if (xhr.status === 200) {
             var resp = JSON.parse(xhr.responseText);
-            print(resp.message);
+            console.log(resp.message);
             vm.comments = resp.comments;
           }
         }
+        // TODO: add error handling
         xhr.send();
       }
     }
   };
   var vm = Vue.createApp(PixnetComments).mount('#pixnet-comments');
-  vm.get('{{ page.id }}'.split('/').pop());
+  vm.getComments(1);
 </script>
