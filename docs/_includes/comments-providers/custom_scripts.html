@@ -3,7 +3,10 @@
   Vue.createApp({
     data() {
       return {
-        comments: [{ name: 'test', email: 'abs@abc.com', date: '2008-02-14 20:00' }]
+        comments: [
+          { name: 'test', email: 'abs@abc.com', message: 'comment testing', date: '2008-02-14 20:00' },
+          { name: 'test2', email: 'abs1@abc.com', message: 'comment testing 2', date: '2008-02-14 20:00' }
+        ]
       }
     }
   }).mount('#pixnet-comments')
