@@ -18,10 +18,10 @@ search: true
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
 # Outputting
-permalink: /:categories/:title/
+permalink: /posts/:title/
 paginate: 7
 paginate_path: /page:num/
-timezone: TW
+timezone: Asia/Taipei
 
 include:
   - _pages
