@@ -1,13 +1,26 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script>
-  Vue.createApp({
+  var PixnetComments = {
     data() {
       return {
-        comments: [
-          { name: 'test', email: 'abs@abc.com', message: 'comment testing', date: '2008-02-14 20:00' },
-          { name: 'test2', email: 'abs1@abc.com', message: 'comment testing 2', date: '2008-02-14 20:00' }
-        ]
+        comments: []
+      }
+    },
+    methods: {
+      get(article_id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://emma.pixnet.cc/blog/articles/' + article_id + '/comments?user=mickey1124');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            var resp = JSON.parse(xhr.responseText);
+            print(resp.message);
+            this.comments = resp.comments;
+          }
+          xhr.send();
+        }
       }
     }
-  }).mount('#pixnet-comments')
+  };
+  var vm = Vue.createApp(PixnetComments).mount('#pixnet-comments');
+  vm.get({{ page.id }});
 </script>
