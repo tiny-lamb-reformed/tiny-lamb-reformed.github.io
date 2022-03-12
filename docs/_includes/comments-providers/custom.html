@@ -18,7 +18,8 @@
         </h3>
         <p class="comment__date">
           <a :href="'#comment-' + comment.id" itemprop="url">
-            <time :datetime="comment.created_at" itemprop="datePublished">{{ comment.created_at }}</time>
+            {{ created = new Date(comment.created_at * 1000) }}
+            <time :datetime="created" itemprop="datePublished">{{ created }}</time>
           </a>
         </p>
         <div itemprop="text">{{ comment.body }}</div>
