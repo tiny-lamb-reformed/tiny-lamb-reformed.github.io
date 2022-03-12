@@ -1,4 +1,5 @@
 """Get all data from source website."""
+from datetime import datetime, timedelta
 from string import Template
 
 import requests
@@ -16,10 +17,14 @@ def get_pixnet(resource, params={}):
 def save(article_id):
     data = get_pixnet(f"articles/{article_id}")
     print(data["message"])
-    with open("post_template.md") as f:
-        post = Template(f.read()).substitute(data["article"])
 
-    with open(f"docs/_posts/{article_id}.md", "w") as f:
+    article = data["article"]
+    with open("post_template.md") as f:
+        post = Template(f.read()).substitute(article)
+
+    created = datetime.fromtimestamp(int(article["first_published_at"]))
+    created += timedelta(hours=8)
+    with open(f"docs/_posts/{created.strftime('%Y-%m-%d')}-{article_id}.md", "w") as f:
         f.write(post)
 
 
