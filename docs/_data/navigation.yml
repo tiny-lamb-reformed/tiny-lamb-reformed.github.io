@@ -1,7 +1,7 @@
 main:
-  - title: "Posts"
+  - title: 所有文章
     url: /posts/
-  - title: "Categories"
+  - title: 文章分類
     url: /categories/
-  - title: "About"
+  - title: 關於
     url: /about/
