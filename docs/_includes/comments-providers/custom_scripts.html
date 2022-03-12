@@ -11,7 +11,8 @@
       getComments(page) {
         var vm = this;
         var xhr = new XMLHttpRequest();
-        var url = 'https://emma.pixnet.cc/blog/articles/' + article_id + '/comments?user=mickey1124&page=' + page;
+        var url = 'https://emma.pixnet.cc/blog/articles/' + this.article_id + '/comments'
+          + '?user=mickey1124&page=' + page;
         xhr.open('GET', url);
         xhr.onload = function () {
           if (xhr.status === 200) {
