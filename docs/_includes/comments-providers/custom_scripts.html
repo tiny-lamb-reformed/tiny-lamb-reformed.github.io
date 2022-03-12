@@ -22,5 +22,5 @@
     }
   };
   var vm = Vue.createApp(PixnetComments).mount('#pixnet-comments');
-  vm.get({{ page.id }});
+  vm.get('{{ page.id }}'.split('/').pop());
 </script>
