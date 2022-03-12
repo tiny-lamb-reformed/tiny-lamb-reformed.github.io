@@ -1,14 +1,30 @@
-<section id="static-comments">
-  <!-- Start static comments -->
-  <div id="app">
-    {% raw %}
-      {{ message }}
-    {% endraw %}
-  </div>
+<section id="pinxet-comments">
+  <!-- Start pixnet comments -->
   <div class="js-comments">
     <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_title | default: "Comments" }}</h4>
+    {% raw %}
+    <article v-for="(comment, index) in comments" id="comment{{ index }}" class="js-comment comment" itemprop="comment" itemscope itemtype="https://schema.org/Comment">
+      <div class="comment__avatar-wrapper">
+        <img class="comment__avatar" src="https://www.gravatar.com/avatar/{{ comment.email }}?d=mm&s=80" alt="{{ comment.name }}">
+      </div>
+      <div class="comment__content-wrapper">
+        <h3 class="comment__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <span itemprop="name">
+            <a v-if="comment.url" rel="external nofollow" itemprop="url" href="{{ comment.url }}">{{ comment.name }}</a>
+            <div v-else>{{ comment.name }}</div>
+          </span>
+        </h3>
+        <p class="comment__date">
+          <a href="#comment{{ index }}" itemprop="url">
+            <time datetime="{{ comment.date }}" itemprop="datePublished">{{ comment.date }}</time>
+          </a>
+        </p>
+        <div itemprop="text">{{ comment.message }}</div>
+      </div>
+    </article>    
+    {% endraw %}
     <!-- In order to sort by date we must have an array of objects, not an array of arrays, so
           create a new array of plain comment objects and then sort by the comment date. -->
   </div>
-  <!-- End static comments -->
+  <!-- End pixnet comments -->
 </section>
