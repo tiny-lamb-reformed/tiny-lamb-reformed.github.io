@@ -19,6 +19,10 @@ def save(article_id):
     print(data["message"])
 
     article = data["article"]
+    article["body"].replace(
+        '<a href="https://mickey1124.pixnet.net/blog/post/',
+        '<a href="/little-lamb-reformed/posts/',
+    )
     with open("post_template.md") as f:
         post = Template(f.read()).substitute(article)
 
