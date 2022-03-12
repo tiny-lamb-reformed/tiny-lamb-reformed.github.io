@@ -67,3 +67,6 @@ defaults:
 category_archive:
   type: liquid
   path: /categories/
+
+comments:
+  provider: custom

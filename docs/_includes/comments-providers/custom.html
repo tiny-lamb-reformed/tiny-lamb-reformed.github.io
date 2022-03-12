@@ -1,0 +1,10 @@
+<section id="static-comments">
+  <!-- Start static comments -->
+  <div id="app">{{ message }}</div>
+  <div class="js-comments">
+    <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_title | default: "Comments" }}</h4>
+    <!-- In order to sort by date we must have an array of objects, not an array of arrays, so
+          create a new array of plain comment objects and then sort by the comment date. -->
+  </div>
+  <!-- End static comments -->
+</section>
