@@ -1,6 +1,6 @@
 ---
 permalink: /about/
-title: "About"
+title: 關於
 ---
 
 {{ site.locale }}

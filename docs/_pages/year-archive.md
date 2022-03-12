@@ -1,5 +1,5 @@
 ---
-title: "Posts by Year"
+title: 所有文章
 permalink: /posts/
 layout: posts
 ---

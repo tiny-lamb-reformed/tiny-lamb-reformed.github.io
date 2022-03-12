@@ -3,7 +3,8 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: MM
+title: 基督教小小羊園地（鏡像）
+subtitle: 約翰福音8：32　 你們必曉得真理，真理必叫你們得以自由
 email:
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
