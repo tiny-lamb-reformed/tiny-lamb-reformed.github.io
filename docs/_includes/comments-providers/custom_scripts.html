@@ -8,16 +8,18 @@
     },
     methods: {
       get(article_id) {
+        var vm = this;
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://emma.pixnet.cc/blog/articles/' + article_id + '/comments?user=mickey1124');
+        var url = 'https://emma.pixnet.cc/blog/articles/' + article_id + '/comments?user=mickey1124';
+        xhr.open('GET', url);
         xhr.onload = function () {
           if (xhr.status === 200) {
             var resp = JSON.parse(xhr.responseText);
             print(resp.message);
-            this.comments = resp.comments;
+            vm.comments = resp.comments;
           }
-          xhr.send();
         }
+        xhr.send();
       }
     }
   };
