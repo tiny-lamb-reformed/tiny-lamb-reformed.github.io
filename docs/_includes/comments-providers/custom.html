@@ -19,7 +19,8 @@
         <p class="comment__date">
           <a :href="'#comment-' + comment.id" itemprop="url">
             <!-- TODO: fix time format -->
-            <time :datetime="new Date(comment.created_at * 1000)" itemprop="datePublished">{{ new Date(comment.created_at * 1000) }}</time>
+            <time :datetime="new Date(comment.created_at * 1000)" itemprop="datePublished">{{ new
+              Date(comment.created_at * 1000) }}</time>
           </a>
         </p>
         <div itemprop="text">{{ comment.body }}</div>
@@ -30,25 +31,19 @@
   <nav class="pagination">
     {% raw %}
     <ul>
-      <li>
+      <li :aria-disabled="currentPage === 1">
         <a href="javascript:void(0)" :class="{ disabled: currentPage === 1 }" @click="currentPage -= 1">
-          <span v-if="currentPage === 1" aria-hidden="true">{% endraw %}
-            {{ site.data.ui-text[site.locale].pagination_previous }}{% raw %}
-          </span>
+          {% endraw %}{{ site.data.ui-text[site.locale].pagination_previous }}{% raw %}
         </a>
       </li>
-      <li v-for="page in totalPages">
+      <li v-for="page in totalPages" :aria-disabled="currentPage === page">
         <a href="javascript:void(0)" :class="{ 'disabled current': currentPage === page }" @click="currentPage = page">
-          <span v-if="currentPage === page" aria-hidden="true">
-            {{ page }}
-          </span>
+          {{ page }}
         </a>
       </li>
-      <li>
+      <li :aria-disabled="currentPage === totalPages">
         <a href="javascript:void(0)" :class="{ disabled: currentPage === totalPages }" @click="currentPage += 1">
-          <span v-if="currentPage === totalPages" aria-hidden="true">{% endraw %}
-            {{ site.data.ui-text[site.locale].pagination_next }}
-          </span>
+          {% endraw %}{{ site.data.ui-text[site.locale].pagination_next }}
         </a>
       </li>
     </ul>
