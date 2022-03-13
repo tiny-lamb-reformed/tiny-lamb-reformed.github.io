@@ -31,19 +31,24 @@
     {% raw %}
     <ul>
       <li>
-        <a href="#" @click="currentPage += 1">{% endraw %}
-          {{ site.data.ui-text[site.locale].pagination_previous }}{% raw %}
+        <a href="javascript:void(0)" :class="{ disabled: currentPage === 1 }" @click="currentPage -= 1">
+          <span v-if="currentPage === 1" aria-hidden="true">{% endraw %}
+            {{ site.data.ui-text[site.locale].pagination_previous }}{% raw %}
+          </span>
         </a>
       </li>
-      <!-- <li><a href="#" class="disabled"><span aria-hidden="true">{{ site.data.ui-text[site.locale].pagination_previous | default: "Previous" }}</span></a></li> -->
-
       <li v-for="page in totalPages">
-        <a href="#" :class="{ 'disabled current': page === currentPage }">{{ page }}</a>
+        <a href="javascript:void(0)" :class="{ 'disabled current': currentPage === page }" @click="currentPage = page">
+          <span v-if="currentPage === page" aria-hidden="true">
+            {{ page }}
+          </span>
+        </a>
       </li>
-
       <li>
-        <a href="#" @click="currentPage -= 1">{% endraw %}
-          {{ site.data.ui-text[site.locale].pagination_next }}
+        <a href="javascript:void(0)" :class="{ disabled: currentPage === totalPages }" @click="currentPage += 1">
+          <span v-if="currentPage === totalPages" aria-hidden="true">{% endraw %}
+            {{ site.data.ui-text[site.locale].pagination_next }}
+          </span>
         </a>
       </li>
     </ul>
