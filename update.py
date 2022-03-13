@@ -47,7 +47,7 @@ def modified(article):
 
 page = 1
 total_pages = 1
-PER_PAGE = 100
+PER_PAGE = 200
 while page <= total_pages:
     data = get_pixnet(
         "articles", {"status": 2, "trim_user": 1, "page": page, "per_page": PER_PAGE}
