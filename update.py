@@ -1,5 +1,6 @@
 """Get all data from source website."""
 from datetime import datetime, timedelta
+from math import ceil
 from string import Template
 
 import requests
@@ -19,9 +20,8 @@ def save(article_id):
     print(data["message"])
 
     article = data["article"]
-    article["body"].replace(
-        '<a href="https://mickey1124.pixnet.net/blog/post/',
-        '<a href="/little-lamb-reformed/posts/',
+    article["body"] = article["body"].replace(
+        "https://mickey1124.pixnet.net/blog/post/", "/posts/",
     )
     with open("post_template.md") as f:
         post = Template(f.read()).substitute(article)
@@ -32,9 +32,15 @@ def save(article_id):
         f.write(post)
 
 
-data = get_pixnet("articles", {"status": 2, "trim_user": 1})
-print(data["message"])
-articles = data["articles"]
-
-for article in articles[:10]:
-    save(article["id"])
+page = 1
+total_pages = 1
+PER_PAGE = 10
+while page <= total_pages:
+    data = get_pixnet(
+        "articles", {"status": 2, "trim_user": 1, "page": page, "per_page": PER_PAGE}
+    )
+    total_pages = ceil(data["total"] / PER_PAGE)
+    print(data["message"], f"Page {page}/{total_pages}")
+    for article in data["articles"]:
+        save(article["id"])
+    page += 1
