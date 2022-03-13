@@ -3,16 +3,18 @@
   var PixnetComments = {
     data() {
       return {
-        article_id: '{{ page.id }}'.split('/').pop(),
+        articleId: '{{ page.id }}'.split('/').pop(),
+        currentPage: 1,
+        totalPages: [1, 2, 3, 4, 5],
         comments: []
       }
     },
     methods: {
-      getComments(page) {
+      getComments() {
         var vm = this;
         var xhr = new XMLHttpRequest();
-        var url = 'https://emma.pixnet.cc/blog/articles/' + this.article_id + '/comments'
-          + '?user=mickey1124&page=' + page;
+        var url = 'https://emma.pixnet.cc/blog/articles/' + this.articleId + '/comments'
+          + '?user=mickey1124&page=' + this.currentPage;
         xhr.open('GET', url);
         xhr.onload = function () {
           if (xhr.status === 200) {
@@ -27,5 +29,5 @@
     }
   };
   var vm = Vue.createApp(PixnetComments).mount('#pixnet-comments');
-  vm.getComments(1);
+  vm.getComments();
 </script>
