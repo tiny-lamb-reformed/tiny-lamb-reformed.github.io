@@ -19,7 +19,7 @@ markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes@4.24.0
 # Outputting
 permalink: /posts/:title/
-paginate: 7
+paginate: 20
 paginate_path: /page:num/
 timezone: Asia/Taipei
 
@@ -34,6 +34,7 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+  - jekyll-archives
 
 author:
   name: "First Lastname"
@@ -66,6 +67,16 @@ defaults:
 category_archive:
   type: liquid
   path: /categories/
+jekyll-archives:
+  enabled:
+    - categories
+#    - tags
+  layouts:
+    category: archive-taxonomy
+#    tag: archive-taxonomy
+  permalinks:
+    category: /categories/:name/
+#    tag: /tags/:name/
 
 comments:
   provider: custom
