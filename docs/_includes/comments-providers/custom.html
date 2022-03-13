@@ -38,7 +38,7 @@
       <!-- <li><a href="#" class="disabled"><span aria-hidden="true">{{ site.data.ui-text[site.locale].pagination_previous | default: "Previous" }}</span></a></li> -->
 
       <li v-for="page in pages">
-        <button :class="{ page === currentPage ? 'disabled current': '' }">{{ page }}</button>
+        <button :class="{ 'disabled current': page === currentPage }">{{ page }}</button>
       </li>
 
       <li>
