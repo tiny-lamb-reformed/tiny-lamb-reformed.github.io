@@ -1,8 +1,8 @@
 <section id="pixnet-comments">
   <!-- Start pixnet comments -->
-  {% raw %}
   <div class="js-comments">
     <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_title | default: "Comments" }}</h4>
+    {% raw %}
     <article v-for="comment in comments" :id="'comment-' + comment.id" class="js-comment comment" itemprop="comment"
       itemscope itemtype="https://schema.org/Comment">
       <div class="comment__avatar-wrapper">
@@ -25,19 +25,28 @@
         <div itemprop="text">{{ comment.body }}</div>
       </div>
     </article>
+    {% endraw %}
   </div>
   <nav class="pagination">
+    {% raw %}
     <ul>
-      <li><button @click="getComments">{{ labelPrevious }}</a></li>
+      <li>
+        <button @click="getComments">{% endraw %}
+          {{ site.data.ui-text[site.locale].pagination_previous }}{% raw %}
+        </button>
+      </li>
       <!-- <li><a href="#" class="disabled"><span aria-hidden="true">{{ site.data.ui-text[site.locale].pagination_previous | default: "Previous" }}</span></a></li> -->
 
       <li v-for="page in pages">
         <button :class="{ page === currentPage ? 'disabled current': '' }">{{ page }}</button>
       </li>
 
-      <li><button @click="getComments">{{ labelNext }}</a></li>
+      <li>
+        <button @click="getComments">{% endraw %}
+          {{ site.data.ui-text[site.locale].pagination_next }}
+        </button>
+      </li>
     </ul>
   </nav>
-  {% endraw %}
   <!-- End pixnet comments -->
 </section>
