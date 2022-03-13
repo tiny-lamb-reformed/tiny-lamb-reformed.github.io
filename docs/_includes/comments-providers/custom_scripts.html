@@ -1,3 +1,4 @@
+<!-- TODO: use production Vue -->
 <script src="https://unpkg.com/vue@3"></script>
 <script>
   var PixnetComments = {
@@ -15,15 +16,16 @@
 
         var vm = this;
         var xhr = new XMLHttpRequest();
+        var PRE_PAGE = 2;
         var url = 'https://emma.pixnet.cc/blog/articles/' + this.articleId + '/comments'
-          + '?user=mickey1124&page=' + this.currentPage + '&per_page=2';
+          + '?user=mickey1124&page=' + this.currentPage + '&per_page=' + PRE_PAGE;
         xhr.open('GET', url);
         xhr.onload = function () {
           if (xhr.status === 200) {
             var resp = JSON.parse(xhr.responseText);
             console.log(resp.message);
             vm.totalPages = [];
-            for (var i = 1; i <= resp.total; i++) {
+            for (var i = 1; i <= Math.ceil(resp.total / PRE_PAGE); i++) {
               vm.totalPages.push(i);
             }
             vm.comments = resp.comments;
@@ -32,8 +34,8 @@
         // TODO: add error handling
         xhr.send();
       },
-      prevComments() { getComments(this.currentPage - 1); },
-      nextComments() { getComments(this.currentPage + 1); }
+      prevComments() { this.getComments(this.currentPage - 1); },
+      nextComments() { this.getComments(this.currentPage + 1); }
     }
   };
   var vm = Vue.createApp(PixnetComments).mount('#pixnet-comments');
