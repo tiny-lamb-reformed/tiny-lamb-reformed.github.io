@@ -1,6 +1,8 @@
 ---
 permalink: /about/
 title: 關於
+sidebar:
+  nav: about
 ---
 
 《基督教小小羊園地》是一個歸正神學的 blog。本站是該站的鏡像網站，原本的網站在此：  
