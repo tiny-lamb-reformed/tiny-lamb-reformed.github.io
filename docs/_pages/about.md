@@ -3,8 +3,8 @@ permalink: /about/
 title: 關於
 ---
 
-{{ site.locale }}
-{{ site.data.ui-text[site.locale].back_to_top }}
-velit sint sunt ipsum tempor enim ad qui ullamco. Est dolore anim ad velit duis dolore minim sunt aliquip amet commodo labore. Ut eu pariatur aute ea aute excepteur laborum. Esse ea esse excepteur minim mollit qui cillum excepteur ex dolore magna. Labore deserunt fugiat incididunt incididunt sint ea. Consequat dolore aute laboris quis proident quis non et est consectetur ex eiusmod sit culpa.
+《基督教小小羊園地》是一個歸正神學的 blog。本站是該站的鏡像網站，原本的網站在此：  
+https://mickey1124.pixnet.net/blog
 
-Cupidatat ea do et in excepteur in. Ad nostrud ut est esse eu duis ea sunt eiusmod. Aliquip tempor veniam sint elit fugiat. Velit incididunt laboris amet incididunt labore dolore irure velit excepteur commodo deserunt laborum. Consectetur eu fugiat veniam veniam Lorem labore magna eiusmod. Ea occaecat reprehenderit pariatur consectetur minim labore ut aliquip.
+所有文章從原網站中匯入，使用 Responsive 技術，更好地支援在行動裝置上瀏覽，
+移除廣告（包括手機版網頁），同時修復了一些連結。
