@@ -32,17 +32,17 @@
     {% raw %}
     <ul>
       <li :aria-disabled="currentPage === 1">
-        <a href="javascript:void(0)" :class="{ disabled: currentPage === 1 }" @click="currentPage -= 1">
+        <a href="javascript:void(0)" :class="{ disabled: currentPage === 1 }" @click="prevComments">
           {% endraw %}{{ site.data.ui-text[site.locale].pagination_previous }}{% raw %}
         </a>
       </li>
       <li v-for="page in totalPages" :aria-disabled="currentPage === page">
-        <a href="javascript:void(0)" :class="{ 'disabled current': currentPage === page }" @click="currentPage = page">
+        <a href="javascript:void(0)" :class="{ 'disabled current': currentPage === page }" @click="getComments(page)">
           {{ page }}
         </a>
       </li>
-      <li :aria-disabled="currentPage === totalPages">
-        <a href="javascript:void(0)" :class="{ disabled: currentPage === totalPages }" @click="currentPage += 1">
+      <li :aria-disabled="currentPage === totalPages.length">
+        <a href="javascript:void(0)" :class="{ disabled: currentPage === totalPages.length }" @click="nextComments">
           {% endraw %}{{ site.data.ui-text[site.locale].pagination_next }}
         </a>
       </li>
