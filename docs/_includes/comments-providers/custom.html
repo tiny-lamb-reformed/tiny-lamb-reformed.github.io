@@ -28,14 +28,14 @@
   </div>
   <nav class="pagination">
     <ul>
-      <li><button @click="getComments">{{ site.data.ui-text[site.locale].pagination_previous | default: "Previous" }}</a></li>
+      <li><button @click="getComments">{{ labelPrevious }}</a></li>
       <!-- <li><a href="#" class="disabled"><span aria-hidden="true">{{ site.data.ui-text[site.locale].pagination_previous | default: "Previous" }}</span></a></li> -->
 
       <li v-for="page in pages">
         <button :class="{ page === currentPage ? 'disabled current': '' }">{{ page }}</button>
       </li>
 
-      <li><button @click="getComments">{{ site.data.ui-text[site.locale].pagination_next | default: "Next" }}</a></li>
+      <li><button @click="getComments">{{ labelNext }}</a></li>
     </ul>
   </nav>
   {% endraw %}
