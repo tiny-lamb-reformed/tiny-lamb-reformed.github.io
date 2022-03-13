@@ -31,20 +31,20 @@
     {% raw %}
     <ul>
       <li>
-        <button @click="getComments">{% endraw %}
+        <a href="#" @click="currentPage += 1">{% endraw %}
           {{ site.data.ui-text[site.locale].pagination_previous }}{% raw %}
-        </button>
+        </a>
       </li>
       <!-- <li><a href="#" class="disabled"><span aria-hidden="true">{{ site.data.ui-text[site.locale].pagination_previous | default: "Previous" }}</span></a></li> -->
 
-      <li v-for="page in pages">
-        <button :class="{ 'disabled current': page === currentPage }">{{ page }}</button>
+      <li v-for="page in totalPages">
+        <a href="#" :class="{ 'disabled current': page === currentPage }">{{ page }}</a>
       </li>
 
       <li>
-        <button @click="getComments">{% endraw %}
+        <a href="#" @click="currentPage -= 1">{% endraw %}
           {{ site.data.ui-text[site.locale].pagination_next }}
-        </button>
+        </a>
       </li>
     </ul>
   </nav>
