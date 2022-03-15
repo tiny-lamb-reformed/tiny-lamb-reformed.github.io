@@ -3,8 +3,8 @@ import re
 
 links_update = {
     r"https?://mickey1124.pixnet.net/blog/post/": "/posts/",
-    #r"<div>(/posts/\d+)</div>": r'<a href="\1" target="_blank">\1</a>',
-    #r"https?://mickey1124.pixnet.net/blog/category/list/(\d+)": r"/categories/\1",
+    r"<div>(/posts/\d+)</div>": r'<a href="\1" target="_blank">\1</a>',
+    # r"https?://mickey1124.pixnet.net/blog/category/list/(\d+)": r"/categories/\1",
 }
 
 posts = Path("docs/_posts")
