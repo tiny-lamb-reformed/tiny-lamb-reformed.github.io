@@ -20,9 +20,6 @@ def save(article_id):
     print(data["message"], article_id)
 
     article = data["article"]
-    article["body"] = article["body"].replace(
-        "https://mickey1124.pixnet.net/blog/post/", "/posts/",
-    )
     with open("post_template.md") as f:
         post = Template(f.read()).substitute(article)
 
