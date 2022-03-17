@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 from string import Template
+from typing import List
 
 posts = Path("docs/_posts")
 
@@ -47,9 +48,8 @@ def tag_articles():
             for id in tagged_ids:
                 tags[id] = tags.get(id, set()).union({tag})
 
-    for article, tags in tags.items():
-        with find_article(article, "") as f:
-            pass  # replace tags
+    for id, tags in tags.items():
+        tag_article(id, list(tags))
 
 
 def find_article(article_id, mode="rt"):
@@ -57,15 +57,15 @@ def find_article(article_id, mode="rt"):
         return open(post, mode)
 
 
-def update_article(path):
-    # path = next(posts.glob(f"*-{article_id}.md"))
+def tag_article(article_id, tags: List[str]):
+    path = next(posts.glob(f"*-{article_id}.md"))
     with open(path) as f:
         lines = f.readlines()
         article_data = {
             "title": re.findall(r"title: (.*)", lines[1])[0],
             "last_modified": re.findall(r"last_modified_at: (.*)", lines[2])[0],
-            "category": re.findall(r"\- (.*)", lines[4])[0],
-            "tags": [],
+            "category": re.findall(r"category: (.*)", lines[3])[0],
+            "tags": tags,
             "body": "".join(lines[7:]),
         }
 
