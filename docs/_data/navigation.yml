@@ -3,6 +3,8 @@ main:
     url: /posts/
   - title: 文章分類
     url: /categories/
+  - title: 主題文章
+    url: /tags/
   - title: 關於
     url: /about/
 
