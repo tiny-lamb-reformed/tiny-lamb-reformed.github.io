@@ -5,7 +5,7 @@ layout: archive
 {{ content }}
 
 {% assign categories = "" | split: ','  }
-{% for category in categories %}
+{% for category in site.categories %}
   {% if page.show_categories contains category[0] %}
     {% assign categories = categories | concat: category %}
   {% endif %}
