@@ -63,7 +63,6 @@ defaults:
     values:
       layout: single
       author_profile: false
-      entries_layout: grid
 
 category_archive:
   type: liquid
