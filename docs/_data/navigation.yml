@@ -5,8 +5,44 @@ main:
     url: /categories/
   - title: 主題文章
     url: /tags/
+  - title: 護教、福音
+    url: /gospel
   - title: 關於
-    url: /about/
+    url: /about
+
+gospel:
+  - title: 福音
+    children:
+      - title: 信耶穌者上天堂，不信者下地獄？
+        url: /posts/269191716/
+      - title: 神觀：為什麼信神？信什麼神？
+        url: /posts/269199604/
+      - title: 上帝的啟示：耶穌基督
+        url: /posts/269194312/
+      - title: 聖經無誤與內部邏輯
+        url: /posts/269198788/
+  - title: 常見問題
+    children:
+      - title: 發問：我怕自己做不到，所以還沒辦法成為基督徒 
+        url: /posts/269196948/
+      - title: 發問：基督教難道不是違反科學與邏輯嗎？
+        url: /posts/269195960/
+      - title: 用什麼證據證明上帝是存在的？
+        url: /posts/269197616/
+      - title: 發問：如果神真的存在，為什麼不讓我們看到？
+        url: /posts/269196020/
+      - title: 發問：為何神要人犯錯？為何要我們受苦？
+        url: /posts/269196024/
+  - title: 其他宗教相關
+    children:
+      - title: 給非基督徒：為什麼基督徒不拿香？ 
+        url: /posts/269197424/
+      - title: 發問：根據什麼，基督教就是對的，其他宗教就是錯的？
+        url: /posts/269198712/
+      - title: 基督教與佛教的一些簡單比較 
+        url: /posts/269197448/
+      - title: 發問：:基督徒是否對其他信仰的批判性大於其他宗教?
+        url: /posts/269193052/
 
 about:
   - title: 為什麼我們要成立這部落格
