@@ -1,8 +1,10 @@
 ---
-permalink: /about/
 title: 關於
-sidebar:
-  nav: about
+layout: selected-categories
+permalink: /about
+show_categories:
+  - 設立宗旨與管理說明
+  - 其他
 ---
 
 《基督教小小羊園地》是一個歸正神學的 blog。本站是該站的鏡像網站，原本的網站在此：  
