@@ -11,12 +11,14 @@ layout: archive
   {% endif %}
 {% endfor %}
 
+{% assign ungrouped = site.post | map: "category" | uniq %}
 {% for group in site.category_groups %}
   <h2 class="page__title">{{ group.name }}</h2>
   <ul class="taxonomy__index">
     {% for i in (1..categories_max) reversed %}
       {% for category in site.categories %}
         {% if category[1].size == i and group.categories contains category[0] %} 
+          {% assign ungrouped = ungrouped | remove: category[0] %}
           <li>
             <a href="#{{ category[0] | slugify }}" 
               onclick="hideCategoriesExcept('{{ category[0] | slugify | downcase }}')">
@@ -28,6 +30,22 @@ layout: archive
     {% endfor %}
   </ul>
 {% endfor %}
+
+<h2 class="page__title">其他</h2>
+<ul class="taxonomy__index">
+  {% for i in (1..categories_max) reversed %}
+    {% for category in site.categories %}
+      {% if category[1].size == i and ungrouped contains category[0] %} 
+        <li>
+          <a href="#{{ category[0] | slugify }}" 
+            onclick="hideCategoriesExcept('{{ category[0] | slugify | downcase }}')">
+            <strong>{{ category[0] }}</strong> <span class="taxonomy__count">{{ i }}</span>
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</ul>
 
 {% assign entries_layout = page.entries_layout | default: 'list' %}
 {% for i in (1..categories_max) reversed %}
