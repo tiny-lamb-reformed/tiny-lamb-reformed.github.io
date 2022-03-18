@@ -2,10 +2,8 @@
 - remove year page
 - links in article
   - mickey1124.pixnet.net/blog/category/list/
+  - category link
   - blog.roodo.com/yml/?
-- generate tags page by 主題文章整理
-- generate categories page
-- remove related
 - comments %quo
 - 複習 direct link?
 
