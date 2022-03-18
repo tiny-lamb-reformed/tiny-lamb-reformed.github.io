@@ -1,6 +1,6 @@
 ---
 title: 流行偏差
-layout: selected-categories
+layout: categories
 permalink: /mistakes
 show_categories:
   - 教會流行觀念的偏差

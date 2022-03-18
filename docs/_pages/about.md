@@ -1,6 +1,6 @@
 ---
 title: 關於
-layout: selected-categories
+layout: categories
 permalink: /about
 show_categories:
   - 設立宗旨與管理說明

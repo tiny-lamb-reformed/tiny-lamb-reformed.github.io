@@ -1,6 +1,6 @@
 ---
 title: 神學
-layout: selected-categories
+layout: categories
 permalink: /theology
 show_categories:
   - 聖經無誤、解經原則

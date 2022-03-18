@@ -1,6 +1,6 @@
 ---
 title: 信仰與生活
-layout: selected-categories
+layout: categories
 permalink: /life
 show_categories:
   - 成聖之路
