@@ -11,7 +11,7 @@ layout: archive
   {% endif %}
 {% endfor %}
 
-{% assign ungrouped = site.post | map: "category" | uniq %}
+{% assign ungrouped = site.posts | map: "category" | uniq %}
 {% for group in site.category_groups %}
   <h2 class="page__title">{{ group.name }}</h2>
   <ul class="taxonomy__index">
