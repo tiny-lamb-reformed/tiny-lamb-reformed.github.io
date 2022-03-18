@@ -14,7 +14,6 @@ layout: archive
 <ul class="taxonomy__index">
   {% for i in (1..categories_max) reversed %}
     {% for category in site.categories %}
-      {% unless page.show_categories %}
       {% if category[1].size == i %} 
         {% if page.show_categories contains category[0] or page.show_categories == empty %}
           <li>
