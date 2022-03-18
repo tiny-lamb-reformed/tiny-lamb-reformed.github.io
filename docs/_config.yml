@@ -64,9 +64,36 @@ defaults:
       layout: single
       author_profile: false
 
+category_groups:
+  - name: 信仰與生活
+    categories:
+      - 成聖之路
+      - 信仰與婚姻
+      - 信仰與政治
+      - 信仰與精神、心理、輔導
+      - 聖樂欣賞
+  - name: 神學
+    categories:
+      - 聖經無誤、解經原則
+      - 罪、得救、因信稱義
+      - 預定論與自由意志
+      - 上帝、耶穌
+      - 禮拜更新
+      - 書籍評論
+      - 馬太福音查經
+      - 經文小亮光
+      - 給有心歸正者的建議
+      - 信仰告白
+  - name: 流行偏差
+    categories:
+      - 教會流行觀念的偏差
+      - 社會流行觀念的偏差
+      - 現代教會音樂的偏差
+
 category_archive:
   type: liquid
   path: /categories/
+
 tag_archive:
   type: liquid
   path: /tags/
