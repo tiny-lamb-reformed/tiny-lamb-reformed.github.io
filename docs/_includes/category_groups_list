@@ -20,12 +20,12 @@
       <li>
         <span class="nav__sub-title">{{ group.title }}</span>        
         <ul>
-          {% assign categories = group.categories | default: other %}
+          {% assign show_categories = group.categories | default: other %}
           {% for i in (1..categories_max) reversed %}
             {% for category in site.categories %}
-              {% if category[1].size == i %}
+              {% if category[1].size == i and show_categories contains category[0] %}
                 <li>
-                  <a href="#{{ category | slugify }}">{{ category }}<span class="taxonomy__count">{{ i }}</span></a>
+                  <a href="#{{ category[0] | slugify }}">{{ category[0] }}<span class="taxonomy__count">{{ i }}</span></a>
                 </li>
               {% endif %}
             {% endfor %}
