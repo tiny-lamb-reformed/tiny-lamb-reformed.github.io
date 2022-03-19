@@ -17,12 +17,22 @@ def update_links():
         **generate_new_links(),
     }
     for post in posts.iterdir():
-        with open(post) as f:
-            article = f.read()
-            for pattern, repl in links_update.items():
-                article = re.sub(pattern, repl, article)
-        with open(post, "wt") as f:
-            f.write(article)
+        article_data = parse_article(post)
+
+        for pattern, repl in links_update.items():
+            article_data["body"] = re.sub(pattern, repl, article_data["body"])
+
+        soup = BeautifulSoup(article_data["body"])
+        for br in soup.find_all("br"):
+            if str(br.next_sibling).startswith("/posts/"):
+                new_link = soup.new_tag("a", href=str(br.next_sibling))
+                new_link.string = br.previous_sibling
+                br.previous_sibling.replace_with(new_link)
+                br.next_sibling.replace_with("")
+                br.decompose()
+
+        article_data["body"] = soup.body.decode_contents()
+        write_article(post, article_data)
 
 
 def generate_new_links():
