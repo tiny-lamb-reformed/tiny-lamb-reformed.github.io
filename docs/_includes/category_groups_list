@@ -11,16 +11,24 @@
     {% endfor %}
 
     {% assign other = site.posts | map: "category" | uniq %}
-    {% for category in group.categories %}
-      {% assign other = other | remove: category %}
+    {% for group in site.category_groups %}
+      {% for category in group.categories %}
+        {% assign other = other | remove: category %}
+      {% endfor %}
     {% endfor %}
     {% for group in site.category_groups %}
       <li>
         <span class="nav__sub-title">{{ group.title }}</span>        
         <ul>
           {% assign categories = group.categories | default: other %}
-          {% for category in categories %}
-            <li><a href="#{{ category | slugify }}">{{ category }}</a></li>
+          {% for i in (1..categories_max) reversed %}
+            {% for category in site.categories %}
+              {% if category[1].size == i %}
+                <li>
+                  <a href="#{{ category | slugify }}">{{ category }}<span class="taxonomy__count">{{ i }}</span></a>
+                </li>
+              {% endif %}
+            {% endfor %}
           {% endfor %}
         </ul>
       </li>
