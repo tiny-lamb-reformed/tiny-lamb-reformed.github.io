@@ -3,6 +3,8 @@ from pathlib import Path
 from string import Template
 from typing import List
 
+from bs4 import BeautifulSoup
+
 posts = Path("docs/_posts")
 
 
@@ -12,6 +14,7 @@ def update_links():
         r"<div>(/posts/\d+)</div>": r'<a href="\1" target="_blank">\1</a>',
         r'<p><font color="#008080">﹡﹡﹡﹡﹡﹡﹡</font><a href="http://blog.roodo.com/yml/archives/cat_144649.html" target="_blank"><font color="#006699">回應本文前請先按此</font></a><font color="#006699">&nbsp;﹡﹡﹡﹡﹡﹡﹡</font></p>': "",
         # r"https?://mickey1124.pixnet.net/blog/category/list/(\d+)": r"/categories/\1",
+        **generate_new_links(),
     }
     for post in posts.iterdir():
         with open(post) as f:
@@ -20,6 +23,46 @@ def update_links():
                 article = re.sub(pattern, repl, article)
         with open(post, "wt") as f:
             f.write(article)
+
+
+def generate_new_links():
+    articles = [parse_article(post) for post in posts.iterdir()]
+    roodo_links = find_roodo_links(articles)
+
+    urls = {}
+    for path in posts.iterdir():
+        article = parse_article(path)
+        urls[article["title"]] = f"/posts/{str(path).split('-')[-1].split('.')[0]}"
+
+    new_links = {}
+    for title, link in roodo_links:
+        matches = match_articles(articles, title)
+        if len(matches) == 1:
+            new_links[link] = urls[matches[0]["title"]]
+    return new_links
+
+
+def find_roodo_links(articles):
+    roodo_links = []
+    for article in articles:
+        soup = BeautifulSoup(article["body"])
+        roodo_links += [
+            (br.previous_sibling, br.next_sibling)
+            for br in soup.find_all("br")
+            if str(br.next_sibling).startswith("http://blog.roodo")
+        ]
+        roodo_links += [
+            (r.text, r.attrs["href"])
+            for r in soup.find_all("a", href=re.compile("roodo"))
+        ]
+    return roodo_links
+
+
+def match_articles(articles, title):
+    matches = [a for a in articles if title.strip().endswith(a["title"])]
+    if len(matches) == 0:
+        matches = [a for a in articles if title.strip(" 』").endswith(a["title"])]
+    return matches
 
 
 def tag_articles():
@@ -39,7 +82,7 @@ def tag_articles():
     ]
     tags = {}
     for collection_article in collection_articles:
-        with find_article(collection_article) as f:
+        with open(find_article(collection_article)) as f:
             tag = f.readlines()[1].split(":")[-1].replace("相關文章", "").strip()
 
             f.seek(0)
@@ -53,26 +96,32 @@ def tag_articles():
         tag_article(id, list(tags))
 
 
-def find_article(article_id, mode="rt"):
-    for post in posts.glob(f"*-{article_id}.md"):
-        return open(post, mode)
-
-
 def tag_article(article_id, tags: List[str]):
-    path = next(posts.glob(f"*-{article_id}.md"))
+    path = find_article(article_id)
+    article_data = parse_article(path)
+    article_data["tags"] = tags
+    write_article(path, article_data)
+
+
+def find_article(article_id, mode="rt"):
+    return next(posts.glob(f"*-{article_id}.md"))
+
+
+def parse_article(path):
     with open(path) as f:
         lines = f.readlines()
-        article_data = {
+        return {
             "title": re.findall(r"title: (.*)", lines[1])[0],
             "last_modified": re.findall(r"last_modified_at: (.*)", lines[2])[0],
             "category": re.findall(r"category: (.*)", lines[3])[0],
-            "tags": tags,
+            "tags": re.findall(r"tags: (.*)", lines[4])[0],
             "body": "".join(lines[7:]),
         }
 
-    with open("post_template.md") as f:
-        updated = Template(f.read()).substitute(article_data)
 
+def write_article(path, data):
+    with open("post_template.md") as f:
+        updated = Template(f.read()).substitute(data)
     with open(path, "w") as f:
         f.write(updated)
 
