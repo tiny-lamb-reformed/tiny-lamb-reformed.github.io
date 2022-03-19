@@ -43,15 +43,31 @@ gospel:
         url: /posts/269193052/
 
 about:
-  - title: 為什麼我們要成立這部落格
-    url: /posts/269194380
-  - title: 什麼是歸正神學？
-    url: /posts/269192384
-  - title: 這園地市場區隔的一些簡單說明
-    url: /posts/269194396
-  - title: 園地文章未必合適推薦給未信者讀
-    url: /posts/269195792
-  - title: 請大家體諒，我不再解答不相關問題
-    url: /posts/272310336
-  - title: 歡迎自由轉貼
-    url: /posts/269194404
+  - title: 設立宗旨與管理說明
+    children:
+      - title: 為什麼我們要成立這部落格
+        url: /posts/269194380
+      - title: 這園地的市場區隔的一些簡單說明
+        url: /posts/269192372
+      - title: 歡迎自由轉貼
+        url: /posts/269194404
+      - title: 園地文章未必合適推薦給未信者讀
+        url: /posts/269195792
+      - title: 我們迫切需要很多代禱勇士的扶持
+        url: /posts/269194412
+  - title: 認識歸正神學
+    children:
+      - title: 什麼是歸正神學？
+        url: /posts/269192384
+      - title: 有需要學歸正神學嗎？
+        url: /posts/269200312
+      - title: 哪些教會屬於歸正神學？
+        url: /posts/269193580
+  - title: 留言回應相關
+    children:
+      - title: 請勿在文章回應裡發問不相干問題
+        url: /posts/269198156
+      - title: 請大家體諒，我不再解答不相關問題
+        url: /posts/272310336
+      - title: 不認同者，請至其他網站去
+        url: /posts/269191940

@@ -1,10 +1,7 @@
 ---
 title: 關於
-layout: categories
+layout: single
 permalink: /about
-show_categories:
-  - 設立宗旨與管理說明
-  - 其他
 sidebar:
   nav: about
 ---
