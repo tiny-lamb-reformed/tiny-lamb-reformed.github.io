@@ -19,8 +19,6 @@ markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes@4.24.0
 # Outputting
 permalink: /posts/:title/
-paginate: 20
-paginate_path: /page:num/
 timezone: Asia/Taipei
 
 include:
