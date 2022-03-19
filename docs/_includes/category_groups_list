@@ -3,18 +3,15 @@
   <input id="ac-toc" name="accordion-toc" type="checkbox" />
   <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
   <ul class="nav__items">
+    {% assign ungrouped = site.posts | map: "category" | uniq %}
     {% for group in site.category_groups %}
       <li>
-        <span class="nav__sub-title">{{ group.title }}</span>
-        
-        {% if group.categories != null %}
+        <span class="nav__sub-title">{{ group.title }}</span>        
         <ul>
-          {% for category in group.categories %}
-            {% assign url = category | prepend: "#" | slugify %}
-            <li><a href="{{ url }}"{% if url == page.url %} class="active"{% endif %}>{{ category }}</a></li>
+          {% for category in group.categories | default: ungrouped %}
+            <li><a href="#{{ category | slugify }}">{{ category }}</a></li>
           {% endfor %}
         </ul>
-        {% endif %}
       </li>
     {% endfor %}
   </ul>
