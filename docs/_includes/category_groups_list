@@ -25,7 +25,9 @@
             {% for category in site.categories %}
               {% if category[1].size == i %}
                 <li>
-                  <a href="#{{ category | slugify }}">{{ category }}<span class="taxonomy__count">{{ i }}</span></a>
+                  <a href="#{{ category | slugify }}" onclick="hideCategoriesExcept({{ category | slugify | downcase }})">
+                    {{ category }}<span class="taxonomy__count">{{ i }}</span>
+                  </a>
                 </li>
               {% endif %}
             {% endfor %}
@@ -35,3 +37,4 @@
     {% endfor %}
   </ul>
 </nav>
+<script src="/assets/js/categories.js"></script>
