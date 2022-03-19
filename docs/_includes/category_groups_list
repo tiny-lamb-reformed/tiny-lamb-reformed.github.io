@@ -1,0 +1,21 @@
+<nav class="nav__list">
+  {% if page.sidebar.title %}<h3 class="nav__title" style="padding-left: 0;">{{ page.sidebar.title }}</h3>{% endif %}
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
+  <ul class="nav__items">
+    {% for group in site.category_groups %}
+      <li>
+        <span class="nav__sub-title">{{ group.title }}</span>
+        
+        {% if group.categories != null %}
+        <ul>
+          {% for category in group.categories %}
+            {% assign url = category | prepend: "#" | slugify %}
+            <li><a href="{{ url }}"{% if url == page.url %} class="active"{% endif %}>{{ category }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

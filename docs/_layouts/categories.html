@@ -1,65 +1,29 @@
+
 ---
-layout: archive
+layout: default
 ---
 
-{{ content }}
+{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
+  {% include page__hero.html %}
+{% elsif page.header.video.id and page.header.video.provider %}
+  {% include page__hero_video.html %}
+{% endif %}
 
-{% assign categories_max = 0 %}
-{% for category in site.categories %}
-  {% if category[1].size > categories_max %}
-    {% assign categories_max = category[1].size %}
-  {% endif %}
-{% endfor %}
+{% if page.url != "/" and site.breadcrumbs %}
+  {% unless paginator %}
+    {% include breadcrumbs.html %}
+  {% endunless %}
+{% endif %}
 
-{% assign ungrouped = site.posts | map: "category" | uniq %}
-{% for group in site.category_groups %}
-  <h2 class="page__title">{{ group.name }}</h2>
-  <ul class="taxonomy__index">
-    {% for i in (1..categories_max) reversed %}
-      {% for category in site.categories %}
-        {% if category[1].size == i and group.categories contains category[0] %} 
-          {% assign ungrouped = ungrouped | remove: category[0] %}
-          <li>
-            <a href="#{{ category[0] | slugify }}" 
-              onclick="hideCategoriesExcept('{{ category[0] | slugify | downcase }}')">
-              <strong>{{ category[0] }}</strong> <span class="taxonomy__count">{{ i }}</span>
-            </a>
-          </li>
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-  </ul>
-{% endfor %}
+<div id="main" role="main">
+  <div class="sidebar sticky">
+    {% include category_groups_list %}
+  </div>
 
-<h2 class="page__title">其他</h2>
-<ul class="taxonomy__index">
-  {% for i in (1..categories_max) reversed %}
-    {% for category in site.categories %}
-      {% if category[1].size == i and ungrouped contains category[0] %} 
-        <li>
-          <a href="#{{ category[0] | slugify }}" 
-            onclick="hideCategoriesExcept('{{ category[0] | slugify | downcase }}')">
-            <strong>{{ category[0] }}</strong> <span class="taxonomy__count">{{ i }}</span>
-          </a>
-        </li>
-      {% endif %}
-    {% endfor %}
-  {% endfor %}
-</ul>
-
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-{% for i in (1..categories_max) reversed %}
-  {% for category in site.categories %}
-    {% if category[1].size == i %}
-      <section id="{{ category[0] | slugify | downcase }}" class="taxonomy__section">
-        <h2 class="archive__subtitle">{{ category[0] }}</h2>
-        <div class="entries-{{ entries_layout }}">
-          {% for post in category.last %}
-            {% include archive-single.html type=entries_layout %}
-          {% endfor %}
-        </div>
-        <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
-      </section>
-    {% endif %}
-  {% endfor %}
-{% endfor %}
+  <div class="archive">
+    {% unless page.header.overlay_color or page.header.overlay_image %}
+      <h1 id="page-title" class="page__title">{{ page.title }}</h1>
+    {% endunless %}
+    {{ content }}
+  </div>
+</div>
