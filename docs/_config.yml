@@ -101,3 +101,6 @@ tag_archive:
 
 comments:
   provider: custom
+
+after_footer_scripts:
+  - assets/js/controls.js
