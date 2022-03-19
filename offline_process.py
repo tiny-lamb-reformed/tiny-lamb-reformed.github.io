@@ -10,6 +10,7 @@ def update_links():
     links_update = {
         r"https?://mickey1124.pixnet.net/blog/post/": "/posts/",
         r"<div>(/posts/\d+)</div>": r'<a href="\1" target="_blank">\1</a>',
+        r'<p><font color="#008080">﹡﹡﹡﹡﹡﹡﹡</font><a href="http://blog.roodo.com/yml/archives/cat_144649.html" target="_blank"><font color="#006699">回應本文前請先按此</font></a><font color="#006699">&nbsp;﹡﹡﹡﹡﹡﹡﹡</font></p>': "",
         # r"https?://mickey1124.pixnet.net/blog/category/list/(\d+)": r"/categories/\1",
     }
     for post in posts.iterdir():
