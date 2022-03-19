@@ -3,12 +3,23 @@
   <input id="ac-toc" name="accordion-toc" type="checkbox" />
   <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
   <ul class="nav__items">
-    {% assign ungrouped = site.posts | map: "category" | uniq %}
+    {% assign categories_max = 0 %}
+    {% for category in site.categories %}
+      {% if category[1].size > categories_max %}
+        {% assign categories_max = category[1].size %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign other = site.posts | map: "category" | uniq %}
+    {% for category in group.categories %}
+      {% assign other = other | remove: category %}
+    {% endfor %}
     {% for group in site.category_groups %}
       <li>
         <span class="nav__sub-title">{{ group.title }}</span>        
         <ul>
-          {% for category in group.categories | default: ungrouped %}
+          {% assign categories = group.categories | default: other %}
+          {% for category in categories %}
             <li><a href="#{{ category | slugify }}">{{ category }}</a></li>
           {% endfor %}
         </ul>
