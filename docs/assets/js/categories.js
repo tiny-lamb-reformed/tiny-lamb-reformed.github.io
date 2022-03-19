@@ -5,3 +5,5 @@ function hideCategoriesExcept(category) {
     element.style.display = (element.id == category ? 'block' : 'none');
   }
 }
+var current = decodeURI(window.location.hash).substring(1) || '成聖之路';
+hideCategoriesExcept(current);
