@@ -7,7 +7,7 @@ function hideCategoriesExcept(category) {
 }
 
 function showOnlyMatch() {
-  var keyword_list = $('#search').val();
+  var keyword_list = $('#search').val().split(' ');
   var filter = '';
   for (var i = 0; i < keyword_list.length; i++) {
     var keyword = keyword_list[i];
