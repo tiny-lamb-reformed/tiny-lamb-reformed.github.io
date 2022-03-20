@@ -18,8 +18,8 @@ function highlighSidebarItem(category) {
 }
 
 function hideCategoriesExcept(category) {
-  $('.archive section').hide();
-  $('.archive section[data-category="' + category + '"]').show();
+  $('.archive div[data-category]').hide();
+  $('.archive div[data-category="' + category + '"]').show();
 }
 
 function showOnlyMatch() {

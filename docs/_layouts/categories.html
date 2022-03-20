@@ -25,15 +25,16 @@ layout: default
     {% endunless %}
     <input type="text" id="search" class="search-input" placeholder="快速搜尋..." onkeyup="showOnlyMatch()" />
     
-    {% for category in site.categories %}
-      <section class="taxonomy__section" data-category="{{ category[0] }}">
-        <div class="entries-{{ entries_layout }}">
+    <section class="taxonomy__section">
+      {% assign entries_layout = page.entries_layout | default: 'list' %}
+      {% for category in site.categories %}
+        <div class="entries-{{ entries_layout }}" data-category="{{ category[0] }}">
           {% for post in category.last %}
             {% include archive-single.html type=entries_layout %}
           {% endfor %}
         </div>
-      </section>
-    {% endfor %}
+      {% endfor %}
+    </section>
     <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
   </div>
 </div>
