@@ -35,7 +35,7 @@ function showOnlyMatch() {
   }
 }
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var category = decodeURI(window.location.hash).substring(1);
   if (category) {
     selectCategory(category);
