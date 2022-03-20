@@ -1,7 +1,15 @@
 function selectCategory(category) {
-  $('#page-title').text(category);
-  highlighSidebarItem(category);
-  hideCategoriesExcept(category);
+  if (categoryExist(category)) {
+    $('#page-title').text(category);
+    highlighSidebarItem(category);
+    hideCategoriesExcept(category);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  $('#search').focus();
+}
+
+function categoryExist(category) {
+  return $('.nav__items li a[data-category="' + category + '"]').length > 0;
 }
 
 function highlighSidebarItem(category) {
@@ -26,3 +34,10 @@ function showOnlyMatch() {
     $('div.list__item:not(:has(' + filter + '))').hide();
   }
 }
+
+$(document).ready(function () {
+  var category = decodeURI(window.location.hash).substring(1);
+  if (category) {
+    selectCategory(category);
+  }
+});
