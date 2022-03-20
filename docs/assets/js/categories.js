@@ -3,9 +3,9 @@ function selectCategory(category) {
     $('#page-title').text(category);
     highlighSidebarItem(category);
     hideCategoriesExcept(category);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   $('#search').focus();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function categoryExist(category) {
