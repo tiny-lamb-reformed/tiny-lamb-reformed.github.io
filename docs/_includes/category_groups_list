@@ -25,7 +25,7 @@
             {% for category in site.categories %}
               {% if category[1].size == i and show_categories contains category[0] %}
                 <li>
-                  <a href="#{{ category[0] | slugify }}" onclick="hideCategoriesExcept('{{ category[0] | slugify | downcase }}')">
+                  <a href="#{{ category[0] | slugify }}" onclick="selectCategory('{{ category[0] }}')">
                     {{ category[0] }} <span class="taxonomy__count">({{ i }})</span>
                   </a>
                 </li>

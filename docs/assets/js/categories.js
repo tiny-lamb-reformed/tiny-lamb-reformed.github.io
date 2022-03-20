@@ -1,9 +1,17 @@
+function selectCategory(category) {
+  $('#page-title').text(category);
+  highlighSidebarItem(category);
+  hideCategoriesExcept(category);
+}
+
+function highlighSidebarItem(category) {
+  $('.nav__items li a').removeClass('active');
+  $('.nav__items li a[data-category="' + category + '"]').addClass('active');
+}
+
 function hideCategoriesExcept(category) {
-  var list = document.querySelectorAll('.archive section');
-  for (i = 0; i < list.length; i++) {
-    var element = list[i];
-    element.style.display = (element.id == category ? 'block' : 'none');
-  }
+  $('.archive section').hide();
+  $('.archive section[data-category="' + category + '"]').show();
 }
 
 function showOnlyMatch() {
@@ -18,8 +26,3 @@ function showOnlyMatch() {
     $('div.list__item:not(:has(' + filter + '))').hide();
   }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  var current = decodeURI(window.location.hash).substring(1) || '成聖之路';
-  hideCategoriesExcept(current);
-});
