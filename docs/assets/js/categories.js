@@ -27,11 +27,11 @@ function showOnlyMatch() {
   var filter = '';
   for (var i = 0; i < keyword_list.length; i++) {
     var keyword = keyword_list[i];
-    filter += 'a:contains("' + keyword + '")';
+    filter += ':contains("' + keyword + '")';
   }
   $('div.list__item').show();
   if (filter) {
-    $('div.list__item:not(:has(' + filter + '))').hide();
+    $('div.list__item:not(' + filter + ')').hide();
   }
 }
 
