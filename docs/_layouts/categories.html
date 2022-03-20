@@ -23,10 +23,10 @@ layout: default
     {% unless page.header.overlay_color or page.header.overlay_image %}
       <h1 id="page-title" class="page__title">{{ page.title }}</h1>
     {% endunless %}
+    <input type="text" id="search" class="search-input" placeholder="" onkeyup="showOnlyMatch()" />
     {% for category in site.categories %}
     <section id="{{ category[0] | slugify | downcase }}" class="taxonomy__section">
       <h2 class="archive__subtitle">{{ category[0] }}</h2>
-        <input type="text" id="search" class="search-input" placeholder="" onkeyup="showOnlyMatch()" />
         <div class="entries-{{ entries_layout }}">
           {% for post in category.last %}
             {% include archive-single.html type=entries_layout %}
