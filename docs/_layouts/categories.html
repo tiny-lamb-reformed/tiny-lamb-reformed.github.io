@@ -26,14 +26,14 @@ layout: default
     <input type="text" id="search" class="search-input" placeholder="" onkeyup="showOnlyMatch()" />
     
     {% for category in site.categories %}
-    <section class="taxonomy__section" data-category="{{ category[0] }}">
+      <section class="taxonomy__section" data-category="{{ category[0] }}">
         <div class="entries-{{ entries_layout }}">
           {% for post in category.last %}
             {% include archive-single.html type=entries_layout %}
           {% endfor %}
         </div>
-        <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
       </section>
     {% endfor %}
+    <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
   </div>
 </div>
