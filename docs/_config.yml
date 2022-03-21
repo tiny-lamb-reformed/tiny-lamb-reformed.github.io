@@ -3,7 +3,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: 基督教小小羊園地（鏡像）
+title: 基督教小小羊園地（移動端鏡像）
 subtitle: 約翰福音8：32　 你們必曉得真理，真理必叫你們得以自由
 email:
 locale: zh-TW # TODO: add sc site: https://lexcao.io/posts/jekyll-multi-language-without-plugin/
