@@ -96,5 +96,6 @@ comments:
   provider: custom
 
 after_footer_scripts:
+  - https://unpkg.com/vue@3 #TODO: use production
   - /assets/js/nav_collections.js
   - /assets/js/hash_nav_list.js
