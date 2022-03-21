@@ -31,14 +31,23 @@ def process_all():
         # r"https?://mickey1124.pixnet.net/blog/category/list/(\d+)": r"/categories/\1",
         **generate_new_links(),
     }
-    tags = generate_tags()
     for post in posts.iterdir():
         article = parse_article(post)
         update_links(new_links, article)
-        article["tags"] = list(tags.get(article["id"], []))
         write_article(post, article)
 
-    move_to_collection()
+    title = {a["id"]: a["title"] for a in articles}
+    nav = {}
+    for group, ids in group_articles():
+        nav[group] = {
+            "title": group,
+            "children": [
+                {"title": title[id], "url": f"/posts/{id}#{group}"} for id in ids
+            ],
+        }
+    js = f"var nav_collections = {nav};"
+    with open("docs/assets/js/nav_collections.js", "wt") as f:
+        f.write(js)
 
 
 def generate_new_links():
@@ -68,8 +77,8 @@ def match_articles(articles, title):
     return matches
 
 
-def generate_tags():
-    collection_articles = [
+def group_articles():
+    theme_articles = [
         269197240,
         269196960,
         269196944,
@@ -83,18 +92,11 @@ def generate_tags():
         269196108,
         269196064,
     ]
-    tags = {}
-    for collection_article in collection_articles:
-        with open(find_article(collection_article)) as f:
-            tag = f.readlines()[1].split(":")[-1].replace("相關文章", "").strip()
-
-            f.seek(0)
-            article = f.read()
-            tagged_ids = re.findall(r"/posts/(\d+)", article)
-
-            for id in tagged_ids:
-                tags[id] = tags.get(id, set()).union({tag})
-    return tags
+    for id in theme_articles:
+        article = parse_article(find_article(id))
+        tag = article["title"].replace("相關文章", "").strip()
+        ids = sorted(set(re.findall(r"/posts/(\d+)", article["body"])))
+        yield tag, ids
 
 
 def update_links(new_links, article):
@@ -111,10 +113,6 @@ def update_links(new_links, article):
             br.decompose()
 
     article["body"] = soup.body.decode_contents()
-
-
-def move_to_collection():
-    pass
 
 
 def find_article(article_id, mode="rt"):
