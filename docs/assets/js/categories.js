@@ -3,6 +3,7 @@ function selectCategory(category) {
     $('#page-title').text(category);
     highlighSidebarItem(category);
     hideCategoriesExcept(category);
+    showOnlyMatch();
   }
   $('#search').focus();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -29,15 +30,18 @@ function showOnlyMatch() {
     var keyword = keyword_list[i];
     filter += ':contains("' + keyword + '")';
   }
-  $('div.list__item').show();
+  $('div[data-category]="' + + '" div.list__item').show();
   if (filter) {
     $('div.list__item:not(' + filter + ')').hide();
   }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  var category = decodeURI(window.location.hash).substring(1);
+  var category = decodeURI(window.location.hash).substring(1) || '成聖之路';
   if (category) {
     selectCategory(category);
+  }
+  $('#search').on('input', function () {
+    showOnlyMatch();
   }
 });
