@@ -1,71 +1,64 @@
 import re
 from pathlib import Path
 from string import Template
-from typing import List
+from typing import Tuple
 
 from bs4 import BeautifulSoup
 
+
+def parse_article(path: Path):
+    with open(path) as f:
+        lines = f.readlines()
+        return {
+            "id": path.name.split("-")[-1].split(".")[0],
+            "title": re.findall(r"title: (.*)", lines[1])[0],
+            "last_modified": re.findall(r"last_modified_at: (.*)", lines[2])[0],
+            "category": re.findall(r"category: (.*)", lines[3])[0],
+            "tags": re.findall(r"tags: (.*)", lines[4])[0],
+            "body": "".join(lines[7:]),
+        }
+
+
 posts = Path("docs/_posts")
+articles = [parse_article(post) for post in posts.iterdir()]
 
 
-def update_links():
-    links_update = {
+def process_all():
+    new_links = {
         r"https?://mickey1124.pixnet.net/blog/post/": "/posts/",
         r"<div>(/posts/\d+)</div>": r'<a href="\1" target="_blank">\1</a>',
         r'<p><font color="#008080">﹡﹡﹡﹡﹡﹡﹡</font><a href="http://blog.roodo.com/yml/archives/cat_144649.html" target="_blank"><font color="#006699">回應本文前請先按此</font></a><font color="#006699">&nbsp;﹡﹡﹡﹡﹡﹡﹡</font></p>': "",
         # r"https?://mickey1124.pixnet.net/blog/category/list/(\d+)": r"/categories/\1",
         **generate_new_links(),
     }
+    tags = generate_tags()
     for post in posts.iterdir():
-        article_data = parse_article(post)
+        article = parse_article(post)
+        update_links(new_links, article)
+        article["tags"] = list(tags.get(article["id"], []))
+        write_article(post, article)
 
-        for pattern, repl in links_update.items():
-            article_data["body"] = re.sub(pattern, repl, article_data["body"])
-
-        soup = BeautifulSoup(article_data["body"])
-        for br in soup.find_all("br"):
-            if str(br.next_sibling).startswith("/posts/"):
-                new_link = soup.new_tag("a", href=str(br.next_sibling))
-                new_link.string = br.previous_sibling
-                br.previous_sibling.replace_with(new_link)
-                br.next_sibling.replace_with("")
-                br.decompose()
-
-        article_data["body"] = soup.body.decode_contents()
-        write_article(post, article_data)
+    move_to_collection()
 
 
 def generate_new_links():
-    articles = [parse_article(post) for post in posts.iterdir()]
-    roodo_links = find_roodo_links(articles)
-
-    urls = {}
-    for path in posts.iterdir():
-        article = parse_article(path)
-        urls[article["title"]] = f"/posts/{str(path).split('-')[-1].split('.')[0]}"
-
     new_links = {}
-    for title, link in roodo_links:
+    for title, link in find_roodo_links():
         matches = match_articles(articles, title)
         if len(matches) == 1:
-            new_links[link] = urls[matches[0]["title"]]
+            new_links[link] = f"/posts/{matches[0]['id']}"
     return new_links
 
 
-def find_roodo_links(articles):
-    roodo_links = []
+def find_roodo_links() -> Tuple[str, str]:
     for article in articles:
         soup = BeautifulSoup(article["body"])
-        roodo_links += [
-            (br.previous_sibling, br.next_sibling)
-            for br in soup.find_all("br")
-            if str(br.next_sibling).startswith("http://blog.roodo")
-        ]
-        roodo_links += [
-            (r.text, r.attrs["href"])
-            for r in soup.find_all("a", href=re.compile("roodo"))
-        ]
-    return roodo_links
+        for br in soup.find_all("br"):
+            if str(br.next_sibling).startswith("http://blog.roodo"):
+                yield (br.previous_sibling, br.next_sibling)
+
+        for a in soup.find_all("a", href=re.compile("roodo")):
+            yield (a.text, a.attrs["href"])
 
 
 def match_articles(articles, title):
@@ -75,7 +68,7 @@ def match_articles(articles, title):
     return matches
 
 
-def tag_articles():
+def generate_tags():
     collection_articles = [
         269197240,
         269196960,
@@ -101,32 +94,31 @@ def tag_articles():
 
             for id in tagged_ids:
                 tags[id] = tags.get(id, set()).union({tag})
-
-    for id, tags in tags.items():
-        tag_article(id, list(tags))
+    return tags
 
 
-def tag_article(article_id, tags: List[str]):
-    path = find_article(article_id)
-    article_data = parse_article(path)
-    article_data["tags"] = tags
-    write_article(path, article_data)
+def update_links(new_links, article):
+    for pattern, repl in new_links.items():
+        article["body"] = re.sub(pattern, repl, article["body"])
+
+    soup = BeautifulSoup(article["body"])
+    for br in soup.find_all("br"):
+        if str(br.next_sibling).startswith("/posts/"):
+            new_link = soup.new_tag("a", href=str(br.next_sibling))
+            new_link.string = br.previous_sibling
+            br.previous_sibling.replace_with(new_link)
+            br.next_sibling.replace_with("")
+            br.decompose()
+
+    article["body"] = soup.body.decode_contents()
+
+
+def move_to_collection():
+    pass
 
 
 def find_article(article_id, mode="rt"):
     return next(posts.glob(f"*-{article_id}.md"))
-
-
-def parse_article(path):
-    with open(path) as f:
-        lines = f.readlines()
-        return {
-            "title": re.findall(r"title: (.*)", lines[1])[0],
-            "last_modified": re.findall(r"last_modified_at: (.*)", lines[2])[0],
-            "category": re.findall(r"category: (.*)", lines[3])[0],
-            "tags": re.findall(r"tags: (.*)", lines[4])[0],
-            "body": "".join(lines[7:]),
-        }
 
 
 def write_article(path, data):
@@ -137,5 +129,4 @@ def write_article(path, data):
 
 
 if __name__ == "__main__":
-    update_links()
-    tag_articles()
+    process_all()
