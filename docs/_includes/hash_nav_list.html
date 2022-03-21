@@ -1,6 +1,6 @@
 <div id="hash-nav">
   <nav v-if="nav" class="nav__list">
-    <h3 class="nav__title" style="padding-left: 0;" v-text="title"></h3>
+    <h3 v-if="title" class="nav__title" style="padding-left: 0;" v-text="title"></h3>
     <input id="ac-toc" name="accordion-toc" type="checkbox" />
     <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
     <ul class="nav__items">

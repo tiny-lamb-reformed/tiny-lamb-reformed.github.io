@@ -3,12 +3,11 @@ var HashNav = {
   data() {
     return {
       nav: nav_collections[hash],
-      currentUrl: ''
     }
   },
   methods: {
     isSelected: function (child) {
-      return child.url === this.currentUrl;
+      return child.url.split('#')[0] === window.location.pathname;
     }
   }
 };
