@@ -94,3 +94,7 @@ tag_archive:
 
 comments:
   provider: custom
+
+after_footer_scripts:
+  - /assets/js/nav_collections.js
+  - /assets/js/hash_nav_list.js

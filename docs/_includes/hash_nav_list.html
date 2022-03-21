@@ -15,24 +15,3 @@
     </ul>
   </nav>
 </div>
-
-<!-- TODO: use production Vue -->
-<script src="https://unpkg.com/vue@3"></script>
-<script src="/docs/assets/js/nav_collections.js"></script>
-<script>
-  var hash = decodeURI(window.location.hash).substring(1);
-  var HashNav = {
-    data() {
-      return {
-        nav: nav_collections[hash],
-        currentUrl: ''
-      }
-    },
-    methods: {
-      isSelected: function (child) {
-        return child.url === this.currentUrl;
-      }
-    }
-  };
-  var vm = Vue.createApp(HashNav).mount('#hash-nav');
-</script>
