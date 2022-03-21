@@ -50,6 +50,8 @@ defaults:
       comments: true
       share: true
       related: false
+      sidebar:
+        hash: true
   # _pages
   - scope:
       path: "_pages"

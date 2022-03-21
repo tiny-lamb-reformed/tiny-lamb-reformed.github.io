@@ -1,0 +1,38 @@
+<div id="hash-nav">
+  <nav v-if="nav" class="nav__list">
+    <h3 class="nav__title" style="padding-left: 0;" v-text="title"></h3>
+    <input id="ac-toc" name="accordion-toc" type="checkbox" />
+    <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
+    <ul class="nav__items">
+      <li>
+        <a :href="nav.url"><span class="nav__sub-title" v-text="nav.title"></span></a>
+        <ul>
+          <li v-for="child in nav.children">
+            <a :href="child.url" :class="{ active: isSelected(child) }" v-text="child.title"></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- TODO: use production Vue -->
+<script src="https://unpkg.com/vue@3"></script>
+<script src="/docs/assets/js/nav_collections.js"></script>
+<script>
+  var hash = decodeURI(window.location.hash).substring(1);
+  var HashNav = {
+    data() {
+      return {
+        nav: nav_collections[hash],
+        currentUrl: ''
+      }
+    },
+    methods: {
+      isSelected: function (child) {
+        return child.url === this.currentUrl;
+      }
+    }
+  };
+  var vm = Vue.createApp(HashNav).mount('#hash-nav');
+</script>
