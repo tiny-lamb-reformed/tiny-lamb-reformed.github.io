@@ -1,8 +1,6 @@
 main:
   - title: 護教、福音
     url: /gospel
-  - title: 主題文章整理
-    url: /tags
   - title: 所有文章分類
     url: /categories
   - title: 關於
