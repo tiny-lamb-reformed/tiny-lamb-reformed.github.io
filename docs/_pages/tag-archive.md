@@ -9,7 +9,7 @@ layout: tags
   <div v-for="nav in nav_list" class="{{ include.type | default: 'list' }}__item">
     <article class="archive__item">
       <h2 class="archive__item-title no_toc">
-        <a :href="nav.children[0].url" rel="permalink" v-text="nav.title"></a>
+        {% raw %}<a href="/posts/123" rel="permalink">{{ nav.title }}</a>{% endraw %}
       </h2>
     </article>
   </div>
