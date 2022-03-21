@@ -30,7 +30,7 @@ function showOnlyMatch() {
     var keyword = keyword_list[i];
     filter += ':contains("' + keyword + '")';
   }
-  $('div[data-category]="' + + '" div.list__item').show();
+  $('div.list__item').show();
   if (filter) {
     $('div.list__item:not(' + filter + ')').hide();
   }
