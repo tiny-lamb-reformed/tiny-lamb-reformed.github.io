@@ -43,5 +43,5 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   $('#search').on('input', function () {
     showOnlyMatch();
-  }
+  });
 });
