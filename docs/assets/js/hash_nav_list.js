@@ -2,7 +2,8 @@ var hash = decodeURI(window.location.hash).substring(1);
 var HashNav = {
   data() {
     return {
-      nav: nav_collections[hash],
+      nav_collections: nav_collections,
+      nav: nav_collections[hash]
     }
   },
   methods: {
