@@ -6,10 +6,6 @@
 title: 基督教小小羊園地（鏡像）
 subtitle: 約翰福音8：32　 你們必曉得真理，真理必叫你們得以自由
 email:
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
 locale: zh-TW # TODO: add sc site: https://lexcao.io/posts/jekyll-multi-language-without-plugin/
 minimal_mistakes_skin: air
 search: false
@@ -75,13 +71,10 @@ category_groups:
       - 聖經無誤、解經原則
       - 罪、得救、因信稱義
       - 預定論與自由意志
+      - 護教、福音
       - 上帝、耶穌
       - 禮拜更新
       - 書籍評論
-      - 馬太福音查經
-      - 經文小亮光
-      - 給有心歸正者的建議
-      - 信仰告白
   - title: 流行偏差
     categories:
       - 教會流行觀念的偏差
