@@ -1,21 +1,25 @@
-## TODO
+這是基督教小小羊園地的 Responsive 版本。
+
+## TODOs
+- 自動同步
+- docker
+- 連結 page
+- javascript clear cache
+- comments
+  - hide next/pre page
+  - Invalid Date? https://little-lamb-reformed.github.io/posts/283004740/
+  - lg gt
+  - post comments
+- 搜尋
+  - LSH
+  - full site
+  - related posts
+- read time
 - collections as tags
   - use hash to show sidebar/next/prev
   - 複習 direct link?
-
-- homepage
-- categories mobile speed
 - remove year page?
-
 - links in article
   - mickey1124.pixnet.net/blog/category/list/
   - blog.roodo.com/yml/?
-
-## 待增加功能
-- Invalid Date? https://little-lamb-reformed.github.io/posts/283004740/
 - 簡體中文
-- 自動同步
-- 增加留言
-  - comments lg gt
-- 回覆留言
-- 搜尋
