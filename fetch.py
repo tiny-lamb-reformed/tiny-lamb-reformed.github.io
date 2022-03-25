@@ -28,7 +28,7 @@ def save(article_id):
 
 
 def file_name(article):
-    published_epoch = int(article.get("first_published_at") or article["public_at"])
+    published_epoch = int(article["public_at"])
     published = datetime.fromtimestamp(published_epoch) + timedelta(hours=8)
     return f"docs/_posts/{published.strftime('%Y-%m-%d')}-{article['id']}.md"
 
