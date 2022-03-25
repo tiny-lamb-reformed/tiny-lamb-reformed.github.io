@@ -1,4 +1,4 @@
-name: Update Posts
+name: update posts
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -23,5 +23,5 @@ jobs:
     - name: Update posts
       run: |
         pip3 install -r requirements.txt
-        python3 fetch.py
+        python3 fetch_data.py
         python3 offline_process.py
