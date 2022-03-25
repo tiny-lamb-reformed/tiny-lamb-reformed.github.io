@@ -18,6 +18,8 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3.0.0
     - name: Update posts
       run: |
         pip3 install -r requirements.txt
