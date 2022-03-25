@@ -1,4 +1,4 @@
-"""Get all data from source website."""
+"""Fetch data from source website."""
 from datetime import datetime, timedelta
 from math import ceil
 from string import Template
