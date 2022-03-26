@@ -13,17 +13,17 @@
         <h3 class="comment__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
           <span itemprop="name">
             <a v-if="comment.url" rel="external nofollow" itemprop="url" :href="comment.url">{{ comment.author }}</a>
-            <div v-else>{{ comment.author }}</div>
+            <div v-else>{{ comment.author || '匿名' }}</div>
           </span>
         </h3>
         <p class="comment__date">
           <a :href="'#comment-' + comment.id" itemprop="url">
             <!-- TODO: fix time format -->
-            <time :datetime="new Date(comment.created_at * 1000)" itemprop="datePublished">{{ new
+            <time v-if="comment.created" :datetime="new Date(comment.created_at * 1000)" itemprop="datePublished">{{ new
               Date(comment.created_at * 1000) }}</time>
           </a>
         </p>
-        <div itemprop="text">{{ comment.body }}</div>
+        <div itemprop="text">{{ comment.body || '私人留言' }}</div>
       </div>
     </article>
     {% endraw %}

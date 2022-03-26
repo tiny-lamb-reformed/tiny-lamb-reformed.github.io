@@ -5,7 +5,6 @@
 - 連結 page
 - javascript clear cache
 - comments
-  - Invalid Date? https://little-lamb-reformed.github.io/posts/283004740/
   - lg gt
   - post comments
 - 搜尋
