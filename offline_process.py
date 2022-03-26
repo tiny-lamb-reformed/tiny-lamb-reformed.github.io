@@ -33,6 +33,7 @@ def process_all():
     }
     for post in posts.iterdir():
         article = parse_article(post)
+        article["title"] = re.sub(r' " (.*) " ', "「\g<1>」", article["title"])
         update_links(new_links, article)
         write_article(post, article)
 
