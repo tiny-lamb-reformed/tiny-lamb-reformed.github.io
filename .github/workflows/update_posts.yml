@@ -14,3 +14,10 @@ jobs:
           pip3 install -r requirements.txt
           python3 fetch_data.py
           python3 offline_process.py
+      - name: Commit and push
+        run: |
+          git config --global user.name 'Update Bot'
+          git config --global user.email 'noreply@na.com'
+          git add docs/_posts
+          git commit -m "Fetch new posts" || true
+          git push
