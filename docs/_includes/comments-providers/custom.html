@@ -1,6 +1,6 @@
 <section id="pixnet-comments">
   <!-- Start pixnet comments -->
-  <div class="js-comments">
+  <div class="js-comments" v-if="totalPages.length > 0">
     <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_title | default: "Comments" }}</h4>
     {% raw %}
     <article v-for="comment in comments" :id="'comment-' + comment.id" class="js-comment comment" itemprop="comment"
@@ -28,8 +28,8 @@
     </article>
     {% endraw %}
   </div>
-  <!-- TODO: hide and set to center -->
-  <nav class="pagination">
+  <!-- TODO: set to center -->
+  <nav class="pagination" v-if="totalPages.length > 1">
     {% raw %}
     <ul>
       <li :aria-disabled="currentPage === 1">

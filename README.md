@@ -2,11 +2,9 @@
 
 ## TODOs
 - 自動同步
-- docker
 - 連結 page
 - javascript clear cache
 - comments
-  - hide next/pre page
   - Invalid Date? https://little-lamb-reformed.github.io/posts/283004740/
   - lg gt
   - post comments
