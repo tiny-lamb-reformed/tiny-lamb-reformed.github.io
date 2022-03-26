@@ -2,20 +2,20 @@
 
 ## TODOs
 - 自動同步
+- links in article
+  - mickey1124.pixnet.net/blog/category/list/
+  - blog.roodo.com/yml/?
 - 連結 page
 - javascript clear cache
 - comments
+  - reply of comments
   - post comments
 - 搜尋
   - LSH
   - full site
   - related posts
 - read time
-- collections as tags
-  - use hash to show sidebar/next/prev
-  - 複習 direct link?
+- collections pages
+- 複習 direct link?
 - remove year page?
-- links in article
-  - mickey1124.pixnet.net/blog/category/list/
-  - blog.roodo.com/yml/?
 - 簡體中文
