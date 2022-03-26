@@ -1,5 +1,5 @@
 """Fetch data from source website."""
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from math import ceil
 from os import remove
 from pathlib import Path
@@ -22,7 +22,9 @@ def main():
         for article in data["articles"]:
             post_name = file_name(article)
             fetched_posts.append(post_name)
-            if last_modified(post_name) != int(article["last_modified"]):
+            last_modified_local = last_modified(post_name)
+            last_modified_source = int(article["last_modified"])
+            if last_modified_local != last_modified_source:
                 post_content = get_post(article["id"])
                 with open(post_name, "w") as f:
                     f.write(post_content)
@@ -55,7 +57,8 @@ def get_post(article_id):
 
 def file_name(article):
     published_epoch = int(article["public_at"])
-    published = datetime.fromtimestamp(published_epoch) + timedelta(hours=8)
+    tw_timezone = timezone(timedelta(hours=8))
+    published = datetime.fromtimestamp(published_epoch, tw_timezone)
     return f"docs/_posts/{published.strftime('%Y-%m-%d')}-{article['id']}.md"
 
 
@@ -63,7 +66,8 @@ def last_modified(post) -> int:
     try:
         with open(post) as f:
             return int(f.readlines()[2].split(":")[-1])
-    except FileNotFoundError:
+    except FileNotFoundError as e:
+        print(e)
         return -1
 
 
