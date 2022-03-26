@@ -32,10 +32,14 @@ def process_all():
         **generate_new_links(),
     }
     for post in posts.iterdir():
-        article = parse_article(post)
-        article["title"] = re.sub(r' " (.*) " ', "「\g<1>」", article["title"])
-        update_links(new_links, article)
-        write_article(post, article)
+        try:
+            article = parse_article(post)
+            article["title"] = re.sub(r' " (.*) " ', "「\g<1>」", article["title"])
+            update_links(new_links, article)
+            write_article(post, article)
+        except Exception as e:
+            print(f"Process article failed: {article}")
+            raise e
 
     title = {a["id"]: a["title"] for a in articles}
     nav = {}
@@ -62,7 +66,7 @@ def generate_new_links():
 
 def find_roodo_links() -> Tuple[str, str]:
     for article in articles:
-        soup = BeautifulSoup(article["body"])
+        soup = BeautifulSoup(article["body"], features="lxml")
         for br in soup.find_all("br"):
             if str(br.next_sibling).startswith("http://blog.roodo"):
                 yield (br.previous_sibling, br.next_sibling)
@@ -104,7 +108,7 @@ def update_links(new_links, article):
     for pattern, repl in new_links.items():
         article["body"] = re.sub(pattern, repl, article["body"])
 
-    soup = BeautifulSoup(article["body"])
+    soup = BeautifulSoup(article["body"], features="lxml")
     for br in soup.find_all("br"):
         if str(br.next_sibling).startswith("/posts/"):
             new_link = soup.new_tag("a", href=str(br.next_sibling))
