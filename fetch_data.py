@@ -52,6 +52,7 @@ def get_post(article_id):
 
     article = data["article"]
     with open("post_template.md") as f:
+        article["tags"] = [] # pixnet tags may contain JSON
         return Template(f.read()).substitute(article)
 
 
