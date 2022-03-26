@@ -13,6 +13,8 @@ search: false
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes@4.24.0
+repository: tiny-lamb-reformed/tiny-lamb-reformed.github.io
+
 # Outputting
 permalink: /posts/:title/
 timezone: Asia/Taipei
