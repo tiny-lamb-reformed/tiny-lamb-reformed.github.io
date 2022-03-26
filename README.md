@@ -5,7 +5,6 @@
 - 連結 page
 - javascript clear cache
 - comments
-  - lg gt
   - post comments
 - 搜尋
   - LSH

@@ -23,7 +23,7 @@
               Date(comment.created_at * 1000) }}</time>
           </a>
         </p>
-        <div itemprop="text">{{ comment.body || '私人留言' }}</div>
+        <div itemprop="text">{{ htmlDecode(comment.body || '&lt;私人留言&gt;') }}</div>
       </div>
     </article>
     {% endraw %}

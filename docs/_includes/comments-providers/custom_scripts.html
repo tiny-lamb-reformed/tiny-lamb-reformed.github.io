@@ -35,7 +35,11 @@
         xhr.send();
       },
       prevComments() { this.getComments(this.currentPage - 1); },
-      nextComments() { this.getComments(this.currentPage + 1); }
+      nextComments() { this.getComments(this.currentPage + 1); },
+      htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+      }
     }
   };
   var vm = Vue.createApp(PixnetComments).mount('#pixnet-comments');
