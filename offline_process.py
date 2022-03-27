@@ -58,9 +58,10 @@ def process_all():
 def generate_new_links():
     new_links = {}
     for title, link in find_roodo_links():
-        matches = match_articles(articles, title)
-        if len(matches) == 1:
-            new_links[link] = f"/posts/{matches[0]['id']}"
+        if "cat_" not in link:
+            match = search_article(title)
+            if title_similarly(match["title"], title) > 0.35:
+                new_links[link] = f"/posts/{match['id']}"
     return new_links
 
 
@@ -68,18 +69,23 @@ def find_roodo_links() -> Tuple[str, str]:
     for article in articles:
         soup = BeautifulSoup(article["body"], features="lxml")
         for br in soup.find_all("br"):
-            if str(br.next_sibling).startswith("http://blog.roodo"):
+            if str(br.next_sibling).strip().startswith("http://blog.roodo"):
                 yield (br.previous_sibling, br.next_sibling)
 
         for a in soup.find_all("a", href=re.compile("roodo")):
             yield (a.text, a.attrs["href"])
 
 
-def match_articles(articles, title):
-    matches = [a for a in articles if title.strip().endswith(a["title"])]
-    if len(matches) == 0:
-        matches = [a for a in articles if title.strip(" 』").endswith(a["title"])]
-    return matches
+def search_article(title):
+    return max(articles, key=lambda a: title_similarly(a["title"], title))
+
+
+def title_similarly(x, y):
+    exclude = set(" ?（轉貼）")
+    a = set(x) - exclude
+    b = set(y) - exclude
+    c = a.intersection(b)
+    return float(len(c)) / (len(a) + len(b) - len(c))
 
 
 def group_articles():
@@ -110,7 +116,7 @@ def update_links(new_links, article):
 
     soup = BeautifulSoup(article["body"], features="lxml")
     for br in soup.find_all("br"):
-        if str(br.next_sibling).startswith("/posts/"):
+        if str(br.next_sibling).strip().startswith("/posts/"):
             new_link = soup.new_tag("a", href=str(br.next_sibling))
             new_link.string = br.previous_sibling
             br.previous_sibling.replace_with(new_link)

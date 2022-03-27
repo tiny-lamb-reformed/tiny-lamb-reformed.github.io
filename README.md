@@ -3,7 +3,7 @@
 ## TODOs
 - links in article
   - mickey1124.pixnet.net/blog/category/list/
-  - blog.roodo.com/yml/?
+  - blog.roodo.com/yml/...cat
 - 連結 page
 - javascript clear cache
 - comments
@@ -13,9 +13,9 @@
   - LSH
   - full site
   - related posts
-- read time
 - collections pages
 - 複習 direct link?
 - remove year page?
 - recent edits
 - 簡體中文
+- read time CJK (needs Jekyll 4.1) https://jekyllrb.com/docs/liquid/filters/
