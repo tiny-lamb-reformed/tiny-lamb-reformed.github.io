@@ -2,8 +2,8 @@
 
 ## TODOs
 - links in article
-  - mickey1124.pixnet.net/blog/category/list/
   - blog.roodo.com/yml/...cat
+  - verify links
 - 連結 page
 - javascript clear cache
 - comments

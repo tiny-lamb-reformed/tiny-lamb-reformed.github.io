@@ -28,7 +28,7 @@ def process_all():
         r"https?://mickey1124.pixnet.net/blog/post/": "/posts/",
         r"<div>(/posts/\d+)</div>": r'<a href="\1" target="_blank">\1</a>',
         r'<p><font color="#008080">﹡﹡﹡﹡﹡﹡﹡</font><a href="http://blog.roodo.com/yml/archives/cat_144649.html" target="_blank"><font color="#006699">回應本文前請先按此</font></a><font color="#006699">&nbsp;﹡﹡﹡﹡﹡﹡﹡</font></p>': "",
-        # r"https?://mickey1124.pixnet.net/blog/category/list/(\d+)": r"/categories/\1",
+        **generate_new_category_links(),
         **generate_new_links(),
     }
     for post in posts.iterdir():
@@ -53,6 +53,21 @@ def process_all():
     js = f"var nav_collections = {nav};"
     with open("docs/assets/js/nav_collections.js", "wt") as f:
         f.write(js)
+
+
+def generate_new_category_links():
+    categories = {
+        3270876: "護教、福音",
+        "3270864/1": "預定論與自由意志",
+        3270864: "預定論與自由意志",
+        3270848: "信仰與婚姻",
+        3270852: "聖經無誤、解經原則",
+        3728449: "禮拜更新",
+    }
+    return {
+        f"https://mickey1124.pixnet.net/blog/category/list/{id}": f"/categories/#{label}"
+        for id, label in categories.items()
+    }
 
 
 def generate_new_links():
