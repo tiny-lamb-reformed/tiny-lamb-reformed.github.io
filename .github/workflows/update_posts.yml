@@ -1,7 +1,6 @@
 name: update posts
 
 on:
-  workflow_dispatch:
   schedule:
     - cron: "0 2-14 * * *" # update everyday at 10AM-10PM (TW time)
 
