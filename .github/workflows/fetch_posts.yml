@@ -1,4 +1,4 @@
-name: update posts
+name: fetch posts
 
 on:
   schedule:
@@ -10,15 +10,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3.0.0
-      - name: Update posts
+      - name: Fetch posts
         run: |
           pip3 install -r requirements.txt
           python3 fetch_data.py
           python3 offline_process.py
       - name: Commit and push
         run: |
-          git config --global user.name 'Update Bot'
+          git config --global user.name 'Fetch Bot'
           git config --global user.email 'noreply@na.com'
           git add docs/_posts
-          git commit -m "Fetch new posts" || true
+          git commit -m "Fetch posts" || true
           git push
