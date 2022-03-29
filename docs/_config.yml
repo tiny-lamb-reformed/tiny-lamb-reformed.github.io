@@ -32,12 +32,11 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name: "First Lastname"
-  bio: "My awesome biography constrained to a sentence or two goes here."
+  name: 小小羊
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://"
+      url: https://mickey1124.pixnet.net/blog
 
 defaults:
   # _posts
