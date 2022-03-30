@@ -10,6 +10,7 @@ def parse_article(path: Path):
     with open(path) as f:
         lines = f.readlines()
         return {
+            "path": path,
             "id": path.name.split("-")[-1].split(".")[0],
             "title": re.findall(r"title: (.*)", lines[1])[0],
             "last_modified": re.findall(r"last_modified_at: (.*)", lines[2])[0],
@@ -31,12 +32,11 @@ def process_all():
         **generate_new_category_links(),
         **generate_new_links(),
     }
-    for post in posts.iterdir():
+    for article in articles:
         try:
-            article = parse_article(post)
             article["title"] = re.sub(r' " (.*) " ', "「\g<1>」", article["title"])
             update_links(new_links, article)
-            write_article(post, article)
+            write_article(article)
         except Exception as e:
             print(f"Process article failed: {article}")
             raise e
@@ -145,10 +145,12 @@ def find_article(article_id, mode="rt"):
     return next(posts.glob(f"*-{article_id}.md"))
 
 
-def write_article(path, data):
+def write_article(data):
+    if "sidebar" not in data:
+        data["sidebar"] = ""
     with open("post_template.md") as f:
         updated = Template(f.read()).substitute(data)
-    with open(path, "w") as f:
+    with open(data["path"], "w") as f:
         f.write(updated)
 
 

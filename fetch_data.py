@@ -3,9 +3,10 @@ from datetime import datetime, timedelta, timezone
 from math import ceil
 from os import remove
 from pathlib import Path
-from string import Template
 
 import requests
+
+from offline_process import write_article
 
 
 def main():
@@ -25,9 +26,9 @@ def main():
             last_modified_local = last_modified(post_name)
             last_modified_source = int(article["last_modified"])
             if last_modified_local != last_modified_source:
-                post_content = get_post(article["id"])
-                with open(post_name, "w") as f:
-                    f.write(post_content)
+                article_data = get_post(article["id"])
+                article_data["path"] = post_name
+                write_article(article_data)
         page += 1
 
     assert list(reversed(sorted(fetched_posts))) == fetched_posts
@@ -49,11 +50,9 @@ def get_pixnet(resource, params={}):
 def get_post(article_id):
     data = get_pixnet(f"articles/{article_id}")
     print(data["message"], article_id)
-
     article = data["article"]
-    with open("post_template.md") as f:
-        article["tags"] = [] # pixnet tags may contain JSON
-        return Template(f.read()).substitute(article)
+    article["tags"] = []  # pixnet tags may contain JSON
+    return article
 
 
 def file_name(article):
