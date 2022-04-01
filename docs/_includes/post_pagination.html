@@ -4,7 +4,9 @@
     {% for menu in navItems %}
       {% if menu.title == page.title %}
         {% assign position = forloop.index0 %}
-        {% assign navPrevious = position | minus: 1 %}
+        {% if position > 0 %}
+          {% assign navPrevious = position | minus: 1 %}
+        {% endif %}
         {% assign navNext = position | plus: 1 %}
         {% break %}
       {% endif %}
