@@ -41,7 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
   if (category) {
     selectCategory(category);
   }
-  $('#search').on('input', function () {
-    showOnlyMatch();
-  });
+
+  var inputtingSearchTerms = false;
+  $('#search')
+    .on('compositionstart', function () { inputtingSearchTerms = true })
+    .on('compositionend', function () { inputtingSearchTerms = false })
+    .on('input', function () {
+      if (!inputtingSearchTerms) {
+        showOnlyMatch();
+      }
+    });
 });
