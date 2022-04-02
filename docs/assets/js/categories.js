@@ -43,12 +43,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   var inputtingSearchTerms = false;
+  var fired = false;
   $('#search')
     .on('compositionstart', function () { inputtingSearchTerms = true })
-    .on('compositionend', function () { inputtingSearchTerms = false })
+    .on('compositionend', function () {
+      inputtingSearchTerms = false;
+      showOnlyMatch();
+      fired = true;
+    })
     .on('input', function () {
-      if (!inputtingSearchTerms) {
+      if (!inputtingSearchTerms && !fired) {
         showOnlyMatch();
       }
+      fired = false;
     });
 });
