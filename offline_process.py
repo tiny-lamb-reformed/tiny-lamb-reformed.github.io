@@ -3,21 +3,24 @@ from pathlib import Path
 from string import Template
 from typing import Tuple
 
+
+import yaml
 from bs4 import BeautifulSoup
 
 
 def parse_article(path: Path):
     with open(path) as f:
+        front_matter = next(yaml.safe_load_all(f))
+        f.seek(0)
         lines = f.readlines()
-        return {
-            "path": path,
-            "id": path.name.split("-")[-1].split(".")[0],
-            "title": re.findall(r"title: (.*)", lines[1])[0],
-            "last_modified": re.findall(r"last_modified_at: (.*)", lines[2])[0],
-            "category": re.findall(r"category: (.*)", lines[3])[0],
-            "tags": re.findall(r"tags: (.*)", lines[4])[0],
-            "body": "".join(lines[7:]),
-        }
+        content = next(i for i, line in enumerate(lines[1:]) if line == "---\n") + 3
+    return {
+        "path": path,
+        "id": path.name.split("-")[-1].split(".")[0],
+        **front_matter,
+        "last_modified": front_matter["last_modified_at"],
+        "body": "".join(lines[content:]),
+    }
 
 
 posts = Path("docs/_posts")
@@ -32,10 +35,23 @@ def process_all():
         **generate_new_category_links(),
         **generate_new_links(),
     }
+
+    with open("docs/_data/navigation.yml") as f:
+        all_nav = yaml.safe_load(f)
+    predestination_series = [
+        child["url"].strip("/posts")
+        for nav in all_nav["predestination"]
+        for child in nav["children"]
+    ]
+
     for article in articles:
         try:
-            article["title"] = re.sub(r' " (.*) " ', "「\g<1>」", article["title"])
+            article["title"] = re.sub(
+                r' " (.*) " ', "「\g<1>」", article["title"]
+            )  # TODO: validation may be needed
             update_links(new_links, article)
+            if article["id"] in predestination_series:
+                article["sidebar"] = "{ title: 預定論精選文章, nav: predestination }"
             write_article(article)
         except Exception as e:
             print(f"Process article failed: {article}")
@@ -180,8 +196,8 @@ def find_article(article_id, mode="rt"):
     return next(posts.glob(f"*-{article_id}.md"))
 
 
-def write_article(data):
-    if "sidebar" not in data:
+def write_article(data: dict):
+    if data.get("sidebar") is None:
         data["sidebar"] = ""
     with open("post_template.md") as f:
         updated = Template(f.read()).substitute(data)

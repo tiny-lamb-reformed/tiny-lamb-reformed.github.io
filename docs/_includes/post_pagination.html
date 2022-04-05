@@ -1,8 +1,12 @@
 {% if page.sidebar.nav or page.previous or page.next %}
   <nav class="pagination">
-    {% assign navItems = site.data.navigation[page.sidebar.nav][0].children %}
+    {% assign navigation = site.data.navigation[page.sidebar.nav] %}
+    {% assign navItems = '' %}
+    {% for nav in navigation %}
+      {% assign navItems = navItems | concat: nav.children %}
+    {% endfor %}
     {% for menu in navItems %}
-      {% if menu.title == page.title %}
+      {% if menu.url == page.url | relative_url %}
         {% assign position = forloop.index0 %}
         {% if position > 0 %}
           {% assign navPrevious = position | minus: 1 %}
