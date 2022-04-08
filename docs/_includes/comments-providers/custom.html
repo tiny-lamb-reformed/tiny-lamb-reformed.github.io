@@ -19,8 +19,9 @@
         <p class="comment__date">
           <a :href="'#comment-' + comment.id" itemprop="url">
             <!-- TODO: fix time format -->
-            <time v-if="comment.created" :datetime="new Date(comment.created_at * 1000)" itemprop="datePublished">{{ new
-              Date(comment.created_at * 1000) }}</time>
+            <time v-if="comment.created_at" :datetime="new Date(comment.created_at * 1000)" itemprop="datePublished">
+              {{ (new Date(comment.created_at * 1000)).toLocaleString("zh") }}
+            </time>
           </a>
         </p>
         <div itemprop="text">{{ htmlDecode(comment.body || '&lt;私人留言&gt;') }}</div>
