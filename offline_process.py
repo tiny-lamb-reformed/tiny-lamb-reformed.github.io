@@ -3,7 +3,6 @@ from pathlib import Path
 from string import Template
 from typing import Tuple
 
-
 import yaml
 from bs4 import BeautifulSoup
 
@@ -38,11 +37,14 @@ def process_all():
 
     with open("docs/_data/navigation.yml") as f:
         all_nav = yaml.safe_load(f)
-    predestination_series = [
-        child["url"].strip("/posts")
-        for nav in all_nav["predestination"]
-        for child in nav["children"]
-    ]
+    series = {
+        category: [
+            child["url"].strip("/posts")
+            for nav in all_nav[category]
+            for child in nav["children"]
+        ]
+        for category in ["predestination", "gospel"]
+    }
 
     for article in articles:
         try:
@@ -50,8 +52,10 @@ def process_all():
                 r' " (.*) " ', "「\g<1>」", article["title"]
             )  # TODO: validation may be needed
             update_links(new_links, article)
-            if article["id"] in predestination_series:
+            if article["id"] in series["predestination"]:
                 article["sidebar"] = "{ title: 預定論精選文章, nav: predestination }"
+            elif article["id"] in series["gospel"]:
+                article["sidebar"] = "{ nav: gospel }"
             write_article(article)
         except Exception as e:
             print(f"Process article failed: {article}")

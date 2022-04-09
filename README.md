@@ -5,7 +5,6 @@
 - links in article
   - blog.roodo.com/yml/...cat
   - verify links
-- javascript clear cache
 - comments
   - https://tiny-lamb-reformed.github.io/posts/269192464/ wrap?
   - reply of comments
