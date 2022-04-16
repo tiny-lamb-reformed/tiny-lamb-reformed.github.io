@@ -1,7 +1,6 @@
 ---
 title: 關於
 layout: single
-permalink: /about
 sidebar:
   nav: about
 ---

@@ -6,7 +6,7 @@
 title: 基督教小小羊園地（移動端鏡像）
 subtitle: 約翰福音8：32　 你們必曉得真理，真理必叫你們得以自由
 email:
-locale: zh-TW # TODO: add sc site: https://lexcao.io/posts/jekyll-multi-language-without-plugin/
+locale: zh-TW
 minimal_mistakes_skin: air
 search: false
 
@@ -16,11 +16,7 @@ remote_theme: mmistakes/minimal-mistakes@4.24.0
 repository: tiny-lamb-reformed/tiny-lamb-reformed.github.io
 
 # Outputting
-permalink: /posts/:title/
 timezone: Asia/Taipei
-
-include:
-  - _pages
 
 # Plugins (previously gems:)
 plugins:
@@ -39,6 +35,12 @@ author:
       url: https://mickey1124.pixnet.net/blog
 
 defaults:
+  - values:
+      locale: zh-TW
+  - scope:
+      path: sc
+    values:
+      locale: zh-CN
   # _posts
   - scope:
       path: ""
@@ -51,13 +53,12 @@ defaults:
       comments: true
       share: true
       related: false
-  # _pages
+      permalink: /posts/:title/
   - scope:
-      path: "_pages"
-      type: pages
+      path: _posts/sc
+      type: posts
     values:
-      layout: single
-      author_profile: false
+      permalink: /sc/posts/:title/
 
 category_groups:
   - title: 信仰與生活
@@ -86,10 +87,6 @@ category_groups:
 category_archive:
   type: liquid
   path: /categories/
-
-tag_archive:
-  type: liquid
-  path: /tags/
 
 comments:
   provider: custom

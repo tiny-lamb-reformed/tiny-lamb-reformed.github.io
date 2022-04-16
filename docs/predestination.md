@@ -1,7 +1,6 @@
 ---
 title: 預定論精選文章：鏡站序
 layout: single
-permalink: /predestination/
 sidebar: { title: 預定論精選文章, nav: predestination }
 ---
 
