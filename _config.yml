@@ -99,6 +99,13 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: next
 
+# Search
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: striptags
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
