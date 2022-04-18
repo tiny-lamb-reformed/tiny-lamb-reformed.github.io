@@ -18,6 +18,7 @@ def parse_article(path: Path):
         "id": path.name.split(".")[0],
         **front_matter,
         "public_at": front_matter["date"],
+        "category": front_matter["pixnet_category"],
         "last_modified": front_matter["updated"],
         "body": "".join(lines[content:]),
     }
@@ -57,6 +58,9 @@ def process_all():
                 article["sidebar"] = "{ title: 預定論精選文章, nav: predestination }"
             elif article["id"] in series["gospel"]:
                 article["sidebar"] = "{ nav: gospel }"
+            article["hexo_categories"] = build_category_hierarchy(
+                article["pixnet_category"]
+            )
             write_article(article)
         except Exception as e:
             print(f"Process article failed: {article}")
@@ -204,6 +208,33 @@ def write_article(data: dict):
         updated = Template(f.read()).substitute(data)
     with open(data["path"], "w") as f:
         f.write(updated)
+
+
+def build_category_hierarchy(category: str):
+    category_groups = {
+        "1. 信仰與生活": ["成聖之路", "信仰與婚姻", "信仰與政治", "信仰與精神、心理、輔導", "聖樂欣賞"],
+        "2. 神學": [
+            "聖經無誤、解經原則",
+            "罪、得救、因信稱義",
+            "預定論與自由意志",
+            "護教、福音",
+            "上帝、耶穌",
+            "禮拜更新" "書籍評論",
+        ],
+        "3. 流行偏差": ["教會流行觀念的偏差", "社會流行觀念的偏差", "現代教會音樂的偏差"],
+        "4. 其他": [],
+    }
+    return [
+        next(
+            (
+                group
+                for group, categories in category_groups.items()
+                if category in categories
+            ),
+            "4. 其他",
+        ),
+        category,
+    ]
 
 
 if __name__ == "__main__":
