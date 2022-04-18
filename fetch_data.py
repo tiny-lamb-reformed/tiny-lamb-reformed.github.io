@@ -1,5 +1,4 @@
 """Fetch data from source website."""
-from datetime import datetime, timedelta, timezone
 from math import ceil
 from os import remove
 from pathlib import Path
@@ -24,15 +23,14 @@ def main():
             post_name = file_name(article)
             fetched_posts.append(post_name)
             last_modified_local = last_modified(post_name)
-            last_modified_source = int(article["last_modified"])
+            last_modified_source = int(article["last_modified"]) * 1000
             if last_modified_local != last_modified_source:
                 article_data = get_post(article["id"])
                 article_data["path"] = post_name
                 write_article(article_data)
         page += 1
 
-    assert list(reversed(sorted(fetched_posts))) == fetched_posts
-    existing_posts = set(map(str, Path("docs/_posts").iterdir()))
+    existing_posts = set(map(str, Path("source/_posts").iterdir()))
     deleted_posts = existing_posts - set(fetched_posts)
     for deleted_post in deleted_posts:
         remove(deleted_post)
@@ -51,21 +49,20 @@ def get_post(article_id):
     data = get_pixnet(f"articles/{article_id}")
     print(data["message"], article_id)
     article = data["article"]
+    article["public_at"] = int(article["public_at"]) * 1000
+    article["last_modified"] = int(article["last_modified"]) * 1000
     article["tags"] = []  # pixnet tags may contain JSON
     return article
 
 
 def file_name(article):
-    published_epoch = int(article["public_at"])
-    tw_timezone = timezone(timedelta(hours=8))
-    published = datetime.fromtimestamp(published_epoch, tw_timezone)
-    return f"docs/_posts/{published.strftime('%Y-%m-%d')}-{article['id']}.md"
+    return f"source/_posts/{article['id']}.md"
 
 
 def last_modified(post) -> int:
     try:
         with open(post) as f:
-            return int(f.readlines()[2].split(":")[-1])
+            return int(f.readlines()[3].split(":")[-1])
     except FileNotFoundError as e:
         print(e)
         return -1
