@@ -35,7 +35,7 @@ custom_file_path:
 scheme: Gemini
 
 # Dark Mode
-darkmode: false
+darkmode: true
 
 # ---------------------------------------------------------------
 # Site Information Settings
@@ -205,7 +205,7 @@ footer:
     color: "#ff0000"
 
   # If not defined, `author` from Hexo `_config.yml` will be used.
-  copyright:
+  copyright: 基督教小小羊園地
 
   # Powered by Hexo & NexT
   powered: true
