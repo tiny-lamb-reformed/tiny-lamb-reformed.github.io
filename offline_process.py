@@ -14,11 +14,11 @@ def parse_article(path: Path):
         lines = f.readlines()
         content = next(i for i, line in enumerate(lines[1:]) if line == "---\n") + 3
     return {
-        "path": path.with_name(f'{path.name.split("-")[-1].split(".")[0]}.md'),
-        "id": path.name.split("-")[-1].split(".")[0],
+        "path": path,
+        "id": path.name.split(".")[0],
         **front_matter,
-        "public_at": "-".join(path.name.split("-")[:-1]),
-        "last_modified": front_matter["last_modified_at"],
+        "public_at": front_matter["date"],
+        "last_modified": front_matter["updated"],
         "body": "".join(lines[content:]),
     }
 
@@ -175,7 +175,7 @@ def group_articles():
         269196064,
     ]
     for id in theme_articles:
-        article = parse_article(find_article(id))
+        article = parse_article(posts / f"{id}.md")
         tag = article["title"].replace("相關文章", "").strip()
         ids = sorted(set(re.findall(r"/posts/(\d+)", article["body"])))
         yield tag, ids
@@ -195,10 +195,6 @@ def update_links(new_links, article):
             br.decompose()
 
     article["body"] = soup.body.decode_contents()
-
-
-def find_article(article_id, mode="rt"):
-    return next(posts.glob(f"*-{article_id}.md"))
 
 
 def write_article(data: dict):
