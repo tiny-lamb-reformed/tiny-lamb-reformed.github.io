@@ -1,0 +1,35 @@
+{%- set toc = page.sidebar['nav'] %}
+{%- if toc %}
+  <!--noindex-->
+  <div class="post-toc site-overview-item animated">
+    <ol class="nav">
+      {%- for nav in site.data.navigation[toc] %}
+        {%- set active = false %}
+        {%- for child in nav.children %}
+          {%- if child.url === page.path %}
+            {%- set active = true %}
+          {% endif %}
+        {%- endfor %}
+        <li class="nav-item nav-level-3 {%- if active %} active{% endif %}">
+          <a>{{ nav.title }}</a>
+          <ol class="nav-child">
+            {%- for child in nav.children %}
+              <li class="nav-item nav-level-4 {%- if child.url === page.path %} active{% endif %}">
+                <a href="{{ '/' + child.url }}" title="{{ child.title }}">{{ child.title }}</a>
+              </li>
+            {%- endfor %}
+          </ol>
+        </li>
+      {%- endfor %}
+    </ol>
+  </div>
+  <!--/noindex-->
+  <script>
+    let navItems = document.querySelectorAll('.nav-item.nav-level-3');
+    navItems.forEach(
+      element => element.addEventListener('click', 
+        () => navItems.forEach(active => active.classList.toggle('active', active === element))
+      )
+    );
+  </script>
+{%- endif %}

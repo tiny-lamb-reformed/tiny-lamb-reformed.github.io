@@ -89,9 +89,10 @@ gospel:
         url: /categories/#護教、福音
 
 predestination:
-  - children:
+  - title: 前言
+    children:
       - title: 鏡站序
-        url: /predestination/
+        url: predestination/
       - title: 揀選與預定的教義，我們有辦法逃避嗎？
         url: posts/269192052/
       - title: 教會歷史上，兩大關於預定教義的陣營
