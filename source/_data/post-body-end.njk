@@ -1,0 +1,40 @@
+{%- set prev = null %}
+{%- set next = null %}
+{%- set prev_post = null %}
+{%- set capture_next = false %}
+{%- for nav in site.data.navigation[post.sidebar['nav']] %}
+  {%- for child in nav.children %}
+    {%- if capture_next %}
+      {%- set next = child %}
+      {%- set capture_next = false %}
+    {%- endif %}
+    {%- if child.url === post.path %}
+      {%- set prev = prev_post %}
+      {%- set capture_next = true %}
+    {%- endif %}
+    {%- set prev_post = child %}
+  {%- endfor %}
+{%- endfor %}
+
+{%- if not (prev or next) %}
+  {%- set prev = post.next %}
+  {%- set next = post.prev %}
+{%- endif %}
+{%- if prev or next %}
+  <div class="post-nav">
+    <div class="post-nav-item">
+      {%- if prev %}
+        <a href="{{ url_for(prev.url or prev.path) }}" rel="prev" title="{{ prev.title }}">
+          <i class="fa fa-chevron-left"></i> {{ prev.title }}
+        </a>
+      {%- endif %}
+    </div>
+    <div class="post-nav-item">
+      {%- if next %}
+        <a href="{{ url_for(next.url or next.path) }}" rel="next" title="{{ next.title }}">
+          {{ next.title }} <i class="fa fa-chevron-right"></i>
+        </a>
+      {%- endif %}
+    </div>
+  </div>
+{%- endif %}
