@@ -1,0 +1,90 @@
+{%- set isPost = r/^post/g %}
+{%- if isPost.test(page.path) %}
+  <link rel="stylesheet" href="/css/isso.css">
+  <section class="comments" id="pixnet-thread">
+    <noscript>Please enable JavaScript to view the comments powered by Pixnet.</noscript>
+    <h4 v-if="total > 0" v-text="total + ' 則留言'"></h4>
+    <div id="isso-root" v-if="totalPages.length > 0">
+      <div :id="'comment-' + comment.id" class="isso-comment" v-for="comment in comments">
+        <div class="isso-avatar">
+          <img :alt="comment.author" :src="comment.avatar">
+        </div>
+        <div class="isso-text-wrapper">
+          <div class="isso-comment-header" role="meta">
+            <span class="isso-author" v-text="comment.author || '匿名'"></span>
+            <span class="isso-spacer">•</span>
+            <a :href="'#comment-' + comment.id" class="isso-permalink">
+              <time v-if="comment.created_at" :datetime="new Date(comment.created_at * 1000).toISOString()"
+                    v-text="new Date(comment.created_at * 1000).toLocaleString('zh')">
+              </time>
+              <span v-else>某時某刻</span>
+            </a>
+          </div>
+          <div class="isso-text" v-text="htmlDecode(comment.body || '&lt;私人留言&gt;')"></div>
+        </div>
+      </div>
+    </div>
+    <nav class="pagination animated fadeIn" v-if="totalPages.length > 1">
+      <a v-if="currentPage > 1" class="extend prev" rel="prev" href="javascript:void(0)" @click="prevComments">
+        <i class="fa fa-angle-left" aria-label="上一頁"></i>
+      </a>
+      <template v-for="page in totalPages">
+        <a v-if="currentPage !== page" class="page-number" href="javascript:void(0)" @click="getComments(page)" v-text="page"></a>
+        <span v-else class="page-number current" v-text="page"></span>
+      </template>
+      <a v-if="currentPage < totalPages.length" class="extend next" rel="next" href="javascript:void(0)" @click="nextComments">
+        <i class="fa fa-angle-right" aria-label="下一頁"></i>
+      </a>
+    </nav>
+  </section>
+  <!-- <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.prod.js"></script> -->
+  <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
+  <!-- TODO: add integrity -->
+  <script>
+    var PixnetComments = {
+      data() {
+        return {
+          articleId: '{{ page.path }}'.split('/')[1],
+          currentPage: 1,
+          total: 0,
+          totalPages: [],
+          comments: []
+        }
+      },
+      methods: {
+        getComments(page) {
+          this.currentPage = page;
+
+          var vm = this;
+          var xhr = new XMLHttpRequest();
+          var PRE_PAGE = 20;
+          var url = 'https://emma.pixnet.cc/blog/articles/' + this.articleId + '/comments'
+            + '?user=mickey1124&page=' + this.currentPage + '&per_page=' + PRE_PAGE;
+          xhr.open('GET', url);
+          xhr.onload = function () {
+            if (xhr.status === 200) {
+              var resp = JSON.parse(xhr.responseText);
+              console.log(resp.message);
+              vm.total = resp.total;
+              vm.totalPages = [];
+              for (var i = 1; i <= Math.ceil(resp.total / PRE_PAGE); i++) {
+                vm.totalPages.push(i);
+              }
+              vm.comments = resp.comments;
+            }
+          }
+          // TODO: add error handling
+          xhr.send();
+        },
+        prevComments() { this.getComments(this.currentPage - 1); },
+        nextComments() { this.getComments(this.currentPage + 1); },
+        htmlDecode(input) {
+          var doc = new DOMParser().parseFromString(input, "text/html");
+          return doc.documentElement.textContent;
+        }
+      }
+    };
+    var vm = Vue.createApp(PixnetComments).mount('#pixnet-thread');
+    vm.getComments(1);
+  </script>
+{%- endif %}
