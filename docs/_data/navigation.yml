@@ -1,10 +1,10 @@
 main:
   - title: 護教、福音
-    url: posts/269191748/
+    url: /posts/269191748/
   - title: 所有文章分類
-    url: categories
+    url: /categories
   - title: 關於
-    url: about
+    url: /about
 
 gospel:
   - title: 說明
