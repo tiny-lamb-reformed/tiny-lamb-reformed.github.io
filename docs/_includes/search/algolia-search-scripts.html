@@ -1,7 +1,8 @@
 <!-- Including InstantSearch.js library and styling -->
 <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch-lite.umd.js" integrity="sha256-dImjLPUsG/6p3+i7gVKBiDM8EemJAhQ0VvkRK2pVsQY=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.46.2/dist/instantsearch.production.min.js" integrity="sha256-ZyB2MNb5ZWtSnHS+PBJebb+NFWDxb2qQiVmN5S7DFqc=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.4.5/themes/reset-min.css" integrity="sha256-QlHlZdbSVxaYkUHxhMFhAj/L3pJiW1LuomSCONXBWms=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
 <script>
 // Instanciating InstantSearch.js with Algolia credentials
 const searchClient = algoliasearch('{{ site.algolia.application_id }}', '{{ site.algolia.search_only_api_key }}');
