@@ -6,8 +6,7 @@ from offline_process import articles
 index = [
     {
         "title": article["title"],
-        "category": article["category"],
-        "body": BeautifulSoup(article["body"], features="lxml").get_text(),
+        "content": BeautifulSoup(article["body"], features="lxml").get_text(),
     }
     for article in articles
     if article["category"] != "複習"
