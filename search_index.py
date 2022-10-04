@@ -5,6 +5,7 @@ from offline_process import articles
 
 index = [
     {
+        "url": f"/posts/{article['id']}",
         "title": article["title"],
         "content": BeautifulSoup(article["body"], features="lxml").get_text(),
     }
