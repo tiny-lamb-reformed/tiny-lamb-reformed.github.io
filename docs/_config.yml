@@ -8,7 +8,7 @@ subtitle: 約翰福音8：32　 你們必曉得真理，真理必叫你們得以
 email:
 locale: zh-TW
 minimal_mistakes_skin: air
-search: false
+search: true
 
 # Build settings
 markdown: kramdown
@@ -26,6 +26,13 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+
+search_provider: algolia
+algolia:
+  application_id: 8QSPV5R7NU
+  index_name: posts
+  search_only_api_key: 92a22fa4f557ba2b59ca4ecd2b025590
+  powered_by: true
 
 author:
   name: 小小羊
