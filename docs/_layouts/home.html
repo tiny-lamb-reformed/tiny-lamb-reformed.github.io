@@ -4,14 +4,15 @@ layout: archive
 
 {{ content }}
 
-<h3 class="archive__subtitle">{{ site.data.ui-text[page.locale].recent_posts | default: "Recent Posts" }}</h3>
-
 {% assign entries_layout = page.entries_layout | default: 'list' %}
-<div class="entries-{{ entries_layout }}">
-  {% for post in site.posts limit:7 %}
-    {% include archive-single.html type=entries_layout %}
-  {% endfor %}
-</div>
+<section class="taxonomy__section">
+  <h3 class="archive__subtitle">{{ site.data.ui-text[page.locale].recent_posts | default: "Recent Posts" }}</h3>
+  <div class="entries-{{ entries_layout }}">
+    {% for post in site.posts limit:7 %}
+      {% include archive-single.html type=entries_layout %}
+    {% endfor %}
+  </div>
+</section>
 
 <h3 class="archive__subtitle">所有文章分類</h3>
 
