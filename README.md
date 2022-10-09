@@ -1,4 +1,4 @@
-這是基督教小小羊園地的 Responsive 版本。
+這是基督教小小羊園地的 Responsive 版本，使用了 GitHub Pages, Jekyll, Vue, Algolia。
 
 ## TODOs
 - 連結 page
