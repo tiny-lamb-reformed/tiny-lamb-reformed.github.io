@@ -33,7 +33,7 @@ layout: default
     <input type="text" id="search" class="search-input" placeholder="快速搜尋..." />
     
     <section class="taxonomy__section">
-      <div class="entries-list">
+      <div class="entries-list list">
         {% for post in site.posts %}
           <div class="{{ include.type | default: 'list' }}__item">
             <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork" data-category="{{ post.categories[0] }}">
