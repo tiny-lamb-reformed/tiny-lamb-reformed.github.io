@@ -50,6 +50,22 @@ layout: default
           </div>
         {% endfor %}
       </div>
+      <nav class="pagination"></nav>
     </section>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.js"></script>
+<script>
+  var options = {
+    valueNames: [
+      'archive__item-title',
+      'archive__item-excerpt',
+      { name: 'archive__item', attr: 'data-category' }
+    ],
+    page: 20,
+    pagination: {
+      outerWindow: 1
+    }
+  }
+  var articles = new List('main', options)
+</script>
