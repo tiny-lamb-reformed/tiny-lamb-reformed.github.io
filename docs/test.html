@@ -30,7 +30,7 @@ layout: default
     </div>
 
     <h2>全部文章</h2>
-    <input type="text" id="search" class="search-input" placeholder="快速搜尋..." />
+    <input type="search" class="search" placeholder="快速搜尋..." />
     
     <section class="taxonomy__section">
       <div class="entries-list list">
@@ -67,5 +67,21 @@ layout: default
       outerWindow: 1
     }
   }
-  var articles = new List('main', options)
+  var articles = new List('main', options);
+
+  function filteritems() {
+    if (location.hash === '') {
+      articles.filter();
+    }
+    else {
+      articles.filter(function (item) {
+        var category = item.values()['archive__item'].replace(/、/g, '-');
+        return category === decodeURI(location.hash).substring(1);
+      });
+    }
+  }
+  window.onhashchange = filteritems;
 </script>
+<style>
+  a.page { width: auto; }
+</style>
