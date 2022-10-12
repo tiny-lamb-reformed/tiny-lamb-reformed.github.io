@@ -26,7 +26,11 @@ layout: default
     </div>
 
     <section class="taxonomy__section">
-      <h2>全部文章 > 成聖之路</h2>
+      <div>
+        <h2 class="archive__subtitle">全部文章<span> > 成聖之路</span></h2>
+        <button type="button">List</button>
+        <button type="button">Details</button>
+      </div>
       <input type="search" class="search" placeholder="快速搜尋..." />
       <div class="entries-list list">
         {% for post in site.posts %}
@@ -45,7 +49,7 @@ layout: default
           </div>
         {% endfor %}
       </div>
-      <nav class="pagination"></nav>
+      <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
     </section>
   </div>
 </div>
@@ -56,11 +60,7 @@ layout: default
       'archive__item-title',
       'archive__item-excerpt',
       { name: 'archive__item', attr: 'data-category' }
-    ],
-    page: 20,
-    pagination: {
-      outerWindow: 1
-    }
+    ]
   }
   var articles = new List('main', options);
 
@@ -77,6 +77,3 @@ layout: default
   }
   window.onhashchange = filteritems;
 </script>
-<style>
-  a.page { width: auto; }
-</style>
