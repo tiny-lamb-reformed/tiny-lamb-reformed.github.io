@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
   <link rel="stylesheet" href="https://tiny-lamb-reformed.github.io/assets/css/main.css">
   <title>Test List</title>
 </head>
@@ -14,9 +15,21 @@
     <a href="#">全部</a>
     <div class="archive">
       <section class="taxonomy__section">
-        <h2 class="archive__subtitle"><a href='#'>全部文章</a><span> > 成聖之路</span></h2>
-        <input type="search" class="search search-input" placeholder="normal search">
-        <div class="entries-list">
+        <div style="display: flex; align-items: baseline">
+          <h2 class="archive__subtitle"><a href='#'>全部文章</a><span id="selected-catagory"> > 成聖之路</span></h2>
+          <div style="flex: 1">
+          </div>
+          <button class="search__toggle" type="button" onclick="showDetails()">
+            <span class="visually-hidden">切換搜索</span>
+            <i class="fas fa-newspaper"></i>
+          </button>
+          <button class="search__toggle" type="button" onclick="hideDetails()">
+            <span class="visually-hidden">切換搜索</span>
+            <i class="fas fa-list"></i>
+          </button>
+        </div>
+        <input type="search" class="search" placeholder="快速搜尋...">
+        <div id="detailed-list" class="entries-list">
           <div class="list__item" data-category="複習">
             <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
               <h2 class="archive__item-title no_toc" itemprop="headline">
@@ -109,14 +122,14 @@
             </article>
           </div>
         </div>
+        <div id="simple-list">
+          <ul class="list">
+            <li data-category="複習"><a class="listjs-title" href="#">複習：現今還要守十一奉獻嗎？</a></li>
+            <li data-category="教會流行觀念的偏差"><a href='#'>發問：教會可以出借場地給人辦語文學校嗎？</a></li>
+            <li data-category="成聖之路"><a href='#'>發問：這是上帝管教嗎？</a></li>
+          </ul>
+        </div>
       </section>
-    </div>
-    <div>
-      <ul class="list">
-        <li data-category="複習"><a class="listjs-title" href="#">複習：現今還要守十一奉獻嗎？</a></li>
-        <li data-category="教會流行觀念的偏差"><a href='#'>發問：教會可以出借場地給人辦語文學校嗎？</a></li>
-        <li data-category="成聖之路"><a href='#'>發問：這是上帝管教嗎？</a></li>
-      </ul>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.js"></script>
