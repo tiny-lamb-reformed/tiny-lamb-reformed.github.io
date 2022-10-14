@@ -69,11 +69,11 @@ layout: default
         <div style="flex: 1">
         </div>
         <button class="list-display-toggle" type="button" onclick="showDetails()">
-          <span class="visually-hidden">TODO</span>
+          <span class="visually-hidden">文章預覽</span>
           <i class="fas fa-newspaper"></i>
         </button>
         <button class="list-display-toggle" type="button" onclick="hideDetails()">
-          <span class="visually-hidden">TODO</span>
+          <span class="visually-hidden">清單</span>
           <i class="fas fa-list"></i>
         </button>
       </div>
@@ -104,9 +104,9 @@ layout: default
           {% endfor %}
         </ul>
       </div>
-      <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
+      <a href="#" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
     </section>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.js"></script>
-<script src="/docs/assets/js/article_list.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/list.js@2.3.1/dist/list.min.js" integrity="sha256-NEVvGNMGqFvs6adGLZjm5sLgcuX9rGTg1wlGtA1f7M8=" crossorigin="anonymous"></script>
+<script src="/assets/js/article_list.js"></script>
