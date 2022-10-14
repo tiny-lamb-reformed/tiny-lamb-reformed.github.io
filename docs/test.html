@@ -43,7 +43,7 @@ layout: default
                 {% for category in site.categories %}
                   {% if category[1].size == i and show_categories contains category[0] %}
                     <li>
-                      <a href="#{{ category[0] | slugify }}" data-category="{{ category[0] }}" onclick="selectCategory('{{ category[0] }}')">
+                      <a href="#{{ category[0] | slugify }}" onclick="highlight(this)">
                         {{ category[0] }} <span class="taxonomy__count">({{ i }})</span>
                       </a>
                     </li>

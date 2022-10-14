@@ -25,6 +25,27 @@ else {
   showDetails();
 }
 
+setupSearchBar();
+
+
+function setupSearchBar() {
+  var searchBar = document.querySelector('input[type="search"]');
+  var inputtingSearchTerms = false;
+  var fired = false;
+  searchBar.addEventListener('compositionstart', function () { inputtingSearchTerms = true });
+  searchBar.addEventListener('compositionend', function () {
+    inputtingSearchTerms = false;
+    search(searchBar.value);
+    fired = true;
+  });
+  searchBar.addEventListener('input', function () {
+    if (!inputtingSearchTerms && !fired) {
+      search(searchBar.value);
+    }
+    fired = false;
+  });
+}
+
 function refreshList() {
   detailedList.filter(categorySelected);
   simpleList.filter(categorySelected);
@@ -50,4 +71,14 @@ function hideDetails() {
 
 function updateBreadCrumb(category) {
   document.querySelector('#selected-catagory').textContent = category !== '' ? ' > ' + category : '';
+}
+
+function highlight(element) {
+  $('.nav__items li a').removeClass('active');
+  element.classList.add('active');
+}
+
+function search(keyword) {
+  detailedList.search(keyword);
+  simpleList.search(keyword);
 }
