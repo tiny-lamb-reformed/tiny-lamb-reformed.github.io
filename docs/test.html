@@ -26,21 +26,29 @@ layout: default
     </div>
 
     <section class="taxonomy__section">
-      <div>
-        <h2 class="archive__subtitle">全部文章<span> > 成聖之路</span></h2>
-        <button type="button">List</button>
-        <button type="button">Details</button>
+      <div style="display: flex; align-items: baseline">
+        <h2 class="archive__subtitle"><a href='#'>全部文章</a><span id="selected-catagory"></span></h2>
+        <div style="flex: 1">
+        </div>
+        <button class="search__toggle" type="button" onclick="showDetails()">
+          <span class="visually-hidden">TODO</span>
+          <i class="fas fa-newspaper"></i>
+        </button>
+        <button class="search__toggle" type="button" onclick="hideDetails()">
+          <span class="visually-hidden">TODO</span>
+          <i class="fas fa-list"></i>
+        </button>
       </div>
-      <input type="search" class="search" placeholder="快速搜尋..." />
-      <div class="entries-list list">
+      <input type="search" class="search" placeholder="快速搜尋...">
+      <div id="detailed-list" class="entries-list">
         {% for post in site.posts %}
-          <div class="{{ include.type | default: 'list' }}__item">
-            <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork" data-category="{{ post.categories[0] }}">
+          <div class="{{ include.type | default: 'list' }}__item" data-category="{{ post.categories[0] }}">
+            <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
               <h2 class="archive__item-title no_toc" itemprop="headline">
                 {% if post.link %}
-                  <a href="{{ post.link }}">{{ post.title }}</a> <a href="{{ post.url | relative_url }}" rel="permalink"><i class="fas fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+                  <a href="{{ post.link }}" class="listjs-title">{{ post.title }}</a> <a href="{{ post.url | relative_url }}" rel="permalink"><i class="fas fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
                 {% else %}
-                  <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a>
+                  <a href="{{ post.url | relative_url }}" rel="permalink" class="listjs-title">{{ post.title }}</a>
                 {% endif %}
               </h2>
               {% include page__meta.html type=include.type %}
@@ -49,31 +57,18 @@ layout: default
           </div>
         {% endfor %}
       </div>
+      <div id="simple-list">
+        <ul class="list">
+          {% for post in site.posts %}
+            <li data-category="{{ post.categories[0] }}">
+              <a href="{{ post.url | relative_url }}" rel="permalink" class="listjs-title">{{ post.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
       <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
     </section>
   </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.js"></script>
-<script>
-  var options = {
-    valueNames: [
-      'archive__item-title',
-      'archive__item-excerpt',
-      { name: 'archive__item', attr: 'data-category' }
-    ]
-  }
-  var articles = new List('main', options);
-
-  function filteritems() {
-    if (location.hash === '') {
-      articles.filter();
-    }
-    else {
-      articles.filter(function (item) {
-        var category = item.values()['archive__item'].replace(/、/g, '-');
-        return category === decodeURI(location.hash).substring(1);
-      });
-    }
-  }
-  window.onhashchange = filteritems;
-</script>
+<script src="/docs/assets/js/article_list.js"></script>
