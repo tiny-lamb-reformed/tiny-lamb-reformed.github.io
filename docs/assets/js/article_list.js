@@ -55,14 +55,18 @@ function setupSearchBar() {
 function refreshList() {
   detailedList.filter(categorySelected);
   simpleList.filter(categorySelected);
-  var currentSelected = decodeURI(location.hash).substring(1).replace(/\-/g, '、');
+  var currentSelected = decodeURI(location.hash).substring(1);
   updateBreadCrumb(currentSelected);
 }
 
 function categorySelected(item) {
   var category = item.values()['category'].replace(/、/g, '-');
   var currentSelected = decodeURI(location.hash).substring(1);
-  return currentSelected === '' ? true : category === currentSelected;
+  return categoryExists(currentSelected) ? category === currentSelected : true;
+}
+
+function categoryExists(category) {
+  return document.querySelector('.nav__items li a[href="#' + category + '"]') !== null;
 }
 
 function showDetails() {
@@ -77,7 +81,7 @@ function hideDetails() {
 
 function updateBreadCrumb(category) {
   var selectedCategory = document.getElementById('selected-catagory');
-  selectedCategory.textContent = category !== '' ? ' > ' + category : '';
+  selectedCategory.textContent = categoryExists(category) ? ' > ' + category.replace(/\-/g, '、') : '';
   selectedCategory.scrollIntoView()
 }
 
