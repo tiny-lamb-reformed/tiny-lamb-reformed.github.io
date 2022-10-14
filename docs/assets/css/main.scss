@@ -1,8 +1,4 @@
----
-# Only the main Sass file needs front matter (the dashes are enough)
----
-
-@charset "utf-8";
+--- # Only the main Sass file needs front matter (the dashes are enough) --- @charset "utf-8";
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
@@ -25,6 +21,22 @@ html {
 
 .search__toggle {
   margin: 0 0.5rem;
+}
+
+.list-display-toggle {
+  margin: 0 0.5rem;
+  height: $nav-toggle-height;
+  border: 0;
+  outline: none;
+  color: $primary-color;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+
+  &:hover {
+    color: mix(#000, $primary-color, 25%);
+  }
 }
 
 .comment__content-wrapper {
