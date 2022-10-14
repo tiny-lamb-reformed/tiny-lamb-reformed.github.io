@@ -32,6 +32,12 @@ function setupSearchBar() {
   var searchBar = document.querySelector('input[type="search"]');
   var inputtingSearchTerms = false;
   var fired = false;
+
+  function search(keyword) {
+    detailedList.search(keyword);
+    simpleList.search(keyword);
+  }
+
   searchBar.addEventListener('compositionstart', function () { inputtingSearchTerms = true });
   searchBar.addEventListener('compositionend', function () {
     inputtingSearchTerms = false;
@@ -78,9 +84,4 @@ function updateBreadCrumb(category) {
 function highlight(element) {
   $('.nav__items li a').removeClass('active');
   element.classList.add('active');
-}
-
-function search(keyword) {
-  detailedList.search(keyword);
-  simpleList.search(keyword);
 }

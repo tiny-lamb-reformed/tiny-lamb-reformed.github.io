@@ -77,7 +77,7 @@ layout: default
           <i class="fas fa-list"></i>
         </button>
       </div>
-      <input type="search" class="search" placeholder="快速搜尋...">
+      <input type="search" placeholder="快速搜尋...">
       <div id="detailed-list" class="entries-list">
         {% for post in site.posts %}
           <div class="{{ include.type | default: 'list' }}__item" data-category="{{ post.categories[0] }}">
