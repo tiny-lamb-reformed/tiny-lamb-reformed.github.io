@@ -25,7 +25,7 @@ else {
   showDetails();
 }
 
-setupSearchBar();
+document.addEventListener("DOMContentLoaded", setupSearchBar);
 
 
 function setupSearchBar() {
