@@ -60,17 +60,19 @@ function categorySelected(item) {
 }
 
 function showDetails() {
-  document.querySelector('#detailed-list').style.display = '';
-  document.querySelector('#simple-list').style.display = 'none';
+  document.getElementById('detailed-list').style.display = '';
+  document.getElementById('simple-list').style.display = 'none';
 }
 
 function hideDetails() {
-  document.querySelector('#detailed-list').style.display = 'none';
-  document.querySelector('#simple-list').style.display = '';
+  document.getElementById('detailed-list').style.display = 'none';
+  document.getElementById('simple-list').style.display = '';
 }
 
 function updateBreadCrumb(category) {
-  document.querySelector('#selected-catagory').textContent = category !== '' ? ' > ' + category : '';
+  var selectedCategory = document.getElementById('selected-catagory');
+  selectedCategory.textContent = category !== '' ? ' > ' + category : '';
+  selectedCategory.scrollIntoView()
 }
 
 function highlight(element) {
