@@ -25,7 +25,7 @@ else {
   showDetails();
 }
 
-document.addEventListener("DOMContentLoaded", setupSearchBar);
+setupSearchBar();
 
 
 function setupSearchBar() {
@@ -53,20 +53,32 @@ function setupSearchBar() {
 }
 
 function refreshList() {
+  var selectedCategory = decodeURI(location.hash).substring(1);
+  var selectedMenuItem = document.querySelector('.nav__items li a[href="#' + selectedCategory + '"]');
+  var categoryExists = selectedMenuItem !== null;
+
+  function categorySelected(item) {
+    var category = item.values()['category'].replace(/、/g, '-');
+    return categoryExists ? category === selectedCategory : true;
+  }
+
+  function updateBreadCrumb(category) {
+    var breadCrumb = document.getElementById('selected-catagory');
+    breadCrumb.textContent = categoryExists ? ' > ' + category.replace(/\-/g, '、') : '';
+    breadCrumb.scrollIntoView()
+  }
+
+  function highlightMenuItem(element) {
+    document.querySelectorAll('.nav__items li a').forEach(function (element) {
+      element.classList.remove('active');
+    });
+    element.classList.add('active');
+  }
+
   detailedList.filter(categorySelected);
   simpleList.filter(categorySelected);
-  var currentSelected = decodeURI(location.hash).substring(1);
-  updateBreadCrumb(currentSelected);
-}
-
-function categorySelected(item) {
-  var category = item.values()['category'].replace(/、/g, '-');
-  var currentSelected = decodeURI(location.hash).substring(1);
-  return categoryExists(currentSelected) ? category === currentSelected : true;
-}
-
-function categoryExists(category) {
-  return document.querySelector('.nav__items li a[href="#' + category + '"]') !== null;
+  updateBreadCrumb(selectedCategory);
+  highlightMenuItem(selectedMenuItem);
 }
 
 function showDetails() {
@@ -77,15 +89,4 @@ function showDetails() {
 function hideDetails() {
   document.getElementById('detailed-list').style.display = 'none';
   document.getElementById('simple-list').style.display = '';
-}
-
-function updateBreadCrumb(category) {
-  var selectedCategory = document.getElementById('selected-catagory');
-  selectedCategory.textContent = categoryExists(category) ? ' > ' + category.replace(/\-/g, '、') : '';
-  selectedCategory.scrollIntoView()
-}
-
-function highlight(element) {
-  $('.nav__items li a').removeClass('active');
-  element.classList.add('active');
 }
