@@ -9,6 +9,7 @@ var articleList = new List('main', {
 });
 
 window.onhashchange = refreshList;
+refreshList();
 setupSearchBar();
 
 
