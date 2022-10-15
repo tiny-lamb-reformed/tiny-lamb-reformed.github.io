@@ -64,11 +64,13 @@ function refreshList() {
     breadCrumb.scrollIntoView()
   }
 
-  function highlightMenuItem(element) {
-    document.querySelectorAll('.nav__items li a').forEach(function (element) {
-      element.classList.remove('active');
+  function highlightMenuItem(menuItem) {
+    document.querySelectorAll('.nav__items li a').forEach(function (menuItem) {
+      menuItem.classList.remove('active');
     });
-    element.classList.add('active');
+    if (menuItem) {
+      menuItem.classList.add('active');
+    }
   }
 
   if (categoryExists) {
