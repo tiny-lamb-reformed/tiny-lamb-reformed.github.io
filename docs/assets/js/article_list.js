@@ -3,6 +3,7 @@ var articleList = new List('main', {
     'listjs-title',
     { data: ['category'] }
   ],
+  searchDelay: 500,
   pagination: true,
   page: 500
 });
