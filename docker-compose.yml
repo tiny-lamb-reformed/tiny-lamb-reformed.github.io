@@ -1,11 +1,7 @@
 services:
   jekyll:
-    image: jekyll/jekyll:3
-    entrypoint: jekyll serve
+    build: .
+    volumes:
+      - ./docs:/home
     ports:
       - "4000:4000"
-    volumes:
-      - "./docs:/srv/jekyll"
-      - "./test_posts:/srv/jekyll/_posts"
-    dns:
-      - 10.30.0.2
