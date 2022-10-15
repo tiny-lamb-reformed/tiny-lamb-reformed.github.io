@@ -29,7 +29,7 @@ setupSearchBar();
 
 
 function setupSearchBar() {
-  var searchBar = document.querySelector('input[type="search"]');
+  var searchBar = document.getElementById('quick-search');
   var inputtingSearchTerms = false;
   var fired = false;
 
@@ -54,17 +54,13 @@ function setupSearchBar() {
 
 function refreshList() {
   var selectedCategory = decodeURI(location.hash).substring(1);
+  var selectedCategoryText = selectedCategory.replace(/\-/g, '、');
   var selectedMenuItem = document.querySelector('.nav__items li a[href="#' + selectedCategory + '"]');
   var categoryExists = selectedMenuItem !== null;
 
-  function categorySelected(item) {
-    var category = item.values()['category'].replace(/、/g, '-');
-    return categoryExists ? category === selectedCategory : true;
-  }
-
-  function updateBreadCrumb(category) {
+  function updateBreadCrumb(categoryText) {
     var breadCrumb = document.getElementById('selected-catagory');
-    breadCrumb.textContent = categoryExists ? ' > ' + category.replace(/\-/g, '、') : '';
+    breadCrumb.textContent = categoryExists ? ' > ' + categoryText : '';
     breadCrumb.scrollIntoView()
   }
 
@@ -75,9 +71,18 @@ function refreshList() {
     element.classList.add('active');
   }
 
-  detailedList.filter(categorySelected);
-  simpleList.filter(categorySelected);
-  updateBreadCrumb(selectedCategory);
+  if (categoryExists) {
+    function categorySelected(item) {
+      return item.values()['category'] === selectedCategoryText;
+    }
+    detailedList.filter(categorySelected);
+    simpleList.filter(categorySelected);
+  }
+  else {
+    detailedList.filter();
+    simpleList.filter();
+  }
+  updateBreadCrumb(selectedCategoryText);
   highlightMenuItem(selectedMenuItem);
 }
 
