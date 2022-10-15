@@ -59,49 +59,24 @@ layout: default
 
   <div class="archive">
     <section class="taxonomy__section">
-      <div style="display: flex; align-items: baseline">
-        <h1 class="archive__subtitle"><a href="#all">全部文章</a><span id="selected-catagory"></span></h1>
-        <div style="flex: 1">
-        </div>
-        <button class="list-display-toggle" type="button" onclick="showDetails()">
-          <span class="visually-hidden">文章預覽</span>
-          <i class="fas fa-newspaper"></i>
-        </button>
-        <button class="list-display-toggle" type="button" onclick="hideDetails()">
-          <span class="visually-hidden">清單</span>
-          <i class="fas fa-list"></i>
-        </button>
-      </div>
-      <input id="quick-search" type="search" placeholder="快速搜尋...">
-      <div id="detailed-list" class="entries-list">
+      <h1 class="archive__subtitle"><a href="#all">全部文章</a><span id="selected-catagory"></span></h1>
+      <input id="listjs-search" type="search" placeholder="快速搜尋...">
+      <ul class="list">
         {% for post in site.posts %}
-          <div class="{{ include.type | default: 'list' }}__item" data-category="{{ post.categories[0] }}">
-            <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-              <h2 class="archive__item-title no_toc" itemprop="headline">
-                {% if post.link %}
-                  <a href="{{ post.link }}" class="listjs-title">{{ post.title }}</a> <a href="{{ post.url | relative_url }}" rel="permalink"><i class="fas fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
-                {% else %}
-                  <a href="{{ post.url | relative_url }}" rel="permalink" class="listjs-title">{{ post.title }}</a>
-                {% endif %}
-              </h2>
-              {% include page__meta.html type=include.type %}
-              {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
-            </article>
-          </div>
+          <li data-category="{{ post.categories[0] }}">
+            <a href="{{ post.url | relative_url }}" rel="permalink" class="listjs-title">{{ post.title }}</a>
+          </li>
         {% endfor %}
-      </div>
-      <div id="simple-list">
-        <ul class="list">
-          {% for post in site.posts %}
-            <li data-category="{{ post.categories[0] }}">
-              <a href="{{ post.url | relative_url }}" rel="permalink" class="listjs-title">{{ post.title }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+      </ul>
+      <ul class="pagination"></ul>
       <a href="#" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
     </section>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/list.js@2.3.1/dist/list.min.js" integrity="sha256-NEVvGNMGqFvs6adGLZjm5sLgcuX9rGTg1wlGtA1f7M8=" crossorigin="anonymous"></script>
-<script src="/assets/js/article_list.js?1"></script>
+<script src="/assets/js/article_list.js"></script>
+<style>
+  a.page {
+    width: auto;
+  }
+</style>

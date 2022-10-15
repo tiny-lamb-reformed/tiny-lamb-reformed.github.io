@@ -11,132 +11,31 @@
 
 <body>
   <div id="main" role="main">
-
     <ol class="nav__items">
       <li><a href="#複習">複習</a></li>
       <li><a href="#教會-流行觀念的偏差">教會、流行觀念的偏差</a></li>
     </ol>
     <div class="archive">
       <section class="taxonomy__section">
-        <div style="display: flex; align-items: baseline">
-          <h2 class="archive__subtitle"><a href='#all'>全部文章</a><span id="selected-catagory"> > 成聖之路</span></h2>
-          <div style="flex: 1">
-          </div>
-          <button class="search__toggle" type="button" onclick="showDetails()">
-            <span class="visually-hidden">切換搜索</span>
-            <i class="fas fa-newspaper"></i>
-          </button>
-          <button class="search__toggle" type="button" onclick="hideDetails()">
-            <span class="visually-hidden">切換搜索</span>
-            <i class="fas fa-list"></i>
-          </button>
-        </div>
-        <input id="quick-search" type="search" placeholder="快速搜尋...">
-        <div id="detailed-list" class="entries-list">
-          <div class="list__item" data-category="複習">
-            <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
-              <h2 class="archive__item-title no_toc" itemprop="headline">
-                <a class="listjs-title" href="/posts/338525370/" rel="permalink">複習：現今還要守十一奉獻嗎？</a>
-              </h2>
-              <p class="page__meta">
-                <span class="page__meta-date">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                  <time datetime="2022-10-08T00:00:00+08:00">October 8, 2022</time>
-                </span>
-              </p>
-              <p class="archive__item-excerpt" itemprop="description">現今還要守十一奉獻嗎？
-                /posts/269192652
-                &nbsp;
-              </p>
-            </article>
-          </div>
-          <div class="list__item" data-category="教會、流行觀念的偏差">
-            <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
-              <h2 class="archive__item-title no_toc" itemprop="headline">
-
-                <a class="listjs-title" href="/posts/338525340/" rel="permalink">發問：教會可以出借場地給人辦語文學校嗎？</a>
-
-              </h2>
-
-
-              <p class="page__meta">
-
-
-                <span class="page__meta-date">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
-
-                  <time datetime="2022-10-05T00:00:00+08:00">October 5, 2022</time>
-                </span>
-
-
-
-
-
-              </p>
-
-
-              <p class="archive__item-excerpt" itemprop="description">問題：在某歐美國家曾經有一個中文學校（教華裔二代的小朋友中文），
-                想向教會租用教室辦學。
-                教會多數的長執都贊成，卻有一個長老認為，教會是神的聖殿，
-                既然耶穌在聖殿中趕出做買賣的人，教會就不應該把場地租給學校。
-                否則，他可能要離開這教會。
-                對此，大部分的牧長認為：教會不是教堂，教堂不是聖殿，
-                耶穌把做買賣的人趕出聖...</p>
-            </article>
-          </div>
-          <div class="list__item" data-category="成聖之路">
-            <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
-              <h2 class="archive__item-title no_toc" itemprop="headline">
-
-                <a class="listjs-title" href="/posts/338525247/" rel="permalink">發問：這是上帝管教嗎？</a>
-
-              </h2>
-
-
-              <p class="page__meta">
-
-
-                <span class="page__meta-date">
-                  <i class="far fa-calendar-alt" aria-hidden="true"></i>
-
-                  <time datetime="2022-09-30T00:00:00+08:00">September 30, 2022</time>
-                </span>
-
-
-
-
-
-              </p>
-
-
-              <p class="archive__item-excerpt" itemprop="description">問題：涉及隱私，問題不刊登。
-                但我回答的內容則是很多弟兄姊妹的狀況都適用。
-                &nbsp;
-
-                答：
-                嗯！這確實很像是被上帝管教，
-                因為時間、內容、你內心的感覺，都相當符合。
-                不過，反過來講，這在某種角度而言，也更證明你是上帝的兒女。
-                &nbsp;
-                『管教———— 一個常被遺忘的真實得救標記』
-                &nbsp;
-                我自己也是多次被上帝管教過的人。
-                很奇...</p>
-            </article>
-          </div>
-        </div>
-        <div id="simple-list">
-          <ul class="list">
-            <li data-category="複習"><a class="listjs-title" href="#">複習：現今還要守十一奉獻嗎？</a></li>
-            <li data-category="教會流行觀念的偏差"><a href='#'>發問：教會可以出借場地給人辦語文學校嗎？</a></li>
-            <li data-category="成聖之路"><a href='#'>發問：這是上帝管教嗎？</a></li>
-          </ul>
-        </div>
+        <h2 class="archive__subtitle"><a href='#all'>全部文章</a><span id="selected-catagory"> > 成聖之路</span></h2>
+        <input id="listjs-search" type="search" placeholder="快速搜尋...">
+        <ul class="list">
+          <li data-category="複習"><a class="listjs-title" href="#">複習：現今還要守十一奉獻嗎？</a></li>
+          <li data-category="教會、流行觀念的偏差"><a class="listjs-title" href='#'>發問：教會可以出借場地給人辦語文學校嗎？</a></li>
+          <li data-category="成聖之路"><a class="listjs-title" href='#'>發問：這是上帝管教嗎？</a></li>
+        </ul>
+        <ul class="pagination"></ul>
+        <a href="#" class="back-to-top">Back to Top &uarr;</a>
       </section>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.js"></script>
   <script src="/docs/assets/js/article_list.js"></script>
+  <style>
+    a.page {
+      width: auto;
+    }
+  </style>
 </body>
 
 </html>

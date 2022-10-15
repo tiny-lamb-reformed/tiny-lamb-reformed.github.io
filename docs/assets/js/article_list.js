@@ -1,41 +1,23 @@
-var valueNames = [
-  'listjs-title',
-  'archive__item-excerpt',
-  { data: ['category'] }
-];
-
-var detailedList = new List('main', {
-  valueNames: valueNames,
-  listClass: 'entries-list'
-});
-
-var simpleList = new List('main', {
-  valueNames: valueNames
+var articleList = new List('main', {
+  valueNames: [
+    'listjs-title',
+    { data: ['category'] }
+  ],
+  pagination: true,
+  page: 500
 });
 
 window.onhashchange = refreshList;
-
-var windowWidth = window.innerWidth
-  || document.documentElement.clientWidth
-  || document.body.clientWidth;
-if (windowWidth < 600) {
-  hideDetails();
-}
-else {
-  showDetails();
-}
-
 setupSearchBar();
 
 
 function setupSearchBar() {
-  var searchBar = document.getElementById('quick-search');
+  var searchBar = document.getElementById('listjs-search');
   var inputtingSearchTerms = false;
   var fired = false;
 
   function search(keyword) {
-    detailedList.search(keyword);
-    simpleList.search(keyword);
+    articleList.search(keyword, ['listjs-title']);
   }
 
   searchBar.addEventListener('compositionstart', function () { inputtingSearchTerms = true });
@@ -77,23 +59,11 @@ function refreshList() {
     function categorySelected(item) {
       return item.values()['category'] === selectedCategoryText;
     }
-    detailedList.filter(categorySelected);
-    simpleList.filter(categorySelected);
+    articleList.filter(categorySelected);
   }
   else {
-    detailedList.filter();
-    simpleList.filter();
+    articleList.filter();
   }
   updateBreadCrumb(selectedCategoryText);
   highlightMenuItem(selectedMenuItem);
-}
-
-function showDetails() {
-  document.getElementById('detailed-list').style.display = '';
-  document.getElementById('simple-list').style.display = 'none';
-}
-
-function hideDetails() {
-  document.getElementById('detailed-list').style.display = 'none';
-  document.getElementById('simple-list').style.display = '';
 }
