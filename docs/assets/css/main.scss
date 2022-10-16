@@ -27,22 +27,6 @@ html {
   margin: 0 0.5rem;
 }
 
-.list-display-toggle {
-  margin: 0 0.5rem;
-  height: $nav-toggle-height;
-  border: 0;
-  outline: none;
-  color: $primary-color;
-  background-color: transparent;
-  cursor: pointer;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-
-  &:hover {
-    color: mix(#000, $primary-color, 25%);
-  }
-}
-
 .comment__content-wrapper {
   white-space: pre-wrap;
 }
