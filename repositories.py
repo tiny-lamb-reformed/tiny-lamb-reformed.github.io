@@ -52,12 +52,25 @@ class Jekyll:
             post = Jekyll.parse_post(post_path)
             self.posts[post["id"]] = post
 
+    def find_post(self, title, threshold=0.35) -> dict:
+        def similarly(x, y):
+            exclude = set(" ?（轉貼）")
+            a = set(x) - exclude
+            b = set(y) - exclude
+            c = a.intersection(b)
+            return float(len(c)) / (len(a) + len(b) - len(c))
+
+        top_match = max(
+            self.posts.values(), key=lambda post: similarly(post["title"], title)
+        )
+        return top_match if similarly(top_match["title"], title) > threshold else None
+
     def find_post_path(self, id):
         return next(self.path.glob(f"*-{id}.md"))
 
     def update_post(
         self,
-        id,
+        id: int,
         title,
         last_modified,
         category,
