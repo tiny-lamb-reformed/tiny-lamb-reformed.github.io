@@ -3,10 +3,12 @@ from datetime import datetime, timedelta, timezone
 from math import ceil
 from pathlib import Path
 from string import Template
-from typing import Dict
+from typing import Dict, Iterable
 
 import requests
 import yaml
+from algoliasearch.search_client import SearchClient
+from bs4 import BeautifulSoup
 
 
 class Pixnet:
@@ -68,7 +70,7 @@ class Jekyll:
     def find_post_path(self, id):
         return next(self.path.glob(f"*-{id}.md"))
 
-    def update_post(
+    def replace_post(
         self,
         id: int,
         title,
@@ -124,4 +126,30 @@ class Jekyll:
 
 
 class Algolia:
-    pass
+    def __init__(self, api_key: str) -> None:
+        client = SearchClient.create("8QSPV5R7NU", api_key)
+        self.index = client.init_index("posts")
+
+    def replace_all(self, posts: Iterable[dict]):
+        self.index.replace_all_objects(
+            [
+                Algolia._create_post_object(post["id"], post["title"], post["body"])
+                for post in posts
+                if post["category"] != "複習"
+            ]
+        )
+
+    def replace_post(self, id: int, title, content):
+        self.index.save_object(Algolia._create_post_object(id, title, content))
+
+    def delete_post(self, id: int):
+        self.index.delete_object(id)
+
+    @staticmethod
+    def _create_post_object(id: int, title, content):
+        return {
+            "objectID": id,
+            "url": f"/posts/{id}",
+            "title": title,
+            "content": BeautifulSoup(content, features="lxml").get_text(),
+        }

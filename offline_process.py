@@ -56,7 +56,7 @@ def process_all():
                 sidebar = "{ nav: gospel }"
             else:
                 sidebar = None
-            jekyll.update_post(
+            jekyll.replace_post(
                 id,
                 title=re.sub(
                     r' " (.*) " ', "「\g<1>」", post["title"]

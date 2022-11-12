@@ -2,3 +2,4 @@ requests~=2.25.1
 BeautifulSoup4~=4.9.3
 lxml~=4.6.3
 pyyaml~=5.4.1
+algoliasearch~=2.6.2
