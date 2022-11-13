@@ -6,7 +6,6 @@ GitHub Actions 會自動從基督教小小羊園地的 API 下載並儲存最新
 - 搜尋
   - related posts
   - remove empty search
-  - auto update index
 - homepage
   - selected articles
 - https://tiny-lamb-reformed.github.io/posts/336966398/ not listed?
@@ -16,6 +15,7 @@ GitHub Actions 會自動從基督教小小羊園地的 API 下載並儲存最新
   - verify links
 - comments
   - reply of comments
+  - update links
   - post comments
   - remove icon
 - 複習 direct link?

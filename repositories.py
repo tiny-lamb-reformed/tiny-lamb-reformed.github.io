@@ -127,8 +127,8 @@ class Jekyll:
 
 class Algolia:
     def __init__(self, api_key: str) -> None:
-        client = SearchClient.create("8QSPV5R7NU", api_key)
-        self.index = client.init_index("posts")
+        self.client = SearchClient.create("8QSPV5R7NU", api_key)
+        self.index = self.client.init_index("posts")
 
     def replace_all(self, posts: Iterable[dict]):
         self.index.replace_all_objects(
@@ -138,6 +138,9 @@ class Algolia:
                 if post["category"] != "複習"
             ]
         )
+
+    def posts_count(self) -> int:
+        return self.client.list_indices()["items"][0]["entries"]
 
     def replace_post(self, id: int, title, content):
         self.index.save_object(Algolia._create_post_object(id, title, content))

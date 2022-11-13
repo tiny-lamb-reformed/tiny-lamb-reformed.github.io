@@ -13,7 +13,7 @@ jobs:
       - name: Fetch posts
         run: |
           pip3 install -r requirements.txt
-          python3 fetch_data.py
+          python3 fetch_data.py ${{ secrets.ALGOLIA_API_KEY }}
           python3 offline_process.py
       - name: Commit and push
         run: |
