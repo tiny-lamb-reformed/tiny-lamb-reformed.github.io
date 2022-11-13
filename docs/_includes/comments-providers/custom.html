@@ -29,7 +29,6 @@
     </article>
     {% endraw %}
   </div>
-  <!-- TODO: set to center -->
   <nav class="pagination" v-if="totalPages.length > 1">
     {% raw %}
     <ul>
@@ -50,5 +49,8 @@
       </li>
     </ul>
   </nav>
+  <a v-if="!commentClosed" :href="'https://mickey1124.pixnet.net/blog/post/' + articleId + '#comment-form'"
+    class="btn btn--primary">到主站發表留言（不支援手機）</a>
+  <p v-else class="notice">留言已關閉</p>
   <!-- End pixnet comments -->
 </section>

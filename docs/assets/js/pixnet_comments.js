@@ -30,6 +30,7 @@ var PixnetComments = {
             vm.totalPages.push(i);
           }
           vm.comments = resp.comments;
+          vm.commentClosed = resp.article.comment_perm === "0";
         }
       }
       // TODO: add error handling
