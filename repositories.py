@@ -50,7 +50,10 @@ class Jekyll:
     def __init__(self, path=Path("docs/_posts")) -> None:
         self.path = path
         self.posts: Dict[int, dict] = {}
-        for post_path in path.iterdir():
+        self.update_posts()
+
+    def update_posts(self):
+        for post_path in self.path.iterdir():
             post = Jekyll.parse_post(post_path)
             self.posts[post["id"]] = post
 
@@ -105,9 +108,12 @@ class Jekyll:
         with open(filepath, "w") as post:
             post.write(data)
 
+        self.update_posts()
+
     def delete_post(self, id):
         filepath = self.find_post_path(id)
         os.remove(filepath)
+        self.update_posts()
 
     @staticmethod
     def parse_post(path: Path):
