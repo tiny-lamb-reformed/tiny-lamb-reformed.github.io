@@ -105,7 +105,7 @@ class Jekyll:
         with open(filepath, "w") as post:
             post.write(data)
 
-        self.posts[id] = post
+        self.posts[id] = Jekyll.parse_post(filepath)
 
     def delete_post(self, id):
         filepath = self.find_post_path(id)
