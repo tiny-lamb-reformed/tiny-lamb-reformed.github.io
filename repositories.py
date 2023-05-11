@@ -146,7 +146,7 @@ class Algolia:
         return self.client.list_indices()["items"][0]["entries"]
 
     def replace_post(self, id: int, title, content):
-        self.index.save_object(Algolia._create_post_object(id, title, content))
+        self.index.save_object(Algolia._create_post_object(id, title, content)).wait()
 
     def delete_post(self, id: int):
         self.index.delete_object(id)
