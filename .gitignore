@@ -1,8 +1,0 @@
-_site
-.sass-cache
-.jekyll-metadata
-Gemfile.lock
-__pycache__
-node_modules
-package*.json
-.vscode

@@ -1,7 +1,0 @@
-services:
-  jekyll:
-    build: .
-    volumes:
-      - ./docs:/home
-    ports:
-      - "4000:4000"
