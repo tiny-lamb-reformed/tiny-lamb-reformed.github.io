@@ -1,0 +1,65 @@
+baseurl: "https://tiny-lamb-reformed.github.io"
+defaultContentLanguage: "zh-tw"
+theme: "beautifulhugo"
+
+languages:
+  zh-tw:
+    languageName: "繁中"
+    title: "基督教小小羊園地（移動端鏡像）"
+    contentDir: "content/zh_TW"
+    weight: 1
+    params:
+      homeTitle: "基督教小小羊園地"
+      subtitle: "移動端鏡像"
+  zh-cn:
+    languageName: "简中"
+    title: "基督教小小羊园地（移动端镜像）"
+    contentDir: "content/zh_CN"
+    weight: 2
+    params:
+      homeTitle: "基督教小小羊园地"
+      subtitle: "移动端镜像"
+
+params:
+  mainSections:
+    - "post"
+    - "posts"
+  dateFormat: "2006-01-02"
+  logo: "img/avatar-icon.png"
+  favicon: "img/favicon.ico"
+  commit: false
+  rss: true
+  comments: true
+  readingTime: true
+  wordCount: true
+  socialShare: true
+  delayDisqus: true
+  showRelatedPosts: true
+  hideAuthor: true
+
+menu:
+  main:
+    - name: "Blog"
+      url: ""
+      weight: 1
+    - name: "About"
+      url: "page/about/"
+      weight: 3
+    - identifier: "samples"
+      name: "Samples"
+      weight: 2
+    - parent: "samples"
+      name: "Big Image Sample"
+      url: "post/2017-03-07-bigimg-sample"
+      weight: 1
+    - parent: "samples"
+      name: "Math Sample"
+      url: "post/2017-03-05-math-sample"
+      weight: 2
+    - parent: "samples"
+      name: "Code Sample"
+      url: "post/2016-03-08-code-sample"
+      weight: 3
+    - name: "Tags"
+      url: "tags"
+      weight: 3
