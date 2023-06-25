@@ -2,39 +2,87 @@
 
 {{ $data := .Data }}
 
+<style>
+  .nav-categories a {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 800;
+    color: inherit;
+  }
+
+  @media (max-width: 992px) {
+    .nav-categories>li>a {
+      font-size: 12px;
+      padding: 5px 7.5px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .nav-categories>li {
+      float: none;
+    }
+
+    .nav-categories>li>a {
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width:992px) and (max-width:1199px) {
+    .nav-categories .pull-right {
+      float: none !important;
+    }
+  }
+
+  div.panel a:focus,
+  div.panel a:hover {
+    color: #0085a1;
+  }
+
+  div.panel a.list-group-item {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-radius: 0;
+    border: none;
+    color: inherit;
+    font-size: 16px;
+  }
+
+  div.panel a.list-group-item:focus,
+  div.panel a.list-group-item:hover {
+    color: #0085a1;
+  }
+</style>
+
 <div class="container" role="main">
-  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <article class="post-preview">
-      <div class="panel-group" id="accordion">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <ul class="nav nav-pills nav-categories">
+          {{ range $key, $value := .Data.Terms.ByCount }}
+          <li role="presentation" class="{{ if eq $key 0 }}active{{ end }}">
+            <a href="#{{ $value.Name | base64Encode | anchorize }}" aria-controls="{{ $value.Name | anchorize }}"
+              role="tab" data-toggle="tab">{{ $value.Page.Title }} <span class="badge pull-right">{{ $value.Count
+                }}</span></a>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="tab-content">
         {{ range $key, $value := .Data.Terms.ByCount }}
-        <div class="panel panel-default">
-          <a class="collapsed" role="button" data-toggle="collapse" data-target="#collapse{{ $value.Name | anchorize }}"
-            data-parent="#accordion">
-            <div class="panel-heading" id="header{{ $value.Name | anchorize }}">
-              <h4 class="panel-title">
-                {{ $value.Name }}
-                <span class="badge">{{ $value.Count }}</span>
-              </h4>
-            </div>
-          </a>
-          <div id="collapse{{ $value.Name | anchorize }}" class="panel-collapse collapse">
-            <div class="panel-body">
-              <a href="{{ $.Site.LanguagePrefix | absURL }}/{{ $data.Plural }}/{{ $value.Name | urlize }}/"
-                class="list-group-item view-all">
-                View all</a>
-              <div class="list-group">
-                {{ range $item := $value.WeightedPages }}
-                <a href="{{$item.Permalink}}" class="list-group-item">{{ $item.Title }}</a>
-                {{ end }}
-              </div>
+        <div role="tabpanel" class="tab-pane fade {{ if eq $key 0 }}in active{{ end }}"
+          id="{{ $value.Name | base64Encode | anchorize }}">
+          <div class="panel panel-default">
+            <div class="list-group">
+              {{ range $item := $value.WeightedPages }}
+              <a href="{{$item.Permalink}}" class="list-group-item">{{ $item.Title }}</a>
+              {{ end }}
             </div>
           </div>
         </div>
         {{ end }}
       </div>
-    </article>
+    </div>
   </div>
 </div>
-
 
 {{ end }}
