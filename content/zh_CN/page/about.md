@@ -1,16 +1,14 @@
 ---
-title: About me
-subtitle: Why you'd want to go on a date with me
+title: 关于
 comments: false
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+《基督教小小羊园地》是一个归正神学的 blog。本站是该站的镜像网站，为行动装置而设。
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+原站的手机版，因为先天程式的限制，有很多无法去除的广告，而且排版也比较不易阅读。镜站克服了这些问题，同时修复文章的连结。
 
-What else do you need?
+如有镜站相关问题，[欢迎联络 Ken](mailto:eiekenhung@gmail.com)
 
-### my history
+如有弟兄姊妹愿意协助镜站的美术设计、排版，[请联络](mailto:eiekenhung@gmail.com)。
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](http://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+原站网址：https://mickey1124.pixnet.net/blog

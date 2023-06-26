@@ -1,16 +1,14 @@
 ---
-title: About me
-subtitle: Why you'd want to go on a date with me
+title: 關於
 comments: false
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+《基督教小小羊園地》是一個歸正神學的 blog。本站是該站的鏡像網站，為行動裝置而設。
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+原站的手機版，因為先天程式的限制，有很多無法去除的廣告，而且排版也比較不易閱讀。鏡站克服了這些問題，同時修復文章的連結。
 
-What else do you need?
+如有鏡站相關問題，[歡迎聯絡 Ken](mailto:eiekenhung@gmail.com)
 
-### my history
+如有弟兄姊妹願意協助鏡站的美術設計、排版，[請聯絡](mailto:eiekenhung@gmail.com)。
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](http://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+原站網址：https://mickey1124.pixnet.net/blog
