@@ -55,6 +55,15 @@ params:
   readingTime: true
   wordCount: true
   socialShare: true
-  delayDisqus: true
   showRelatedPosts: true
   hideAuthor: true
+
+related:
+  includeNewer: true
+  indices:
+    - name: series
+      weight: 100
+    - name: date
+      weight: 10
+  threshold: 80
+  toLower: false
