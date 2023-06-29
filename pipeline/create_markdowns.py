@@ -25,6 +25,9 @@ def create_markdown():
         lastmod = datetime.fromtimestamp(
             int(data["last_modified"]), pytz.timezone("Asia/Taipei")
         ).strftime("%Y-%m-%d")
+        site_migration_date = "2019-01-20"
+        if lastmod == site_migration_date:
+            lastmod = date
         front_matter = (
             f"+++\n"
             f'title = "{title}"\n'
