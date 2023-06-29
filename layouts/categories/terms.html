@@ -58,7 +58,7 @@
         <ul class="nav nav-pills nav-categories">
           {{ range $key, $value := .Data.Terms.ByCount }}
           <li role="presentation" class="{{ if eq $key 0 }}active{{ end }}">
-            <a href="#{{ $value.Name | base64Encode | anchorize }}" aria-controls="{{ $value.Name | anchorize }}"
+            <a href="#{{ $value.Page.Title | base64Encode | anchorize }}" aria-controls="{{ $value.Name | anchorize }}"
               role="tab" data-toggle="tab">{{ $value.Page.Title }} <span class="badge pull-right">{{ $value.Count
                 }}</span></a>
           </li>
@@ -70,7 +70,7 @@
       <div class="tab-content">
         {{ range $key, $value := .Data.Terms.ByCount }}
         <div role="tabpanel" class="tab-pane fade {{ if eq $key 0 }}in active{{ end }}"
-          id="{{ $value.Name | base64Encode | anchorize }}">
+          id="{{ $value.Page.Title | base64Encode | anchorize }}">
           <div class="panel panel-default">
             <div class="list-group">
               {{ range $item := $value.WeightedPages }}

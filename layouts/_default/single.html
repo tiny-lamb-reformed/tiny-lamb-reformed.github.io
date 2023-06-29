@@ -5,6 +5,12 @@
       <article role="main" class="blog-post">
         {{ .Content }}
 
+        <div class="" style="font-size: 15px">
+          {{ range .Params.categories }}
+            分類：<a href="/categories/#{{ . | base64Encode | anchorize }}/">{{ . }}</a>&nbsp;
+          {{ end }}
+        </div>
+
         {{ if .Params.tags }}
           <div class="blog-tags">
             {{ range .Params.tags }}
