@@ -5,7 +5,7 @@
       <article role="main" class="blog-post">
         {{ .Content }}
 
-        <div class="" style="font-size: 15px">
+        <div style="color: #999; font-size: 15px">
           {{ range .Params.categories }}
             分類：<a href="/categories/#{{ . | base64Encode | anchorize }}/">{{ . }}</a>&nbsp;
           {{ end }}
