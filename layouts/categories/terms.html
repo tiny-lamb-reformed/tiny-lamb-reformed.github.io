@@ -58,10 +58,10 @@
         <ul class="nav nav-pills nav-categories">
           {{ range $key, $value := .Data.Terms.ByCount }}
           <li role="presentation" class="{{ if eq $key 0 }}active{{ end }}">
-            <a href="#{{ $value.Page.Title }}" aria-controls="{{ $value.Name | anchorize }}" role="tab"
-              data-toggle="tab" data-target="#{{ $value.Page.Title }}">{{ $value.Page.Title }} <span
-                class="badge pull-right">{{ $value.Count
-                }}</span></a>
+            <a href="#{{ $value.Page.Title }}" aria-controls="{{ $value.Page.Title }}" role="tab" data-toggle="tab"
+              data-target="#{{ $value.Page.Title }}">
+              {{ $value.Page.Title }} <span class="badge pull-right">{{ $value.Count }}</span>
+            </a>
           </li>
           {{ end }}
         </ul>
