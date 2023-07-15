@@ -1,15 +1,24 @@
-<section id="pixnet-comments" class="js-comments staticman-comments">
-  <h3 v-if="comments">{{ "{{ comments.length }}" }} {{ i18n "moreComment" }}</h3>
+<style>
+  .comment-footer-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: max-content;
+  }
+</style>
+
+<section id="pixnet-comments" class="staticman-comments">
+  <h3 v-if="total">{{ "{{ total }}" }} {{ i18n "moreComment" }}</h3>
   <h3 v-else>{{ i18n "noComment" }}</h3>
-  <article v-for="comment in comments" :id="'comment-' + comment.id" class="static-comment">
+  <article v-for="comment in comments" :id="'comment-' + comment.id">
     <img class="comment-avatar" :src="comment.avatar" style="width: 48px; height: 48px">
     <h4 v-if="comment.url" class="comment-author">
       <a rel="external nofollow" :href="comment.url">{{ "{{ comment.author || '匿名' }}" }}</a>
     </h4>
     <h4 v-else class="comment-author">{{ "{{ comment.author || '匿名' }}" }}</h4>
     <div class="comment-timestamp">
-      <a :href="'#comment-' + comment.id" title="Permalink to this comment">
-        <time :datetime="new Date(comment.created_at * 1000)">
+      <a :href="'#comment-' + comment.id">
+        <time :datetime="new Date(comment.created_at * 1000).toLocaleString('zh')">
           {{ "{{ (new Date(comment.created_at * 1000)).toLocaleString('zh') }}" }}
         </time>
       </a>
@@ -18,6 +27,30 @@
       <p style="white-space: pre-wrap;">{{ "{{ htmlDecode(comment.body || '&lt;私人留言&gt;') }}" }}</p>
     </div>
   </article>
+  <nav v-if="totalPages.length > 1" class="comment-footer-center" aria-label="Page navigation">
+    <ul class="pagination">
+      <li :class="{ disabled: currentPage === 1 }" :aria-disabled="currentPage === 1">
+        <a href="javascript:void(0)" aria-label="Previous" @click="prevComments">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li v-for="page in totalPages" :class="{ active: currentPage === page }" :aria-disabled="currentPage === page">
+        <a href="javascript:void(0)" @click="getComments(page)">
+          {{ "{{ page }}" }}
+        </a>
+      </li>
+      <li :class="{ disabled: currentPage === totalPages.length }" :aria-disabled="currentPage === totalPages.length">
+        <a href="javascript:void(0)" @click="nextComments" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <a v-if="!commentClosed" class="comment-footer-center"
+    :href="'https://mickey1124.pixnet.net/blog/post/' + articleId + '#comment-form'">
+    到主站發表留言（不支援手機）
+  </a>
+  <p v-else class="comment-footer-center">留言已關閉</p>
 </section>
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

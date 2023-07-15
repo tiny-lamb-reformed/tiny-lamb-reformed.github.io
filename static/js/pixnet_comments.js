@@ -4,7 +4,9 @@ var PixnetComments = {
       articleId: 0,
       currentPage: 1,
       totalPages: [],
-      comments: []
+      comments: [],
+      total: 0,
+      commentClosed: true
     }
   },
   methods: {
@@ -30,14 +32,15 @@ var PixnetComments = {
             vm.totalPages.push(i);
           }
           vm.comments = resp.comments;
+          vm.total = resp.total;
           vm.commentClosed = resp.article.comment_perm === "0";
         }
       }
       // TODO: add error handling
       xhr.send();
     },
-    prevComments() { this.getComments(this.currentPage - 1); },
-    nextComments() { this.getComments(this.currentPage + 1); },
+    prevComments() { if (this.currentPage > 1) this.getComments(this.currentPage - 1); },
+    nextComments() { if (this.currentPage < this.totalPages.length) this.getComments(this.currentPage + 1); },
     htmlDecode(input) {
       var doc = new DOMParser().parseFromString(input, "text/html");
       return doc.documentElement.textContent;
