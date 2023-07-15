@@ -1,85 +1,67 @@
-<section class="js-comments staticman-comments">
+<section id="pixnet-comments" class="js-comments staticman-comments">
+  <article v-for="comment in comments" :id="'comment-' + comment.id" class="static-comment">
+    <img class="comment-avatar" :src="comment.avatar" style="width: 48px; height: 48px">
+    <h4 v-if="comment.url" class="comment-author">
+      <a rel="external nofollow" :href="comment.url">{{ "{{ comment.author || '匿名' }}" }}</a>
+    </h4>
+    <h4 v-else class="comment-author">{{ "{{ comment.author || '匿名' }}" }}</h4>
+    <div class="comment-timestamp">
+      <a :href="'#comment-' + comment.id" title="Permalink to this comment">
+        <time :datetime="new Date(comment.created_at * 1000)">
+          {{ "{{ (new Date(comment.created_at * 1000)).toLocaleString('zh') }}" }}
+        </time>
+      </a>
+    </div>
+    <div class="comment-content">
+      <p style="white-space: pre-wrap;">{{ "{{ htmlDecode(comment.body || '&lt;私人留言&gt;') }}" }}</p>
+    </div>
+  </article>
 
-  {{ $slug := replace .RelPermalink "/" "" }}
+  <form class="js-form form" method="post" action="{{ .Site.Params.staticman.api }}">
+    <input type="hidden" name="options[slug]" value="{{ replace .RelPermalink " /" "" }}">
+    <input type="hidden" name="options[parent]" value="">
 
-  {{ if .Site.Data.comments }}
-    {{ $comments := index $.Site.Data.comments $slug }}
-    {{ if $comments }}
-      {{ if gt (len $comments) 1  }}
-        <h3>{{ len $comments  }} {{ i18n "moreComment" }}</h3>
-      {{ else }}
-        <h3>{{ len $comments  }} {{ i18n "oneComment" }}</h3>
-      {{ end }}
-    {{ else }}
-      <h3>{{ i18n "noComment" }}</h3>
+    {{ if .Site.Params.staticman.recaptcha }}
+    <input type="hidden" name="options[reCaptcha][siteKey]" value="{{ .Site.Params.staticman.recaptcha.sitekey }}">
+    <input type="hidden" name="options[reCaptcha][secret]" value="{{ .Site.Params.staticman.recaptcha.secret }}">
     {{ end }}
 
+    <fieldset>
+      <div class="textfield">
+        <textarea name="fields[comment]" placeholder="{{ i18n " useMarkdown" }}"></textarea>
+      </div>
+    </fieldset>
 
-    {{ $.Scratch.Set "hasComments" 0 }}
-    {{ range $index, $comments := (index $.Site.Data.comments $slug ) }}
-      {{ if not .parent }}
-        {{ $.Scratch.Add "hasComments" 1 }}
-        <article id="comment-{{ $.Scratch.Get "hasComments" }}" class="static-comment">
-          <img class="comment-avatar" src="https://www.gravatar.com/avatar/{{ .email }}?s=48">
-          {{ if .website }}
-          <h4 class="comment-author"><a rel="external nofollow" href="{{ .website }}">{{ .name }}</a></h4>
-          {{ else }}
-          <h4 class="comment-author">{{ .name }}</h4>
-          {{ end }}
-          <div class="comment-timestamp"><a href="#comment-{{ $.Scratch.Get "hasComments" }}" title="Permalink to this comment"><time datetime="{{ .date }}">{{ dateFormat (default (i18n "shortdateFormat") .Site.Params.dateformat) .date}}</time></a></div>
-          <div class="comment-content"><p>{{ .comment | markdownify }}</p></div>
-        </article>
-      {{ end }}
+    <fieldset>
+      <div class="textfield">
+        <input name="fields[name]" type="text" placeholder="{{ i18n " yourName" }}" />
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <div class="textfield">
+        <input type="email" name="fields[email]" placeholder="{{ i18n " yourEmail" }}" />
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <div class="textfield">
+        <input type="url" name="fields[website]" placeholder="{{ i18n " yourWebsite" }}" />
+      </div>
+    </fieldset>
+
+    {{ if .Site.Params.staticman.recaptcha }}
+    <fieldset>
+      <div class="g-recaptcha" data-sitekey="{{ .Site.Params.staticman.recaptcha.sitekey }}"></div>
+    </fieldset>
     {{ end }}
-  {{ end }}
 
-
-
-<form class="js-form form" method="post" action="{{ .Site.Params.staticman.api }}">
-  <input type="hidden" name="options[slug]" value="{{ replace .RelPermalink "/" "" }}">
-  <input type="hidden" name="options[parent]" value="">
-
-  {{ if .Site.Params.staticman.recaptcha }}
-  <input type="hidden" name="options[reCaptcha][siteKey]" value="{{ .Site.Params.staticman.recaptcha.sitekey }}">
-  <input type="hidden" name="options[reCaptcha][secret]"  value="{{ .Site.Params.staticman.recaptcha.secret }}">
-  {{ end }}
-
-  <fieldset>
-  <div class="textfield">
-    <textarea name="fields[comment]" placeholder="{{ i18n "useMarkdown" }}"></textarea>
-  </div>
-  </fieldset>
-
-  <fieldset>
-    <div class="textfield">
-      <input name="fields[name]" type="text" placeholder="{{ i18n "yourName" }}"/>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <div class="textfield">
-      <input type="email" name="fields[email]"  placeholder="{{ i18n "yourEmail" }}"/>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <div class="textfield">
-      <input type="url" name="fields[website]"  placeholder="{{ i18n "yourWebsite" }}"/>
-    </div>
-  </fieldset>
-
-  {{ if .Site.Params.staticman.recaptcha }}
-  <fieldset>
-    <div class="g-recaptcha" data-sitekey="{{ .Site.Params.staticman.recaptcha.sitekey }}"></div>
-  </fieldset>
-  {{ end }}
-
-  <fieldset>
-    <button class="button">
-      Submit
-    </button>
-  </fieldset>
-</form>
+    <fieldset>
+      <button class="button">
+        Submit
+      </button>
+    </fieldset>
+  </form>
 </section>
 
 <article class="modal">
@@ -91,3 +73,11 @@
     <button class="js-close-modal">Close</button>
   </div>
 </article>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<!-- TODO: add integrity -->
+<script src='{{ "js/pixnet_comments.js" | absURL }}'></script>
+{{ $linkArr := split .Permalink "/" }}
+<script>
+  vm.init('{{ index (last 2 $linkArr) 0 }}');
+</script>

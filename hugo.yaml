@@ -49,9 +49,7 @@ params:
   dateFormat: 2006-01-02
   logo: img/avatar-icon.png
   favicon: img/favicon.ico
-  commit: false
   rss: true
-  comments: true
   readingTime: true
   wordCount: true
   socialShare: true
