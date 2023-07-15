@@ -71,3 +71,9 @@
 # Related posts
 - id: seeAlso
   translation: "也可以看看"
+
+- id: featuredArticles
+  translation: "精选文章"
+
+- id: allArticles
+  translation: "全部文章"

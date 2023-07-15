@@ -49,6 +49,15 @@
   div.panel a.list-group-item:hover {
     color: #0085a1;
   }
+
+  .panel .list-group {
+    margin-bottom: 0;
+  }
+
+  .tab-pane>.panel-body {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 800;
+  }
 </style>
 
 <div class="container" role="main">
@@ -72,10 +81,46 @@
         {{ range $key, $value := .Data.Terms.ByCount }}
         <div role="tabpanel" class="tab-pane fade {{ if eq $key 0 }}in active{{ end }}" id="{{ $value.Page.Title }}">
           <div class="panel panel-default">
-            <div class="list-group">
-              {{ range $item := $value.WeightedPages }}
-              <a href="{{$item.Permalink}}" class="list-group-item">{{ $item.Title }}</a>
-              {{ end }}
+            {{ if $value.Page.Params.featured }}
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <ul class="nav nav-pills" style="font-size: 14px;" role="tablist">
+                  <li role="presentation" class="active">
+                    <a href="#featured-{{ $value.Page.Title }}" aria-controls="featured-{{ $value.Page.Title }}"
+                      data-target="#featured-{{ $value.Page.Title }}" role="tab" data-toggle="tab">
+                      {{ i18n "featuredArticles" }}
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a href="#all-{{ $value.Page.Title }}" aria-controls="all-{{ $value.Page.Title }}"
+                      data-target="#all-{{ $value.Page.Title }}" role="tab" data-toggle="tab">
+                      {{ i18n "allArticles" }}
+                    </a>
+                  </li>
+                </ul>
+              </h2>
+            </div>
+            {{ end }}
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane {{ if $value.Page.Params.featured }}active{{ end }}"
+                id="featured-{{ $value.Page.Title }}">
+                {{ range $group := $value.Page.Params.featured }}
+                <div class="panel-body">{{ $group.title }}</div>
+                <div class="list-group">
+                  {{ range $item := $group.children }}
+                  <a href="{{ $item.url }}" class="list-group-item">{{ $item.title }}</a>
+                  {{ end }}
+                </div>
+                {{ end }}
+              </div>
+              <div role="tabpanel" class="tab-pane {{ if not $value.Page.Params.featured }}active{{ end }}"
+                id="all-{{ $value.Page.Title }}">
+                <div class="list-group">
+                  {{ range $item := $value.WeightedPages }}
+                  <a href="{{ $item.Permalink }}" class="list-group-item">{{ $item.Title }}</a>
+                  {{ end }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
