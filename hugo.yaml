@@ -13,9 +13,6 @@ languages:
       subtitle: 移動端鏡像
     menu:
       main:
-        - name: 護教、福音
-          url: tags
-          weight: 1
         - name: 所有文章分類
           weight: 2
           url: categories
@@ -32,9 +29,6 @@ languages:
       subtitle: 移动端镜像
     menu:
       main:
-        - name: 护教、福音
-          url: tags
-          weight: 1
         - name: 所有文章分类
           weight: 2
           url: categories
