@@ -1,0 +1,78 @@
+<!-- Search Modal -->
+<div id="modalSearch" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div id="searchbox"></div>
+      </div>
+      <div class="modal-body">
+        <div id="hits"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ i18n "gcseClose" }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ais-SearchBox-reset {
+    top: 20px;
+    position: absolute;
+    right: 28px;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js"
+  integrity="sha256-V3GHVlMSAsogT3wL0OY/l4d3fRLa56gNzlnzdIMBIWg=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.56.5/dist/instantsearch.production.min.js"
+  integrity="sha256-HUihzhULZfSeNdovzhTpVqRjWABpyZCeeuZAEmMH/VE=" crossorigin="anonymous"></script>
+<script>
+  const search = instantsearch({
+    indexName: 'posts',
+    searchClient: algoliasearch('8QSPV5R7NU', '92a22fa4f557ba2b59ca4ecd2b025590'),
+    searchParameters: {
+      restrictSearchableAttributes: ['title', 'content']
+    }
+  });
+
+  const hitTemplate = function (hit) {
+    const url = hit.url;
+    const hightlight = hit._highlightResult;
+    const title = hightlight.title && hightlight.title.value || "";
+    const content = hightlight.content && hightlight.content.value || "";
+
+    return `
+      <article class="post-preview" style="padding: 16px 0">
+        <a href="${url}"><h3 class="post-title" style="font-size: 24px">${title}</h3></a>
+        <div class="post-entry">${instantsearch.snippet({ attribute: 'content', hit })}</div>
+      </article>
+    `;
+  };
+
+  search.addWidgets([
+    instantsearch.widgets.searchBox({
+      container: '#searchbox',
+      searchAsYouType: false,
+      placeholder: '{{ i18n "gcseLabelLong" . }}',
+      autofocus: true,
+      cssClasses: {
+        input: 'form-control'
+      }
+    }),
+
+    instantsearch.widgets.hits({
+      container: '#hits',
+      templates: {
+        item: hitTemplate,
+        empty: 'No results',
+      }
+    }),
+
+    instantsearch.widgets.configure({
+      attributesToSnippet: ['content:30'],
+      snippetEllipsisText: '⋯⋯'
+    })
+  ]);
+
+  search.start();
+</script>
