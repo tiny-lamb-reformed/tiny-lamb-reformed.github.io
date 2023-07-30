@@ -3,9 +3,22 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <div id="searchbox"></div>
+        <div id="searchbox" class="input-group">
+          <input class="form-control" placeholder='{{ i18n "gcseLabelLong" . }}'>
+          <div class="input-group-btn">
+            <button id="clearButton" class="btn btn-default">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+            <button id="searchButton" class="btn btn-default" title='{{ i18n "gcseLabelShort" . }}'>
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
       </div>
       <div class="modal-body">
+        <div class="alert alert-info" role="alert">
+          <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Loading...
+        </div>
         <div id="hits"></div>
       </div>
       <div class="modal-footer">
@@ -15,13 +28,6 @@
   </div>
 </div>
 
-<style>
-  .ais-SearchBox-reset {
-    top: 20px;
-    position: absolute;
-    right: 28px;
-  }
-</style>
 <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js"
   integrity="sha256-V3GHVlMSAsogT3wL0OY/l4d3fRLa56gNzlnzdIMBIWg=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.56.5/dist/instantsearch.production.min.js"
@@ -49,15 +55,31 @@
     `;
   };
 
-  search.addWidgets([
-    instantsearch.widgets.searchBox({
-      container: '#searchbox',
-      searchAsYouType: false,
-      placeholder: '{{ i18n "gcseLabelLong" . }}',
-      autofocus: true,
-      cssClasses: {
-        input: 'form-control'
+  // create custom widget
+  const customSearchBox = instantsearch.connectors.connectSearchBox(
+    function (renderOptions, isFirstRender) {
+      const { query, refine, clear, isSearchStalled, widgetParams } = renderOptions;
+
+      if (isFirstRender) {
+        const input = widgetParams.container.querySelector('input');
+        const clearBtn = document.getElementById('clearButton');
+        const searchBtn = document.getElementById('searchButton');
+
+        input.addEventListener('input', event => {
+          refine(event.target.value);
+        });
+
+        clearBtn.addEventListener('click', clear);
       }
+
+      widgetParams.container.querySelector('input').value = query;
+      document.querySelector('.modal-body .alert').hidden = !isSearchStalled;
+    }
+  );
+
+  search.addWidgets([
+    customSearchBox({
+      container: document.getElementById('searchbox')
     }),
 
     instantsearch.widgets.hits({
