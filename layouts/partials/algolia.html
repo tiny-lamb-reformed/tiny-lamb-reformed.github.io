@@ -61,11 +61,24 @@
       const { query, refine, clear, isSearchStalled, widgetParams } = renderOptions;
 
       if (isFirstRender) {
-        const input = widgetParams.container.querySelector('input');
-        const clearBtn = document.getElementById('clearButton');
-        const searchBtn = document.getElementById('searchButton');
+        const searchBar = widgetParams.container.querySelector('input');
+        var inputting = false;
 
-        input.addEventListener('input', event => {
+        searchBar.addEventListener('compositionstart', () => { inputting = true });
+        searchBar.addEventListener('input', () => {
+          if (!inputting) {
+            refine(event.target.value);
+          }
+        });
+        searchBar.addEventListener('compositionend', (event) => {
+          inputting = false;
+          refine(event.target.value);
+        });
+
+        const searchBtn = document.getElementById('searchButton');
+        const clearBtn = document.getElementById('clearButton');
+
+        searchBtn.addEventListener('click', event => {
           refine(event.target.value);
         });
 
