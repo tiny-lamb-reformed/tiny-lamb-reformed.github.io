@@ -41,7 +41,6 @@ params:
     - post
     - posts
   dateFormat: 2006-01-02
-  logo: img/avatar-icon.png
   favicon: img/favicon.ico
   rss: true
   readingTime: true
