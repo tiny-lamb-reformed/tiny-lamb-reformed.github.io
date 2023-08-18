@@ -22,6 +22,7 @@
   body,
   .navbar-default .navbar-toggle,
   .panel-default,
+  .panel-default>.panel-heading,
   .list-group-item,
   .pager li>a {
     background-color: #f2f3ec;
@@ -49,22 +50,23 @@
   }
 
   footer {
-    background-color: #77A93B;
+    background-color: #7fa145;
     color: white;
   }
 
   /* hyperlink color */
   .post-preview a:focus,
   .post-preview a:hover {
-    color: #A1B5D8;
+    color: #4A6670;
   }
 
   p a,
   a {
-    color: #A1B5D8;
+    color: #4A6670;
   }
 
-  /* button/pill color */
+  .pager li a:hover,
+  .pager li a:focus,
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus,
   .navbar-custom .nav li a:hover,
@@ -74,10 +76,22 @@
     color: #D4A373;
   }
 
-  .pager li a:hover,
-  .pager li a:focus,
   ul.share li a {
     background-color: #D4A373;
+  }
+
+  /* pill color */
+  .nav-pills>li.active>a,
+  .nav-pills>li.active>a:focus,
+  .nav-pills>li.active>a:hover {
+    color: white;
+    background-color: #487724;
+  }
+
+  .nav-pills>li>a:focus,
+  .nav-pills>li>a:hover {
+    color: white;
+    background-color: #487724;
   }
 
   /* text color */
