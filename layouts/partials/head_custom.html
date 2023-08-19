@@ -15,13 +15,12 @@
     font-style: normal !important;
   }
 
-  /* https://coolors.co/487724-7fa145-f2f3ec-4a6670-e58f65 */
+  /* https://coolors.co/7fa145-ebeae2-f2f3ec-595f72-575d90 */
 
   /* main color */
   body,
   .navbar-default .navbar-toggle,
   .panel-default,
-  .panel-default>.panel-heading,
   .list-group-item,
   .pager li>a {
     background-color: #f2f3ec;
@@ -31,11 +30,20 @@
   .navbar-custom,
   .navbar-custom .navbar-brand,
   .navbar-custom .nav li a,
-  .well,
-  a.list-group-item:hover,
-  a.list-group-item:focus {
+  .well {
     color: white;
     background-color: #7fa145;
+  }
+
+  /* footer/panel heading color */
+  footer,
+  .panel-default>.panel-heading {
+    background-color: #ebeae2;
+    color: #aba9a5;
+  }
+
+  footer p a {
+    color: #404040;
   }
 
   /* border color */
@@ -45,7 +53,7 @@
   footer,
   .post-preview,
   .pager li>a {
-    border-color: #487724;
+    border-color: #aba9a5;
   }
 
   /* hyperlink in articles */
@@ -62,17 +70,19 @@
   /* pager hover */
   .pager li a:hover,
   .pager li a:focus {
-    background-color: #4A6670;
+    background-color: #575D90;
   }
 
-  /* menu hover */
+  /* hyperlink/menu hover */
+  .post-preview a:focus,
+  .post-preview a:hover,
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus,
   .navbar-custom .nav li a:hover,
   .navbar-custom .nav li a:focus,
   footer a:hover,
   footer a:focus {
-    color: #4A6670;
+    color: #575D90;
   }
 
   /* pill color */
@@ -83,19 +93,8 @@
     background-color: #487724;
   }
 
-  .nav-pills>li>a:focus,
-  .nav-pills>li>a:hover {
-    color: white;
-    background-color: #487724;
-  }
-
-  /* footer color */
-  footer {
-    background-color: #7fa145;
-    color: white;
-  }
-
-  footer p a {
-    color: #404040;
+  div.panel a:focus,
+  div.panel a:hover {
+    background-color: #ebeae2;
   }
 </style>
