@@ -147,9 +147,11 @@ class Algolia:
 
     def replace_post(self, id: int, title, content):
         self.index.save_object(Algolia._create_post_object(id, title, content)).wait()
+        print(f"Update {id} in Algolia index.")
 
     def delete_post(self, id: int):
-        self.index.delete_object(id)
+        self.index.delete_object(id).wait()
+        print(f"Delete {id} in Algolia index.")
 
     @staticmethod
     def _create_post_object(id: int, title, content):
