@@ -18,71 +18,74 @@
   /* https://coolors.co/7fa145-ebeae2-f2f3ec-595f72-575d90 */
 
   /* main color */
-  body,
-  .navbar-default .navbar-toggle,
-  .panel-default,
-  .list-group-item,
-  .pager li>a {
-    background-color: #f2f3ec;
-  }
+  @media (prefers-color-scheme: light) {
 
-  /* menu color */
-  .navbar-custom,
-  .navbar-custom .navbar-brand,
-  .navbar-custom .nav li a,
-  .well {
-    color: white;
-    background-color: #7fa145;
-  }
+    body,
+    .navbar-default .navbar-toggle,
+    .panel-default,
+    .list-group-item,
+    .pager li>a {
+      background-color: #f2f3ec;
+    }
 
-  /* footer/panel heading color */
-  footer,
-  .panel-default>.panel-heading {
-    background-color: #ebeae2;
-    color: #aba9a5;
-  }
+    /* menu color */
+    .navbar-custom,
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav li a,
+    .well {
+      color: white;
+      background-color: #7fa145;
+    }
 
-  footer p a {
-    color: #404040;
-  }
+    /* footer/panel heading color */
+    footer,
+    .panel-default>.panel-heading {
+      background-color: #ebeae2;
+      color: #aba9a5;
+    }
 
-  /* border color */
-  .panel-default,
-  .navbar-custom,
-  .well,
-  footer,
-  .post-preview,
-  .pager li>a {
-    border-color: #aba9a5;
-  }
+    footer p a {
+      color: #404040;
+    }
 
-  /* hyperlink in articles */
-  p a,
-  a {
-    color: #487724;
-  }
+    /* border color */
+    .panel-default,
+    .navbar-custom,
+    .well,
+    footer,
+    .post-preview,
+    .pager li>a {
+      border-color: #aba9a5;
+    }
 
-  a:focus,
-  a:hover {
-    color: #7fa145;
-  }
+    /* hyperlink in articles */
+    p a,
+    a {
+      color: #487724;
+    }
 
-  /* pager hover */
-  .pager li a:hover,
-  .pager li a:focus {
-    background-color: #575D90;
-  }
+    a:focus,
+    a:hover {
+      color: #7fa145;
+    }
 
-  /* hyperlink/menu hover */
-  .post-preview a:focus,
-  .post-preview a:hover,
-  .navbar-custom .navbar-brand:hover,
-  .navbar-custom .navbar-brand:focus,
-  .navbar-custom .nav li a:hover,
-  .navbar-custom .nav li a:focus,
-  footer a:hover,
-  footer a:focus {
-    color: #575D90;
+    /* pager hover */
+    .pager li a:hover,
+    .pager li a:focus {
+      background-color: #575D90;
+    }
+
+    /* hyperlink/menu hover */
+    .post-preview a:focus,
+    .post-preview a:hover,
+    .navbar-custom .navbar-brand:hover,
+    .navbar-custom .navbar-brand:focus,
+    .navbar-custom .nav li a:hover,
+    .navbar-custom .nav li a:focus,
+    footer a:hover,
+    footer a:focus {
+      color: #575D90;
+    }
   }
 
   /* pill color */
@@ -94,6 +97,7 @@
   .nav-pills>li.active>a:hover {
     color: white;
     background-color: #487724;
+    border-color: #487724;
   }
 
   div.panel a:focus,
@@ -119,5 +123,29 @@
   .pagination>li>a:hover {
     background-color: #ebeae2;
     border-color: #aba9a5;
+  }
+
+  @media (prefers-color-scheme: dark) {
+
+    /* comment pager */
+    .pagination>li>a,
+    .pagination>.disabled>a {
+      background-color: #1a1a1a;
+      color: white;
+      border-color: #d5d5d5;
+    }
+
+    .pagination>.disabled>a:focus,
+    .pagination>.disabled>a:hover {
+      background-color: #1a1a1a;
+      color: white;
+      border-color: #d5d5d5;
+    }
+
+    .pagination>li>a:focus,
+    .pagination>li>a:hover {
+      background-color: #f5f5f5;
+      border-color: #d5d5d5;
+    }
   }
 </style>
