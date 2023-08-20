@@ -53,7 +53,8 @@
   <p v-else class="comment-footer-center">留言已關閉</p>
 </section>
 
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/vue@3.2.47/dist/vue.global.prod.js"
+  integrity="sha384-PaBnp/UWEd2QJUy62DOz2eDBS02b9lqW6eTvTYnbJen0r84CvtU9kuc4eVLEDD37" crossorigin="anonymous"></script>
 <!-- TODO: add integrity -->
 <script src='{{ "js/pixnet_comments.js" | absURL }}'></script>
 {{ $linkArr := split .Permalink "/" }}
