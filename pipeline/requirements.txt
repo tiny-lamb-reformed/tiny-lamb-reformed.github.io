@@ -3,3 +3,4 @@ BeautifulSoup4~=4.12.2
 lxml~=4.9.3
 pyyaml~=6.0.1
 algoliasearch~=3.0.0
+opencc-python-reimplemente~=0.1.7
