@@ -86,6 +86,9 @@
   }
 
   /* pill color */
+  .pagination>.active>a,
+  .pagination>.active>a:focus,
+  .pagination>.active>a:hover,
   .nav-pills>li.active>a,
   .nav-pills>li.active>a:focus,
   .nav-pills>li.active>a:hover {
@@ -96,5 +99,25 @@
   div.panel a:focus,
   div.panel a:hover {
     background-color: #ebeae2;
+  }
+
+  /* comment pager */
+  .pagination>li>a,
+  .pagination>.disabled>a {
+    background-color: #f2f3ec;
+    color: #487724;
+    border-color: #aba9a5;
+  }
+
+  .pagination>.disabled>a:focus,
+  .pagination>.disabled>a:hover {
+    background-color: #f2f3ec;
+    border-color: #aba9a5;
+  }
+
+  .pagination>li>a:focus,
+  .pagination>li>a:hover {
+    background-color: #ebeae2;
+    border-color: #aba9a5;
   }
 </style>
