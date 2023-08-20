@@ -48,7 +48,9 @@
       </ul>
       {{ end }}
 
+      {{ if ne .Params.comments false }}
       {{ partial "pixnet-comments.html" . }}
+      {{ end }}
     </div>
   </div>
 </div>
