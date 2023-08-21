@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 def main():
     # Initialize Algolia client
     client = SearchClient.create("8QSPV5R7NU", os.environ["ALGOLIA_API_KEY"])
-    index = client.init_index("posts-tw")
+    index = client.init_index("posts-bilang")
 
     # t2s.json is the configuration file for Traditional to Simplified conversion
     converter = opencc.OpenCC("t2s")
