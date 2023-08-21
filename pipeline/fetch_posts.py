@@ -49,3 +49,6 @@ while page <= total_pages:
         # Save the article to a file
         with open(filename, "w") as f:
             json.dump(article_data["article"], f)
+
+# TODO: delete removed posts
+# TODO: assert count

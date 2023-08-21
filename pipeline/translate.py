@@ -1,7 +1,6 @@
 import pathlib
 import opencc
 
-# Create an instance of the OpenCC converter
 # t2s.json is the configuration file for Traditional to Simplified conversion
 converter = opencc.OpenCC("t2s")
 
