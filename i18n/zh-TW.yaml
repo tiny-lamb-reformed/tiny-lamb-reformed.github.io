@@ -77,3 +77,8 @@
 
 - id: allArticles
   translation: "全部文章"
+
+- id: loading
+  translation: "載入中"
+- id: noResults
+  translation: "沒有結果"
