@@ -29,6 +29,10 @@
 </div>
 
 <style>
+  .modal-content mark {
+    background-color: rgba(171, 175, 45, 0.533);
+  }
+
   @media (prefers-color-scheme: dark) {
     .modal-content {
       background-color: #333;
@@ -52,19 +56,18 @@
   });
 
   const hitTemplate = function (hit) {
-    const zh_cn = window.location.href.includes("zh-cn")
-    const url = hit.url;
-    const hightlight = hit._highlightResult;
-    const title = (zh_cn === true
-      ? hightlight.title_cn && hightlight.title_cn.value
-      : hightlight.title && hightlight.title.value)
-      || "";
-    const content = 'content' + (zh_cn == true ? '_cn' : '');
+    const zh_cn = window.location.href.includes("zh-cn");
     return `
       <article class="post-preview" style="padding: 16px 0">
-        <a href="${url}"><h3 class="post-title" style="font-size: 24px">${title}</h3></a>
-        <div class="post-entry">${instantsearch.snippet({ attribute: content, hit })}</div>
-      </article>
+        <a href="${zh_cn ? '/zh-cn' : ''}/post/${hit.objectID}">
+          <h3 class="post-title" style="font-size: 24px">
+            ${instantsearch.highlight({ attribute: `title${zh_cn ? '_cn' : ''}`, hit })}
+          </h3 >
+        </a >
+        <div class="post-entry">
+          ${instantsearch.snippet({ attribute: `content${zh_cn ? '_cn' : ''}`, hit })}
+        </div>
+      </article >
     `;
   };
 
@@ -121,6 +124,4 @@
       snippetEllipsisText: '⋯⋯'
     })
   ]);
-
-  search.start();
 </script>

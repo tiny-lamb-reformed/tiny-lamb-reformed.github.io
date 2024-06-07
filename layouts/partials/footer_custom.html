@@ -9,6 +9,9 @@
   });
 
   $('#modalSearch').on('shown.bs.modal', function (e) {
+    if (!search.started) {
+      search.start();
+    }
     $('#searchbar').trigger('focus');
   });
 </script>
