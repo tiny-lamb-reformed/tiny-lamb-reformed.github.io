@@ -22,6 +22,9 @@ for input_file_path in input_folder_path.glob("*.md"):
     # Convert Traditional Chinese to Simplified Chinese
     converted_content = converter.convert(content)
 
+    # Append zh-cn to all post links
+    converted_content = converted_content.replace('href="/post/', 'href="/zh-cn/post/')
+
     # Create the output file path by replacing the input folder path with the output folder path
     output_file_path = output_folder_path / input_file_path.relative_to(
         input_folder_path
