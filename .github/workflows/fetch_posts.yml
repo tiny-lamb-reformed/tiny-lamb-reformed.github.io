@@ -11,14 +11,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.0.0
       - name: Fetch posts
+        env:
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
         run: |
           cd pipeline
           pip3 install -r requirements.txt
           python3 fetch_posts.py
           python3 index.py
       - name: Commit and push
-        env:
-          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
         run: |
           git config --global user.name 'Fetch Bot'
           git config --global user.email 'noreply@na.com'
