@@ -50,26 +50,17 @@
 <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.56.5/dist/instantsearch.production.min.js"
   integrity="sha256-HUihzhULZfSeNdovzhTpVqRjWABpyZCeeuZAEmMH/VE=" crossorigin="anonymous"></script>
 <script>
+  const zhCn = window.location.href.includes("zh-cn");
+  const titleAttr = `title${zhCn ? '_cn' : ''}`;
+  const contentAttr = `content${zhCn ? '_cn' : ''}`;
+
   const search = instantsearch({
     indexName: 'posts-bilang',
-    searchClient: algoliasearch('8QSPV5R7NU', '92a22fa4f557ba2b59ca4ecd2b025590')
+    searchClient: algoliasearch('8QSPV5R7NU', '92a22fa4f557ba2b59ca4ecd2b025590'),
+    searchParameters: {
+      restrictSearchableAttributes: [titleAttr, contentAttr]
+    }
   });
-
-  const hitTemplate = function (hit) {
-    const zh_cn = window.location.href.includes("zh-cn");
-    return `
-      <article class="post-preview" style="padding: 16px 0">
-        <a href="${zh_cn ? '/zh-cn' : ''}/post/${hit.objectID}">
-          <h3 class="post-title" style="font-size: 24px">
-            ${instantsearch.highlight({ attribute: `title${zh_cn ? '_cn' : ''}`, hit })}
-          </h3 >
-        </a >
-        <div class="post-entry">
-          ${instantsearch.snippet({ attribute: `content${zh_cn ? '_cn' : ''}`, hit })}
-        </div>
-      </article >
-    `;
-  };
 
   // create custom widget
   const customSearchBox = instantsearch.connectors.connectSearchBox(
@@ -114,7 +105,20 @@
     instantsearch.widgets.hits({
       container: '#hits',
       templates: {
-        item: hitTemplate,
+        item(hit, { html, components }) {
+          return html`
+            <article class="post-preview" style="padding: 16px 0">
+              <a href="${zhCn ? '/zh-cn' : ''}/post/${hit.objectID}">
+                <h3 class="post-title" style="font-size: 24px">
+                  ${components.Highlight({ attribute: titleAttr, hit })}
+                </h3 >
+              </a >
+              <div class="post-entry">
+                ${components.Snippet({ attribute: contentAttr, hit })}
+              </div>
+            </article >
+          `;
+        },
         empty: '{{ i18n "noResults" }}',
       }
     }),
