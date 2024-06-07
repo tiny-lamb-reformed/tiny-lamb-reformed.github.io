@@ -17,6 +17,8 @@ jobs:
           python3 fetch_posts.py
           python3 index.py
       - name: Commit and push
+        env:
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
         run: |
           git config --global user.name 'Fetch Bot'
           git config --global user.email 'noreply@na.com'
