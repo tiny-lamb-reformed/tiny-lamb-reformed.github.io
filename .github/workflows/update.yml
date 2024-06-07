@@ -1,0 +1,27 @@
+name: update
+
+on:
+  schedule:
+    - cron: "0 2-14 * * *" # update everyday at 10AM-10PM (TW time)
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.0
+      - name: Update
+        run: |
+          cd pipeline
+          pip3 install -r requirements.txt
+          python3 fetch_posts.py
+          python3 create_markdowns.py
+          python3 translate.py
+          python3 index.py
+      - name: Commit and push
+        run: |
+          git config --global user.name 'Fetch Bot'
+          git config --global user.email 'noreply@na.com'
+          git add pipeline/posts
+          git commit -m "Fetch posts" || true
+          git push
