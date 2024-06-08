@@ -7,7 +7,7 @@
 
         <div style="color: #999; font-size: 15px">
           {{ range .Params.categories }}
-          分類：<a href="/categories/#{{ . }}/">{{ . }}</a>&nbsp;
+          分類：<a href="{{ $.Site.LanguagePrefix | absURL }}/categories/#{{ . }}/">{{ . }}</a>&nbsp;
           {{ end }}
         </div>
 
