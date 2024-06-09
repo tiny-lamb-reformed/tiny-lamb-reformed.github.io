@@ -17,7 +17,7 @@ languages:
           weight: 2
           url: categories
         - name: 關於
-          url: page/about/
+          url: about
           weight: 3
   zh-cn:
     languageName: 简中
@@ -33,7 +33,7 @@ languages:
           weight: 2
           url: categories
         - name: 关于
-          url: page/about/
+          url: about
           weight: 3
 
 params:
