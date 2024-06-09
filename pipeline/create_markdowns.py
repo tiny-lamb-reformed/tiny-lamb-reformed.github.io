@@ -58,6 +58,7 @@ def create_markdown():
             f'categories = ["{post["category"]}"]\n'
             f'series = "{clean_title_and_extract_series(title)}"\n'
             f"isCJKLanguage = true\n"
+            f'type = "post"\n'
             f"+++\n\n"
         )
 

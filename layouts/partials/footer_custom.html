@@ -61,7 +61,7 @@
         item(hit, { html, components }) {
           return html`
             <article class="post-preview" style="padding: 16px 0">
-              <a href="${zhCn ? '/zh-cn' : ''}/post/${hit.objectID}">
+              <a href="${zhCn ? '/zh-cn' : ''}/posts/${hit.objectID}">
                 <h3 class="post-title" style="font-size: 24px">
                   ${components.Highlight({ attribute: titleAttr, hit })}
                 </h3 >
