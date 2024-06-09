@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 
 def create_markdown():
     links_replace: List[tuple] = [
-        (r"https?://mickey1124.pixnet.net/blog/post/", "/post/"),
-        (r"<div>(/post/\d+)</div>", r'<a href="\1" target="_blank">\1</a>'),
+        (r"https?://mickey1124.pixnet.net/blog/post/", "/posts/"),
+        (r"<div>(/posts/\d+)</div>", r'<a href="\1" target="_blank">\1</a>'),
         (
             r'<p><font color="#008080">﹡﹡﹡﹡﹡﹡﹡</font><a href="http://blog.roodo.com/yml/archives/cat_144649.html" target="_blank"><font color="#006699">回應本文前請先按此</font></a><font color="#006699">&nbsp;﹡﹡﹡﹡﹡﹡﹡</font></p>',
             "",
@@ -33,7 +33,7 @@ def create_markdown():
         ],
     ]
     posts = read_posts()
-    output_dir = Path("../content/zh_TW/post")
+    output_dir = Path("../content/zh_TW/posts")
 
     links_replace += [(fix[0], fix[1]) for fix in roodo_links_fix(posts)]
 
@@ -97,7 +97,7 @@ def roodo_links_fix(posts):
     for title, old_link in find_roodo_links(posts):
         match = find_post(title, posts)
         if "cat_" not in old_link and match:
-            fix.append((old_link, f"/post/{match['id']}", title, match["title"]))
+            fix.append((old_link, f"/posts/{match['id']}", title, match["title"]))
     return fix
 
 
@@ -130,10 +130,10 @@ def update_links(new_links: List[tuple], body: str) -> str:
 
     soup = BeautifulSoup(body, features="lxml")
 
-    # convert xxx<br>/post/... to <a href="/post/...">xxx</a>
+    # convert xxx<br>/posts/... to <a href="/posts/...">xxx</a>
     soup_updated = False
     for br in soup.find_all("br"):
-        if str(br.next_sibling).strip().startswith("/post/"):
+        if str(br.next_sibling).strip().startswith("/posts/"):
             soup_updated = True
             title = br.previous_sibling
             link = br.next_sibling
