@@ -7,8 +7,13 @@ on:
 jobs:
   fetch_posts:
     runs-on: ubuntu-latest
+    permissions:                # Job-level permissions configuration starts here
+      contents: write           # 'write' access to repository contents
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
       - name: Fetch posts
         env:
           ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
@@ -17,10 +22,13 @@ jobs:
           pip3 install -r requirements.txt
           python3 fetch_posts.py
           python3 index.py
-      - name: Commit and push
+      - name: Commit
         run: |
-          git config --global user.name 'Fetch Bot'
-          git config --global user.email 'noreply@na.com'
+          git config --local user.name 'Fetch Bot'
+          git config --local user.email 'noreply@na.com'
           git add pipeline/posts
           git commit -m "Fetch posts" || true
-          git push
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
