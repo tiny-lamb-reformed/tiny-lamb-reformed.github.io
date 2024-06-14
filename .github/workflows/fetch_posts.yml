@@ -8,8 +8,7 @@ jobs:
   fetch_posts:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3.0.0
+      - uses: actions/checkout@v4
       - name: Fetch posts
         env:
           ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
