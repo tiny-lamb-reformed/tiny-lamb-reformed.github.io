@@ -2,7 +2,7 @@ name: Fetch posts
 
 on:
   schedule:
-    - cron: "0 2-14 * * *" # update everyday at 10AM-10PM (TW time)
+    - cron: "0 2-14/2 * * *" # update everyday at 10AM-10PM (TW time)
 
 jobs:
   fetch_posts:
