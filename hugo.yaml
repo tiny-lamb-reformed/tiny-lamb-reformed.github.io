@@ -11,6 +11,7 @@ languages:
     params:
       homeTitle: 基督教小小羊園地
       subtitle: 移動端鏡像
+      alternatePageName: 手機版小小羊園地
     menu:
       main:
         - name: 所有文章分類
@@ -27,6 +28,7 @@ languages:
     params:
       homeTitle: 基督教小小羊园地
       subtitle: 移动端镜像
+      alternatePageName: 手机版小小羊园地
     menu:
       main:
         - name: 所有文章分类
