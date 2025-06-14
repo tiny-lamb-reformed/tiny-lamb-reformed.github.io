@@ -1,0 +1,5 @@
+{{- /* Plain text sitemap for Hugo, one URL per line, filtered by language */ -}}
+{{- $lang := .Site.Language.Lang -}}
+{{- range where .Site.RegularPages "Lang" $lang }}
+{{ .Permalink }}
+{{- end }}

@@ -60,3 +60,17 @@ related:
       weight: 10
   threshold: 80
   toLower: false
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - sitemap
+    - sitemaptxt
+outputFormats:
+  sitemaptxt:
+    mediaType: text/plain
+    baseName: sitemap
+    isPlainText: true
+    notAlternative: true
+    permalinkable: false
