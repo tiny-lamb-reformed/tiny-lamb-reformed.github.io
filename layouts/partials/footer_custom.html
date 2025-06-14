@@ -1,19 +1,20 @@
-<script src="https://unpkg.com/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js"
-  integrity="sha256-V3GHVlMSAsogT3wL0OY/l4d3fRLa56gNzlnzdIMBIWg=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/algoliasearch@4.24.0/dist/algoliasearch-lite.umd.js"
+  integrity="sha384-xwQzZIc65bmtQ20G6C2ANqVuIi5hnBuTpmzXNCIyOBXUxbbowL47DosecKfrzqFQ" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/instantsearch.js@4.78.3/dist/instantsearch.production.min.js"
   integrity="sha384-h6U4Hw7vD2LLEHv77kMELFYt/vZk+FQ+CMr2GghRBSKNjF5MKJNV+YrbNv19M+ue" crossorigin="anonymous"></script>
 <script>
   const zhCn = window.location.href.includes("zh-cn");
   const titleAttr = `title${zhCn ? '_cn' : ''}`;
   const contentAttr = `content${zhCn ? '_cn' : ''}`;
-
-  const search = instantsearch({
+  const algoliaParams = {
     indexName: 'posts-bilang',
     searchClient: algoliasearch('8QSPV5R7NU', '92a22fa4f557ba2b59ca4ecd2b025590'),
     searchParameters: {
       restrictSearchableAttributes: [titleAttr, contentAttr]
     }
-  });
+  };
+
+  const search = instantsearch(algoliaParams);
 
   // create custom widget
   const customSearchBox = instantsearch.connectors.connectSearchBox(
@@ -81,6 +82,32 @@
       snippetEllipsisText: '⋯⋯'
     })
   ]);
+
+  // --- Related posts from Algolia Recommend ---
+  var url = '{{ .Permalink }}';
+  var objectID = url.replace(/\/$/, '').split('/').pop();
+  if (objectID && !isNaN(Number(objectID))) {
+    const recommand = instantsearch(algoliaParams);
+    const header = '{{ i18n "seeAlso" }}';
+    recommand.addWidgets([
+      instantsearch.widgets.relatedProducts({
+        container: '#recommend-container',
+        objectIDs: [objectID],
+        limit: 5,
+        templates: {
+          header(_) {
+            return `<h4 class="see-also">${header}</h4>`;
+          },
+          item(hit, { html }) {
+            const title = zhCn && hit.title_cn ? hit.title_cn : hit.title;
+            return html`<a href="${zhCn ? '/zh-cn' : ''}/posts/${hit.objectID}">${title}</a>`;
+          }
+        },
+      })
+    ]);
+    recommand.start();
+  }
+
 
   $(document).ready(function () {
     if (window.location.href.indexOf('/categories/') > -1) {
