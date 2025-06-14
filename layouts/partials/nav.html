@@ -12,20 +12,27 @@
 
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav navbar-right">
+        {{ $currentURL := .Permalink | relLangURL }}
         {{ range .Site.Menus.main.ByWeight }}
-          {{ if .HasChildren }}
-            <li class="navlinks-container">
-              <a class="navlinks-parent">{{ .Name }}</a>
-              <div class="navlinks-children">
-                {{ range .Children }}
-                  <a href="{{ .URL | relLangURL }}">{{ .Name }}</a>
-                {{ end }}
-              </div>
-            </li>
-          {{ else }}
-            <li>
-              <a title="{{ .Name }}" href="{{ .URL  | relLangURL }}">{{ .Name }}</a>
-            </li>
+          {{ $itemURL := .URL | relLangURL }}
+          {{ if not (and (in $itemURL "/categories") (in $currentURL "/categories")) }}
+            {{ if .HasChildren }}
+              <li class="navlinks-container">
+                <a class="navlinks-parent">{{ .Name }}</a>
+                <div class="navlinks-children">
+                  {{ range .Children }}
+                    {{ $childURL := .URL | relLangURL }}
+                    {{ if not (and (in $childURL "/categories") (in $currentURL "/categories")) }}
+                      <a href="{{ $childURL }}">{{ .Name }}</a>
+                    {{ end }}
+                  {{ end }}
+                </div>
+              </li>
+            {{ else }}
+              <li>
+                <a title="{{ .Name }}" href="{{ $itemURL }}">{{ .Name }}</a>
+              </li>
+            {{ end }}
           {{ end }}
         {{ end }}
 
